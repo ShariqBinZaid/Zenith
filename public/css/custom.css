@@ -1,0 +1,36 @@
+.showleaddetails .col-form-label,.showopportunitydetails .col-form-label,.showbranddetails .col-form-label{
+    padding: 10px;
+    font-weight: 600;
+    font-size: 15px;
+}
+img.brandimage {
+    max-width: 100px;
+    margin: 0px auto;
+    /* align-items: flex-end; */
+    /* display: flex; */
+    float: none;
+    display: block;
+}
+img.imageintable {
+    max-width: 100px;
+}
+.ck.ck-editor {
+    position: relative;
+    width: 100% !important;
+}
+img.logoauth {
+    /* align-items: center; */
+    margin: 0px auto;
+    display: block;
+}
+.auth {
+    background-image:url("/images/background.jpg") !important;
+    background-size: cover;
+}
+footer.content-footer {
+    color: white !important;
+}
+.showusersimage
+{
+    border-radius: 50% !important;
+}

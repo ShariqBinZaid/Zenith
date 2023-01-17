@@ -1,0 +1,101 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return Redirect::route('login');
+});
+
+Auth::routes();
+Route::get('/home', function () {
+    return Redirect::route('adminDashboard');
+});
+Route::get('/index', [App\Http\Controllers\DashboardController::class, 'adminDashboard'])->name('adminDashboard');
+Route::group(['prefix'=>'salesforce/leads','as'=>'lead.','middleware' => ['auth']], function(){
+    Route::get('/', [App\Http\Controllers\LeadsController::class, 'index'])->name('allLeads')->permission('view leads');
+    Route::post('add-lead',[App\Http\Controllers\LeadsController::class, 'store'])->name('addLead');
+    Route::post('update-lead',[App\Http\Controllers\LeadsController::class, 'update'])->name('updatelead');
+    Route::post('delete-lead',[App\Http\Controllers\LeadsController::class, 'destroy'])->name('deleteLead');
+    Route::get('assign-lead/{id}',[App\Http\Controllers\LeadsController::class, 'assignLead'])->name('assignLead')->permission('assign leads');
+    
+    Route::post('assign-lead-submit',[App\Http\Controllers\LeadsController::class, 'assignLeadSubmit'])->name('assignLeadSubmit');
+});
+Route::group(['prefix'=>'salesforce/opportunities','as'=>'opportunity.','middleware' => ['auth']], function(){
+    Route::get('/', [App\Http\Controllers\OpportunityController::class, 'index'])->name('allOpportunities')->permission('view opportunities');
+    Route::post('add-opportunity',[App\Http\Controllers\OpportunityController::class, 'store'])->name('addOpportunity');
+    Route::post('update-opportunity',[App\Http\Controllers\OpportunityController::class, 'update'])->name('updateOpportunity');
+    Route::post('delete-opportunity',[App\Http\Controllers\OpportunityController::class, 'destroy'])->name('deleteOpportunity');
+});
+Route::group(['prefix'=>'marketing/brands','as'=>'brands.','middleware' => ['auth','role:admin']], function(){
+    Route::get('/', [App\Http\Controllers\BrandsController::class, 'index'])->name('allBrands');
+    Route::post('add-brand',[App\Http\Controllers\BrandsController::class, 'store'])->name('addBrand');
+    Route::post('update-brand',[App\Http\Controllers\BrandsController::class, 'update'])->name('updateBrand');
+    Route::post('delete-brand',[App\Http\Controllers\BrandsController::class, 'destroy'])->name('deleteBrand');
+});
+
+Route::group(['prefix'=>'marketing/packages','as'=>'packages.','middleware' => ['auth','role:admin']], function(){
+    Route::get('/', [App\Http\Controllers\PackagesController::class, 'index'])->name('allPackages');
+    Route::post('add-package',[App\Http\Controllers\PackagesController::class, 'store'])->name('addPackage');
+    Route::get('edit-package/{id}', [App\Http\Controllers\PackagesController::class, 'edit'])->name('editPackage');
+    Route::post('update-package',[App\Http\Controllers\PackagesController::class, 'update'])->name('updatePackage');
+    Route::post('delete-package',[App\Http\Controllers\PackagesController::class, 'destroy'])->name('deletePackage');
+});
+
+Route::group(['prefix'=>'profile','as'=>'profile.','middleware' => ['auth']], function(){
+    Route::get('myProfile', [App\Http\Controllers\ProfileController::class, 'index'])->name('myProfile');
+    Route::post('editProfile',[App\Http\Controllers\ProfileController::class, 'update'])->name('editProfile');
+    Route::post('changePassword',[App\Http\Controllers\ProfileController::class, 'changepassword'])->name('changePassword');
+    
+});
+Route::group(['prefix'=>'admin/settings','as'=>'admin.','middleware' => ['auth','role:admin']], function(){
+    Route::get('/roles',[App\Http\Controllers\RolesController::class,'index'])->name('allRoles');
+    Route::get('/roles/assign-permission/{id}',[App\Http\Controllers\RolesController::class,'showpermissions'])->name('showPermissions');
+    Route::post('/roles/assignPermission',[App\Http\Controllers\RolesController::class,'assignPermission'])->name('assignPermission');
+    Route::post('/roles/unassignPermission',[App\Http\Controllers\RolesController::class,'unassignPermission'])->name('unassignPermission');
+    Route::post('/roles/addRole',[App\Http\Controllers\RolesController::class,'store'])->name('addRole');
+    Route::post('/roles/updateRole',[App\Http\Controllers\RolesController::class,'update'])->name('updateRole');
+    Route::post('/roles/deleteRole',[App\Http\Controllers\RolesController::class,'destroy'])->name('deleteRole');
+    Route::get('/permissions',[App\Http\Controllers\PermissionsController::class,'index'])->name('allPermissions');
+    Route::get('/permissions/assign-role/{id}',[App\Http\Controllers\PermissionsController::class,'showroles'])->name('showRoles');
+    Route::post('/permissions/assignRole',[App\Http\Controllers\PermissionsController::class,'assignRole'])->name('assignRole');
+    Route::post('/permissions/unassignRole',[App\Http\Controllers\PermissionsController::class,'unassignRole'])->name('unassignRole');
+    Route::post('/permissions/addPermission',[App\Http\Controllers\PermissionsController::class,'store'])->name('addPermission');
+    Route::post('/permissions/updatePermission',[App\Http\Controllers\PermissionsController::class,'update'])->name('updatePermission');
+    Route::post('/permissions/deletePermission',[App\Http\Controllers\PermissionsController::class,'destroy'])->name('deletePermission');
+});
+Route::group(['prefix'=>'users','as'=>'users.','middleware' => ['auth']], function(){
+    Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('allUsers');
+    Route::get('inactive-users', [App\Http\Controllers\UserController::class, 'inactiveusers'])->name('inactiveUsers');
+    Route::post('add-user',[App\Http\Controllers\UserController::class, 'store'])->name('addUser');
+    Route::post('add-client',[App\Http\Controllers\UserController::class, 'addClient'])->name('addClient');
+    
+    Route::get('show-user/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('editUser');
+    Route::post('update-user',[App\Http\Controllers\UserController::class, 'update'])->name('updateUser');
+    Route::post('delete-user',[App\Http\Controllers\UserController::class, 'destroy'])->name('inactiveUser');
+    Route::post('active-user',[App\Http\Controllers\UserController::class, 'activateUser'])->name('activeUser');
+    Route::post('changePassword',[App\Http\Controllers\UserController::class, 'changepassword'])->name('changePassword');
+    Route::get('roles-and-permissions/{id}',[App\Http\Controllers\UserController::class, 'rolesandpermissions'])->name('rolesandpermissions');
+    Route::post('assign-user-role',[App\Http\Controllers\UserController::class, 'assignRoletoUser'])->name('assignRoletoUser');
+    Route::post('unassign-user-role',[App\Http\Controllers\UserController::class, 'unassignRoletoUser'])->name('unassignRoletoUser');
+    Route::post('assign-user-perm',[App\Http\Controllers\UserController::class, 'assignPermtoUser'])->name('assignPermtoUser');
+    Route::post('unassign-user-perm',[App\Http\Controllers\UserController::class, 'unassignPermtoUser'])->name('unassignPermtoUser');
+});
+Route::group(['prefix'=>'projects','as'=>'projects.','middleware' => ['auth']], function(){
+    Route::get('opportunity_to_project/{id}',[App\Http\Controllers\ProjectsController::class, 'convert_opportunity_to_project'])->name('opportunity_to_project')->permission('convert opportunity to project');
+    Route::get('/',[App\Http\Controllers\ProjectsController::class, 'index'])->name('allProjects')->permission('view projects');
+    Route::post('add-project',[App\Http\Controllers\ProjectsController::class, 'store'])->name('addProject');
+    Route::post('update-project',[App\Http\Controllers\ProjectsController::class, 'update'])->name('updateProject');
+    Route::post('archive-project',[App\Http\Controllers\ProjectsController::class, 'destroy'])->name('archiveProject');
+
+});
+//Route::get('send', [App\Http\Controllers\HomeController::class,'sendNotification']);
