@@ -16,12 +16,11 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     return Redirect::route('login');
 });
-
 Auth::routes();
-Route::get('/home', function () {
-    return Redirect::route('adminDashboard');
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('/home', [App\Http\Controllers\DashboardController::class, 'adminDashboard'])->name('adminDashboard');
 });
-Route::get('/index', [App\Http\Controllers\DashboardController::class, 'adminDashboard'])->name('adminDashboard');
+
 Route::group(['prefix'=>'salesforce/leads','as'=>'lead.','middleware' => ['auth']], function(){
     Route::get('/', [App\Http\Controllers\LeadsController::class, 'index'])->name('allLeads')->permission('view leads');
     Route::post('add-lead',[App\Http\Controllers\LeadsController::class, 'store'])->name('addLead');
