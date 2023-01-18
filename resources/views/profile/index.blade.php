@@ -103,13 +103,13 @@
                     <div class="d-flex mb-4">
                         <h6 class="card-title mb-0">My Profile</h6>
                     </div>
-                     <div class="text-center">
+                    <div class="text-center">
                         <div class="avatar avatar-xl me-3">
                             <img src="{{asset('images/'.Auth::user()->image)}}" class="rounded-circle" alt="image">
                         </div>
                     </div>
                     <div class="text-center">
-                    <div class="card mt-3" >
+                    <div class="card mt-3">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><b>Name</b> : {{ Auth::user()->name }}</li>
                             <li class="list-group-item"><b>Email</b> :  {{ Auth::user()->email }}</li>

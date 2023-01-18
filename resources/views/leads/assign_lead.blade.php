@@ -73,6 +73,12 @@
                         <h6 class="card-title mb-0">Lead Details</h6>
                     </div>
                     <div class="text-center">
+                        <div class="avatar avatar-xl me-3">
+                            <img src="{{asset('images/'.$lead->getBrand->image)}}" class="rounded-circle" alt="image">
+                            <b>{{$lead->getBrand->name}}</b>
+                        </div>
+                    </div>
+                    <div class="text-center">
                     <div class="card mt-3" style="width: 18rem;">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><b>Name</b> : {{$lead->username}}</li>
