@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <div class="text-center">
-                    <div class="card mt-3" style="width: 18rem;">
+                    <div class="card mt-3" >
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><b>Name</b> : {{ Auth::user()->name }}</li>
                             <li class="list-group-item"><b>Email</b> :  {{ Auth::user()->email }}</li>
