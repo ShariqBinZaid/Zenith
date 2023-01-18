@@ -37,6 +37,10 @@ Route::group(['prefix'=>'salesforce/opportunities','as'=>'opportunity.','middlew
     Route::post('add-opportunity',[App\Http\Controllers\OpportunityController::class, 'store'])->name('addOpportunity');
     Route::post('update-opportunity',[App\Http\Controllers\OpportunityController::class, 'update'])->name('updateOpportunity');
     Route::post('delete-opportunity',[App\Http\Controllers\OpportunityController::class, 'destroy'])->name('deleteOpportunity');
+    Route::get('assign-opportunity/{id}',[App\Http\Controllers\OpportunityController::class, 'assignOpportunity'])->name('assignOpportunity')->permission('assign opportunities');
+    Route::post('assign-opportunity-submit',[App\Http\Controllers\OpportunityController::class, 'assignOpportunitySubmit'])->name('assignOpportunitySubmit');
+    Route::post('unassign-opportunity-submit',[App\Http\Controllers\OpportunityController::class, 'unassignOpportunitySubmit'])->name('unassignOpportunitySubmit');
+
 });
 Route::group(['prefix'=>'marketing/brands','as'=>'brands.','middleware' => ['auth','role:admin']], function(){
     Route::get('/', [App\Http\Controllers\BrandsController::class, 'index'])->name('allBrands');

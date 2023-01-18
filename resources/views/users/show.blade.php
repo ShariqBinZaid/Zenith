@@ -103,11 +103,11 @@
         <div class="col-md-4">
             <div class="card h-100">
                 <div class="card-body">
-                    <div class="d-flex mb-4">
+                    <div class="mb-4 text-center">
                         <h6 class="card-title mb-0">{{$userdata->name}}'s Profile</h6>
                     </div>
                      <div class="text-center">
-                        <div class="avatar avatar-xl me-3">
+                        <div class="avatar avatar-xl">
                             <img src="{{asset('images/'.$userdata->image)}}" class="rounded-circle" alt="image">
                         </div>
                     </div>

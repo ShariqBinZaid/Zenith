@@ -176,11 +176,13 @@
                 <th>ID</th>
                 <th>Photo</th>
                 <th>Fullname</th>
-                <th>Email</th>
-                <th>Phone</th>
+                <!-- <th>Email</th> -->
+                <!-- <th>Phone</th> -->
                 <th>Brand</th>
                 <th>Package</th>
-                <th>URL</th>
+                <th>Assigned to</th>
+                <th>Created By</th>
+                <!-- <th>URL</th> -->
                 <th class="text-end">Actions</th>
             </tr>
             </thead>
@@ -198,13 +200,37 @@
                         <span class="avatar-text rounded-circle">{{$initial}}</span>
                     </div></td>
                 <td>{{$thisopportunity->username}}</td>
-                <td>{{$thisopportunity->email}}</td>
-                <td>{{$thisopportunity->phone}}</td>
+                <!-- <td>{{$thisopportunity->email}}</td> -->
+                <!-- <td>{{$thisopportunity->phone}}</td> -->
                 <td>{{$thisopportunity->getbrand->name}}</td>
                 <td>{{$thisopportunity->getpackage->name}}</td>
                 <td>
-                    <span class="badge bg-success">{{$thisopportunity->url}}</span>
+                    <div class="avatar-group me-2">
+                        @foreach($thisopportunity->users()->get() as $thisuser)
+                        <a href="{{route('users.editUser',$thisuser->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisuser->name}}">
+                            <img src="{{asset('images/'.$thisuser->image)}}" class="rounded-circle" alt="image">
+                        </a>
+                        @endforeach
+                    </div>
                 </td>
+                <td>
+                    @if($thisopportunity->created_by==null)
+                    <div class="avatar-group me-2">
+                        <a href="javascript:;" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisopportunity->getBrand->name}}">
+                            <img src="{{asset('images/'.$thisopportunity->getBrand->image)}}" class="rounded-circle" alt="image">
+                        </a>
+                    </div>
+                    @else
+                    <div class="avatar-group me-2">
+                        <a href="{{route('users.editUser',$thisopportunity->getCreator->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisopportunity->getCreator->name}}">
+                            <img src="{{asset('images/'.$thisopportunity->getCreator->image)}}" class="rounded-circle" alt="image">
+                        </a>
+                    </div>
+                    @endif
+                </td>
+                <!-- <td>
+                    <span class="badge bg-success">{{$thisopportunity->url}}</span>
+                </td> -->
                 <td class="text-end">
                     <div class="d-flex">
                         <div class="dropdown ms-auto">
@@ -214,12 +240,16 @@
                                 <i class="bi bi-three-dots"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
+                                @can('assign opportunities')
+                                <a href="{{route('opportunity.assignOpportunity',$thisopportunity->id)}}" class="dropdown-item">Assign Opportunity</a>
+                                @endcan
                                 @can('convert opportunity to project')
                                 <a href="{{route('projects.opportunity_to_project',$thisopportunity->id)}}" class="dropdown-item">Convert into Project</a>
                                 @endcan
                                 <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ShowOpportunityModal" data-bs-opportunityid="{{$thisopportunity->id}}" data-bs-opportunityphone="{{$thisopportunity->phone}}" data-bs-opportunityusername="{{$thisopportunity->username}}" data-bs-email="{{$thisopportunity->email}}" data-bs-brand_id="{{$thisopportunity->getbrand->name}}" data-bs-package_id="{{$thisopportunity->getpackage->name}}" data-bs-url="{{$thisopportunity->url}}" data-bs-created_at="{{$thisopportunity->created_at}}">Show</a>
                                 <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditOpportunityModal" data-bs-opportunityid="{{$thisopportunity->id}}" data-bs-opportunityphone="{{$thisopportunity->phone}}" data-bs-opportunityusername="{{$thisopportunity->username}}" data-bs-email="{{$thisopportunity->email}}" data-bs-brand_id="{{$thisopportunity->brand_id}}" data-bs-package_id="{{$thisopportunity->package_id}}">Edit</a>
                                 <a href="javascript:;" class="dropdown-item deleteOpportunity" rel="{{$thisopportunity->id}}">Delete</a>
+                                
                             </div>
                         </div>
                     </div>

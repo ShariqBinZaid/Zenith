@@ -41,4 +41,8 @@ class Opportunity extends Model
     {
         return $this->hasOne(Packages::class,'id','package_id');
     }
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Opportunity;
 use App\Models\Brands;
+use App\Models\User;
 use App\Models\Packages;
 class OpportunityController extends Controller
 {
@@ -118,5 +119,37 @@ class OpportunityController extends Controller
         $opportunity=Opportunity::find($request->id);
         $opportunity->delete();
         return 'success';
+    }
+    public function assignOpportunity($id)
+    {
+        $opportunity = Opportunity::find($id);
+        $users = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'business_unit_head');
+                $q->orWhere('name', 'front_sales_manager');
+                $q->orWhere('name', 'support_manager');
+                $q->orWhere('name', 'support_agent');
+            }
+        )->get();
+        return view('opportunities.assign_opportunity',compact(['opportunity','users']));
+    }
+    public function assignOpportunitySubmit(Request $request)
+    {
+        $opportunity = Opportunity::find($request->opportunity_id);
+        if($opportunity->users->contains($request->user_id))
+        {
+            $successmessage = "Opportunity already assigned to this user!";
+        }else{
+            $opportunity->users()->attach($request->user_id);
+            $successmessage = "Opportunity assigned successfully!";
+        }
+        return Redirect::back()->with('success',$successmessage);
+    }
+    public function unassignOpportunitySubmit(Request $request)
+    {
+        $opportunity = Opportunity::find($request->opportunity_id);
+        $opportunity->users()->detach($request->user_id);
+        $successmessage = "Opportunity unassigned successfully!";
+        return Redirect::back()->with('success',$successmessage);
     }
 }

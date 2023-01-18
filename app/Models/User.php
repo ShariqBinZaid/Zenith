@@ -48,4 +48,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Leads::class);
     }
+    public function opportunity()
+    {
+        return $this->belongsToMany(Opportunity::class);
+    }
 }
