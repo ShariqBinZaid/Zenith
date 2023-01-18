@@ -177,10 +177,8 @@
                 <th>ID</th>
                 <th>Photo</th>
                 <th>Fullname</th>
-                <th>Email</th>
-                <th>Phone</th>
                 <th>Brand</th>
-                <th>URL</th>
+                <th>Assigned to</th>
                 <th class="text-end">Actions</th>
             </tr>
             </thead>
@@ -198,11 +196,15 @@
                         <span class="avatar-text rounded-circle">{{$initial}}</span>
                     </div></td>
                 <td>{{$thislead->username}}</td>
-                <td>{{$thislead->email}}</td>
-                <td>{{$thislead->phone}}</td>
                 <td>{{$thislead->getbrand->name}}</td>
                 <td>
-                    <span class="badge bg-success">{{$thislead->url}}</span>
+                    <div class="avatar-group me-2">
+                        @foreach($thislead->users()->get() as $thisuser)
+                        <a href="#" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisuser->name}}">
+                            <img src="{{asset('images/'.$thisuser->image)}}" class="rounded-circle" alt="image">
+                        </a>
+                        @endforeach
+                    </div>
                 </td>
                 <td class="text-end">
                     <div class="d-flex">
