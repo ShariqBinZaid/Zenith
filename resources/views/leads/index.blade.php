@@ -200,7 +200,7 @@
                 <td>
                     <div class="avatar-group me-2">
                         @foreach($thislead->users()->get() as $thisuser)
-                        <a href="#" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisuser->name}}">
+                        <a href="{{route('users.editUser',$thisuser->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisuser->name}}">
                             <img src="{{asset('images/'.$thisuser->image)}}" class="rounded-circle" alt="image">
                         </a>
                         @endforeach
