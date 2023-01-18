@@ -34,3 +34,11 @@ footer.content-footer {
 {
     border-radius: 50% !important;
 }
+.unassignleadbtn {
+    margin: 10px;
+    padding: 10px;
+    background: red;
+    color: white;
+    border: 0px;
+    border-radius: 10px;
+}

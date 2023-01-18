@@ -142,9 +142,20 @@ class LeadsController extends Controller
     public function assignLeadSubmit(Request $request)
     {
         $lead = Leads::find($request->leads_id);
-        $lead->users()->attach($request->user_id);
-        $successmessage = "Lead assigned successfully!";
+        if($lead->users->contains($request->user_id))
+        {
+            $successmessage = "Lead already assigned to this user!";
+        }else{
+            $lead->users()->attach($request->user_id);
+            $successmessage = "Lead assigned successfully!";
+        }
         return Redirect::back()->with('success',$successmessage);
     }
-    
+    public function unassignLeadSubmit(Request $request)
+    {
+        $lead = Leads::find($request->leads_id);
+        $lead->users()->detach($request->user_id);
+        $successmessage = "Lead unassigned successfully!";
+        return Redirect::back()->with('success',$successmessage);
+    }
 }

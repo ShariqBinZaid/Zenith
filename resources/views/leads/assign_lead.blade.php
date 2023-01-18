@@ -85,7 +85,14 @@
                         <b>Assigned To:</b>
                         <ul class="list-group list-group-flush">
                         @foreach($lead->users as $thisuser)
-                            <li class="list-group-item"><b>Name</b> : {{$thisuser->name}}</li>
+                            <li class="list-group-item"><b>Name</b> : {{$thisuser->name}}
+                            <form action="{{route('lead.unassignLeadSubmit')}}" method="POST">
+                                {{csrf_field()}}
+                                <input type="hidden" name="user_id" value="{{$thisuser->id}}"/>
+                                <input type="hidden" name="leads_id" value="{{$lead->id}}"/>
+                                <input type="submit" name="Submit" value="Unassign" class="unassignleadbtn"/>
+                            </form></li>
+                            
                         @endforeach
                         </ul>
                     </div>

@@ -29,6 +29,7 @@ Route::group(['prefix'=>'salesforce/leads','as'=>'lead.','middleware' => ['auth'
     Route::get('assign-lead/{id}',[App\Http\Controllers\LeadsController::class, 'assignLead'])->name('assignLead')->permission('assign leads');
     
     Route::post('assign-lead-submit',[App\Http\Controllers\LeadsController::class, 'assignLeadSubmit'])->name('assignLeadSubmit');
+    Route::post('unassign-lead-submit',[App\Http\Controllers\LeadsController::class, 'unassignLeadSubmit'])->name('unassignLeadSubmit');
 });
 Route::group(['prefix'=>'salesforce/opportunities','as'=>'opportunity.','middleware' => ['auth']], function(){
     Route::get('/', [App\Http\Controllers\OpportunityController::class, 'index'])->name('allOpportunities')->permission('view opportunities');
