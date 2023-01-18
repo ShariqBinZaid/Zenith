@@ -81,7 +81,7 @@
                         </ul>
                     </div>
                     <div class="text-center">
-                    <div class="card mt-3" style="width: 18rem;">
+                    <div class="card mt-3">
                         <b>Assigned To:</b>
                         <ul class="list-group list-group-flush">
                         @foreach($lead->users as $thisuser)
