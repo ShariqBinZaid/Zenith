@@ -36,6 +36,10 @@ class Leads extends Model
     {
         return $this->hasOne(Brands::class,'id','brand_id');
     }
+    public function getCreator()
+    {
+        return $this->hasOne(User::class,'id','created_by');
+    }
     public function users()
     {
         return $this->belongsToMany(User::class);
