@@ -79,7 +79,7 @@
             <div class="card h-100">
                 <div class="card-body">
                     <div class="d-flex mb-4">
-                        <h6 class="card-title mb-0">Customer Rating</h6>
+                        <h6 class="card-title mb-0">Total Opportunities</h6>
                         <div class="dropdown ms-auto">
                             <a href="#" data-bs-toggle="dropdown" class="btn btn-sm" aria-haspopup="true"
                                aria-expanded="false">
@@ -92,15 +92,15 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <div class="display-6">3.0</div>
-                        <div class="d-flex justify-content-center gap-3 my-3">
+                        <div class="display-6">{{$totalopportunities}}</div>
+                        <!-- <div class="d-flex justify-content-center gap-3 my-3">
                             <i class="bi bi-star-fill icon-lg text-warning"></i>
                             <i class="bi bi-star-fill icon-lg text-warning"></i>
                             <i class="bi bi-star-fill icon-lg text-warning"></i>
                             <i class="bi bi-star-fill icon-lg text-muted"></i>
                             <i class="bi bi-star-fill icon-lg text-muted"></i>
                             <span>(318)</span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="text-muted d-flex align-items-center justify-content-center">
                         <span class="text-success me-3 d-block">

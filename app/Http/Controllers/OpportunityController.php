@@ -19,7 +19,8 @@ class OpportunityController extends Controller
     {
         $opportunities = Opportunity::latest()->with('getBrand')->with('getPackage')->paginate(10);
         $brandspackages = Brands::latest()->with('packages.getCurrency')->get();
-        return view('opportunities.index',compact(['opportunities','brandspackages']));
+        $totalopportunities = Opportunity::count();
+        return view('opportunities.index',compact(['opportunities','brandspackages','totalopportunities']));
     }
 
     /**
