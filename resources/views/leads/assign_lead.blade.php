@@ -89,7 +89,7 @@
                     <div class="text-center">
                     <div class="card mt-3">
                         <b>Assigned To:</b>
-                        <ul class="list-group list-group-flush">
+                        <ul class="list-group list-group-flush list-assign">
                         @foreach($lead->users as $thisuser)
                             <li class="list-group-item"><b>Name</b> : <a href="{{route('users.editUser',$thisuser->id)}}">{{$thisuser->name}}</a>
                             <form action="{{route('lead.unassignLeadSubmit')}}" method="POST">

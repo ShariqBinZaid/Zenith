@@ -215,7 +215,7 @@
                                 <i class="bi bi-three-dots"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="javascript:;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#ShowLeadModal" data-bs-leadid="{{$thislead->id}}" data-bs-leadphone="{{$thislead->phone}}" data-bs-leadusername="{{$thislead->username}}" data-bs-email="{{$thislead->email}}" data-bs-brand_id="{{$thislead->brand_id}}" data-bs-url="{{$thislead->url}}" data-bs-created_at="{{$thislead->created_at}}">Show</a>
+                                <a href="javascript:;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#ShowLeadModal" data-bs-leadid="{{$thislead->id}}" data-bs-leadphone="{{$thislead->phone}}" data-bs-leadusername="{{$thislead->username}}" data-bs-email="{{$thislead->email}}" data-bs-brand_id="{{$thislead->getBrand->name}}" data-bs-url="{{$thislead->url}}" data-bs-created_at="{{$thislead->created_at}}">Show</a>
                                 @can('update leads')
                                 <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditLeadModal" data-bs-leadid="{{$thislead->id}}" data-bs-leadphone="{{$thislead->phone}}" data-bs-leadusername="{{$thislead->username}}" data-bs-email="{{$thislead->email}}" data-bs-brand_id="{{$thislead->brand_id}}">Edit</a>
                                 @endcan
