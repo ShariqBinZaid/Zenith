@@ -45,3 +45,6 @@ footer.content-footer {
 .card .card {
     width: 100% !important;
 }
+img.logoauth {
+    max-width: 300px;
+}
