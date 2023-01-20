@@ -352,4 +352,42 @@ $(document).on('click','.deleteProject',function(e){
 </script>
 
 <!-- Archieve Project End -->
+<!-- Delete Team Start -->
+<script type="text/javascript">
+$(document).on('click','.deleteTeam',function(e){
+    e.preventDefault();
+    var id = $(this).attr('rel');
+    Swal.fire({
+  title: 'Are you sure you want to delete this team?',
+  text: "You can revert it back!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    $.ajax({
+        url: "{{route('admin.deleteTeam')}}",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        data: {type:'deleteTeam',id:id},
+        success: function(res){
+           	Swal.fire(
+			  'Deleted!',
+			  'Team has been deleted!',
+			  'success'
+			)
+            $('#allTeams').load(document.URL +  ' #allTeams');
+        }
+    })
+  }})
+    })
+
+
+</script>
+
+<!-- Delete Team End -->
 

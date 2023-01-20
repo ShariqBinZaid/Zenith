@@ -77,6 +77,17 @@ Route::group(['prefix'=>'admin/settings','as'=>'admin.','middleware' => ['auth',
     Route::post('/permissions/addPermission',[App\Http\Controllers\PermissionsController::class,'store'])->name('addPermission');
     Route::post('/permissions/updatePermission',[App\Http\Controllers\PermissionsController::class,'update'])->name('updatePermission');
     Route::post('/permissions/deletePermission',[App\Http\Controllers\PermissionsController::class,'destroy'])->name('deletePermission');
+    Route::get('/teams',[App\Http\Controllers\TeamsController::class,'index'])->name('allTeams');
+    Route::post('/add-team',[App\Http\Controllers\TeamsController::class,'store'])->name('addTeam');
+    Route::get('/show-members/{id}',[App\Http\Controllers\TeamsController::class,'edit'])->name('showMembers');
+    Route::get('/assign-brand/{id}',[App\Http\Controllers\TeamsController::class,'assignBrandToTeam'])->name('assignBrandToTeam');
+    Route::post('/delete-team',[App\Http\Controllers\TeamsController::class,'destroy'])->name('deleteTeam');
+    Route::post('/assign-member',[App\Http\Controllers\TeamsController::class,'assignTeamMember'])->name('assignTeamMember');
+    Route::post('/unassign-member',[App\Http\Controllers\TeamsController::class,'unassignTeamMember'])->name('unassignTeamMember');
+    Route::post('/assign-brand',[App\Http\Controllers\TeamsController::class,'assignBrandSubmit'])->name('assignBrandSubmit');
+    Route::post('/unassign-brand',[App\Http\Controllers\TeamsController::class,'unassignBrandSubmit'])->name('unassignBrandSubmit');
+    
+    
 });
 Route::group(['prefix'=>'users','as'=>'users.','middleware' => ['auth']], function(){
     Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('allUsers');

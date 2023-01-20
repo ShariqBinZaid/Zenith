@@ -119,6 +119,15 @@
             <li class="menu-divider">Settings</li>
             <li>
                 <a  
+                    href="{{route('admin.allTeams')}}">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-bar-chart"></i>
+                    </span>
+                    <span>Teams</span>
+                </a>
+            </li>
+            <li>
+                <a  
                     href="{{route('admin.allRoles')}}">
                     <span class="nav-link-icon">
                         <i class="bi bi-bar-chart"></i>
@@ -126,6 +135,7 @@
                     <span>Roles</span>
                 </a>
             </li>
+            
             <li>
                 <a  
                     href="{{route('admin.allPermissions')}}">

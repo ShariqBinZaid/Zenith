@@ -29,6 +29,11 @@ class AdminSeeder extends Seeder
             'name' => 'Nimroz Ali',
             'email' => 'nimroz@gmail.com',
             'password' => bcrypt('123456789'),
+        ])->assignRole('business_unit_head');
+        User::create([
+            'name' => 'Faizan Ali',
+            'email' => 'faizan@gmail.com',
+            'password' => bcrypt('123456789'),
         ])->assignRole('front_sales_manager');
         User::create([
             'name' => 'Adil Jameel',

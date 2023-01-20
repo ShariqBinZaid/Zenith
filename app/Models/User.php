@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Opportunity::class);
     }
+    public function teams()
+    {
+        return $this->belongsToMany(Teams::class);
+    }
 }

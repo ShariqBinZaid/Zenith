@@ -33,4 +33,8 @@ class Brands extends Model
     {
         return $this->hasMany(Packages::class,'brand_id','id');
     }
+    public function teams()
+    {
+        return $this->belongsToMany(Teams::class);
+    }
 }

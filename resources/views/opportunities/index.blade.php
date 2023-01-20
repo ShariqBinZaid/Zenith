@@ -14,7 +14,7 @@
             </ol>
         </nav>
     </div>
-
+    @can('add opportunities')
     <div class="row g-4 mb-4">
         <div class="col-md-8">
             <div class="card h-100">
@@ -121,7 +121,7 @@
             </div>
         </div>
     </div>
-   
+    @endcan
     <div class="card">
         <div class="card-body">
             <div class="d-md-flex">

@@ -8,6 +8,7 @@ use App\Models\Opportunity;
 use App\Models\Brands;
 use App\Models\User;
 use App\Models\Packages;
+use Auth;
 class OpportunityController extends Controller
 {
     /**
@@ -17,7 +18,15 @@ class OpportunityController extends Controller
      */
     public function index()
     {
-        $opportunities = Opportunity::latest()->with('getBrand')->with('getPackage')->paginate(10);
+        if(Auth::user()->roles->pluck('name')[0] == 'admin')
+        {
+            $opportunities = Opportunity::latest()->with('getBrand')->with('getPackage')->paginate(10);
+        }else{
+            $user = Auth::user();
+            $opportunities =Opportunity::whereHas('users', function ($query) use ($user) {
+                        $query->where('opportunity_user.user_id', '=', $user->id);
+            })->paginate(10);
+        }
         $brandspackages = Brands::latest()->with('packages.getCurrency')->get();
         $totalopportunities = Opportunity::count();
         return view('opportunities.index',compact(['opportunities','brandspackages','totalopportunities']));

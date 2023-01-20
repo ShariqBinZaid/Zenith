@@ -10,7 +10,7 @@
                         <i class="bi bi-globe2 small me-2"></i> Dashboard
                     </a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Opportunities</li>
+                <li class="breadcrumb-item active" aria-current="page">Projects</li>
             </ol>
         </nav>
     </div>

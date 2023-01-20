@@ -7,6 +7,7 @@ use App\Models\Leads;
 use App\Models\User;
 use App\Models\Brands;
 Use Exception;
+use Auth;
 use Illuminate\Support\Facades\Redirect;
 class LeadsController extends Controller
 {
@@ -17,7 +18,16 @@ class LeadsController extends Controller
      */
     public function index()
     {
-        $leads = Leads::orderBy('created_at','desc')->with('getBrand')->paginate(10);
+        if(Auth::user()->roles->pluck('name')[0] == 'admin')
+        {
+            $leads = Leads::latest()->with('getBrand')->paginate(10);
+        }else{
+            $user = auth()->user();
+            $leads =Leads::whereHas('users', function ($query) use ($user) {
+                        $query->where('leads_user.user_id', '=', $user->id);
+            })->paginate(10);
+        }
+        
         $allbrands = Brands::orderBy('created_at','desc')->get();
         $totalleads = Leads::count();
         return view('leads.index',compact(['leads','totalleads','allbrands']));

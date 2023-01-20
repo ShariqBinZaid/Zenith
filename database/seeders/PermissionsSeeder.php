@@ -60,6 +60,9 @@ class PermissionsSeeder extends Seeder
             'name' => 'delete opportunities',
             'guard_name' => 'api',
         ],[
+            'name' => 'add opportunities',
+            'guard_name' => 'api',
+        ],[
             'name' => 'edit brands',
             'guard_name' => 'api',
         ],[
@@ -95,6 +98,23 @@ class PermissionsSeeder extends Seeder
             'guard_name' => 'api',
         ],[
             'name' => 'delete projects',
+            'guard_name' => 'api',
+        ],
+        [
+            'name' => 'view teams',
+            'guard_name' => 'api',
+        ],[
+            'name' => 'update teams',
+            'guard_name' => 'api',
+        ],[
+            'name' => 'delete teams',
+            'guard_name' => 'api',
+        ],[
+            'name' => 'create teams',
+            'guard_name' => 'api',
+        ],
+        [
+            'name' => 'add teams member',
             'guard_name' => 'api',
         ]
     ];

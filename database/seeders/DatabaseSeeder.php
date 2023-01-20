@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionsSeeder::class);
         $this->call(UserRolesSeeder::class);
         $this->call(AdminSeeder::class);
+        $this->call(TeamsSeeder::class);
     }
 }
