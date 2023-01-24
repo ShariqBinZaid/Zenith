@@ -11,7 +11,9 @@
                         <i class="bi bi-gear small me-2"></i> Settings
                     </a>
                 </li>
-                <li class="breadcrumb-item " aria-current="page">Roles</li>
+                <li class="breadcrumb-item " aria-current="page">
+                    <a href="{{route('admin.allRoles')}}">Roles</a>
+                </li>
                 <li class="breadcrumb-item " aria-current="page">Assign Roles</li>
                 <li class="breadcrumb-item active" aria-current="page">{{ucwords(strtolower(str_replace('_',' ',$permissiondata->name)), '\',. ')}}</li>
                 

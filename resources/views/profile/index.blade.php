@@ -7,7 +7,7 @@
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">
+                    <a href="{{route('adminDashboard')}}">
                         <i class="bi bi-gear small me-2"></i> Settings
                     </a>
                 </li>

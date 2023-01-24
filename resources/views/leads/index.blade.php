@@ -7,7 +7,7 @@
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">
+                    <a href="{{route('lead.allLeads')}}">
                         <i class="bi bi-globe2 small me-2"></i> Sales Force
                     </a>
                 </li>
