@@ -14,7 +14,9 @@
                 <li class="breadcrumb-item " aria-current="page">
                     <a href="{{route('admin.allRoles')}}">Roles</a>
                 </li>
-                <li class="breadcrumb-item " aria-current="page">Assign Permission</li>
+                <li class="breadcrumb-item " aria-current="page">
+                    <a href="">Assign Permission</a>
+                </li>
                 <li class="breadcrumb-item active" aria-current="page">{{ucwords(strtolower(str_replace('_',' ',$roledata->name)), '\',. ')}}</li>
                 
             </ol>

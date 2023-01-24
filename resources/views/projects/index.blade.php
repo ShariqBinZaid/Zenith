@@ -7,7 +7,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{route('adminDashboard')}}">
-                        <i class="bi bi-globe2 small me-2"></i> Dashboard
+                        <i class="bi bi-globe2 small me-2"></i> Collateral
                     </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Projects</li>
@@ -137,10 +137,10 @@
                     <div class="d-flex mb-4">
                         <h6 class="card-title mb-0">Customer Rating</h6>
                         <div class="dropdown ms-auto">
-                            <a href="#" data-bs-toggle="dropdown" class="btn btn-sm" aria-haspopup="true"
+                            <!-- <a href="#" data-bs-toggle="dropdown" class="btn btn-sm" aria-haspopup="true"
                                aria-expanded="false">
                                 <i class="bi bi-three-dots"></i>
-                            </a>
+                            </a> -->
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a href="#" class="dropdown-item">View Detail</a>
                                 <a href="#" class="dropdown-item">Download</a>

@@ -11,7 +11,9 @@
                         <i class="bi bi-globe2 small me-2"></i> Marketing
                     </a>
                 </li>
-                <li class="breadcrumb-item " aria-current="page">Packages</li>
+                <li class="breadcrumb-item " aria-current="page">
+                    <a href="{{route('packages.allPackages')}}">Packages</a>
+                </li>
                 <li class="breadcrumb-item active" aria-current="page">Update Package</li>
             </ol>
         </nav>
