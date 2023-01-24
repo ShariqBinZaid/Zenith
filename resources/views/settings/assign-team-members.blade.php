@@ -53,7 +53,7 @@
                             <select class="form-control" name="user_id">
                                 <option selected disabled>--Select the Member--</option>
                                 @foreach($allmembers as $thismember)
-                                <option value="{{$thismember->id}}">{{$thismember->name}}</option>
+                                <option value="{{$thismember->id}}">{{$thismember->name}} ({{ucwords(strtolower(str_replace('_',' ',$thismember->roles->pluck('name')[0] ?? '')), '\',. ')}})</option>
                                 @endforeach
                             </select>
                         </div>

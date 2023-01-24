@@ -81,6 +81,7 @@ class TeamsController extends Controller
         $allmembers = User::whereDoesntHave(
             'roles', function($q){
                 $q->where('name', 'admin');
+                $q->orWhere('name', 'business_unit_head');
             }
         )->get();
         return view('settings.assign-team-members',compact(['teamdata','allmembers']));

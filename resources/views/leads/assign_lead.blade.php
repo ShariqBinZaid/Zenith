@@ -96,14 +96,13 @@
                         <ul class="list-group list-group-flush list-assign">
                         @foreach($lead->users as $thisuser)
                             <li class="list-group-item"><b>Name</b> : <a href="{{route('users.editUser',$thisuser->id)}}">{{$thisuser->name}}</a>
-                            @if($thisuser->teams->pluck('leader')[0] == auth()->user()->id)
+                            @if(($thisuser->teams->pluck('leader')[0] == auth()->user()->id) || (auth()->user()->roles()->pluck('name')[0] == 'admin') )
                             <form action="{{route('lead.unassignLeadSubmit')}}" method="POST">
                                 {{csrf_field()}}
                                 <input type="hidden" name="user_id" value="{{$thisuser->id}}"/>
                                 <input type="hidden" name="leads_id" value="{{$lead->id}}"/>
                                 <input type="submit" name="Submit" value="Unassign" class="unassignleadbtn"/>
                             </form></li>
-                            @else
                             @endif
                         @endforeach
                         </ul>
