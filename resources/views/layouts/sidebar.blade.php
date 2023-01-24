@@ -4,14 +4,14 @@
                 <a  class="active"
                     href="{{route('adminDashboard')}}">
                     <span class="nav-link-icon">
-                        <i class="bi bi-bar-chart"></i>
+                        <i class="bi bi-house-door"></i>
                     </span>
                     <span>Dashboard</span>
                 </a>
                 <a 
                     href="{{route('users.allUsers')}}">
                     <span class="nav-link-icon">
-                        <i class="bi bi-bar-chart"></i>
+                        <i class="bi bi-person"></i>
                     </span>
                     <span>Users</span>
                 </a>
@@ -67,7 +67,7 @@
                 <a  
                     href="{{route('lead.allLeads')}}">
                     <span class="nav-link-icon">
-                        <i class="bi bi-bar-chart"></i>
+                        <i class="bi bi-telephone-inbound"></i>
                     </span>
                     <span>Leads</span>
                 </a>
@@ -77,7 +77,7 @@
                 <a  
                     href="{{route('opportunity.allOpportunities')}}">
                     <span class="nav-link-icon">
-                        <i class="bi bi-receipt"></i>
+                        <i class="bi bi-briefcase"></i>
                     </span>
                     <span>Opportunities</span>
                 </a>
@@ -97,7 +97,7 @@
                 <a  
                     href="{{route('packages.allPackages')}}">
                     <span class="nav-link-icon">
-                        <i class="bi bi-receipt"></i>
+                        <i class="bi bi-broadcast"></i>
                     </span>
                     <span>Packages</span>
                 </a>
@@ -109,7 +109,7 @@
                 <a  
                     href="{{route('projects.allProjects')}}">
                     <span class="nav-link-icon">
-                        <i class="bi bi-bar-chart"></i>
+                        <i class="bi bi-kanban-fill"></i>
                     </span>
                     <span>Projects</span>
                 </a>
@@ -121,7 +121,7 @@
                 <a  
                     href="{{route('admin.allTeams')}}">
                     <span class="nav-link-icon">
-                        <i class="bi bi-bar-chart"></i>
+                        <i class="bi bi-people"></i>
                     </span>
                     <span>Teams</span>
                 </a>
@@ -130,7 +130,7 @@
                 <a  
                     href="{{route('admin.allRoles')}}">
                     <span class="nav-link-icon">
-                        <i class="bi bi-bar-chart"></i>
+                        <i class="bi bi-vinyl"></i>
                     </span>
                     <span>Roles</span>
                 </a>
@@ -140,7 +140,7 @@
                 <a  
                     href="{{route('admin.allPermissions')}}">
                     <span class="nav-link-icon">
-                        <i class="bi bi-receipt"></i>
+                        <i class="bi bi-gear-wide-connected"></i>
                     </span>
                     <span>Permissions</span>
                 </a>
