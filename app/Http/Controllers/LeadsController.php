@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Leads;
 use App\Models\User;
 use App\Models\Brands;
+use App\Models\Teams;
 Use Exception;
 use Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -21,10 +22,20 @@ class LeadsController extends Controller
         if(Auth::user()->roles->pluck('name')[0] == 'admin')
         {
             $leads = Leads::latest()->with('getBrand')->paginate(10);
-        }else{
+        }
+        else if(Auth::user()->roles->pluck('name')[0] == 'business_unit_head'){
+            $teamid = Teams::where('leader',Auth::user()->id)->with('brands')->first();
+            $brands = array();
+            foreach($teamid->brands as $thisbrand)
+            {
+                array_push($brands,$thisbrand->id);
+            }
+            $leads = Leads::whereIn('brand_id', $brands)->paginate(10);
+        }
+        else{
             $user = auth()->user();
             $leads =Leads::whereHas('users', function ($query) use ($user) {
-                        $query->where('leads_user.user_id', '=', $user->id);
+                $query->where('leads_user.user_id', '=', $user->id);
             })->paginate(10);
         }
         
@@ -104,14 +115,48 @@ class LeadsController extends Controller
     public function assignLead($id)
     {
         $lead = Leads::find($id);
-        $users = User::whereHas(
-            'roles', function($q){
-                $q->where('name', 'business_unit_head');
-                $q->orWhere('name', 'front_sales_manager');
-                $q->orWhere('name', 'support_manager');
-                $q->orWhere('name', 'support_agent');
-            }
-        )->get();
+        if(Auth::user()->roles->pluck('name')[0] == 'admin')
+        {
+            $users = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'business_unit_head');
+                    $q->orWhere('name', 'front_sales_manager');
+                    $q->orWhere('name', 'front_sales_executive');
+                }
+            )->get();
+        }
+        else if(Auth::user()->roles->pluck('name')[0] == 'business_unit_head'){
+            $users = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'front_sales_manager');
+                    $q->orWhere('name', 'front_sales_executive');
+                }
+            )->whereHas(
+                'teams', function($q){
+                    $q->where('leader', Auth::user()->id);
+                }
+            )->get();
+        }
+        else{
+            $userdata = User::where('id',Auth::user()->id)->with('teams')->first();
+            $users = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'front_sales_executive');
+                })->
+                whereHas(
+                'teams.users', function($q) use($userdata){
+                    $q->where('teams_id', 2);
+                    foreach($userdata->teams as $thisteam)
+                    {
+                        if($thisteam->count == 1)
+                        {
+                            $q->where('teams_id', $thisteam->id);
+                        }else{
+                            $q->orWhere('teams_id', $thisteam->id);
+                        }
+                    }
+                })->get();
+        }
         return view('leads.assign_lead',compact(['lead','users']));
     }
     

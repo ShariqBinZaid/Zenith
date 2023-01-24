@@ -52,7 +52,7 @@
                             <select class="form-control" name="user_id">
                                 <option selected disabled>--Select Sales Agent--</option>
                                 @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                <option value="{{$user->id}}">{{$user->name}}  ({{ucwords(strtolower(str_replace('_',' ',$user->roles->pluck('name')[0] ?? '')), '\',. ')}})</option>
                                 @endforeach
                             </select>
                             <input type="hidden" name="leads_id" value="{{request()->route('id');}}"/>
@@ -92,12 +92,15 @@
                         <ul class="list-group list-group-flush list-assign">
                         @foreach($lead->users as $thisuser)
                             <li class="list-group-item"><b>Name</b> : <a href="{{route('users.editUser',$thisuser->id)}}">{{$thisuser->name}}</a>
+                            @if($thisuser->teams->pluck('leader')[0] == auth()->user()->id)
                             <form action="{{route('lead.unassignLeadSubmit')}}" method="POST">
                                 {{csrf_field()}}
                                 <input type="hidden" name="user_id" value="{{$thisuser->id}}"/>
                                 <input type="hidden" name="leads_id" value="{{$lead->id}}"/>
                                 <input type="submit" name="Submit" value="Unassign" class="unassignleadbtn"/>
                             </form></li>
+                            @else
+                            @endif
                         @endforeach
                         </ul>
                     </div>

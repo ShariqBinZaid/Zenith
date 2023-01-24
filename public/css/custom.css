@@ -48,3 +48,6 @@ footer.content-footer {
 img.logoauth {
     max-width: 300px;
 }
+.table-responsive {
+    overflow: inherit !important;
+}
