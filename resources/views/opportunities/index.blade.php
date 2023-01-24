@@ -6,11 +6,13 @@
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">
+                    <a href="{{route('adminDashboard')}}">
                         <i class="bi bi-globe2 small me-2"></i> Dashboard
                     </a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Opportunities</li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a href="{{route('opportunity.allOpportunities')}}">Opportunities</a>
+                </li>
             </ol>
         </nav>
     </div>

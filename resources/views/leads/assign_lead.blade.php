@@ -11,7 +11,11 @@
                         <i class="bi bi-globe2 small me-2"></i> Sales Force
                     </a>
                 </li>
-                <li class="breadcrumb-item " aria-current="page">Leads</li>
+                <li class="breadcrumb-item " aria-current="page">
+                    <a href="{{route('lead.allLeads')}}">
+                        Leads
+                    </a>
+                </li>
                 <li class="breadcrumb-item active" aria-current="page">Assign Lead</li>
             </ol>
         </nav>
