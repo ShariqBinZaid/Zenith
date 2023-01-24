@@ -10,7 +10,8 @@
                         <i class="bi bi-gear small me-2"></i> Settings
                 </li>
                 <li class="breadcrumb-item " aria-current="page">
-                    <a href="{{route('admin.allTeams')}}">Teams</li></a>
+                    <a href="{{route('admin.allTeams')}}">Teams</a>
+                </li>    
                 <li class="breadcrumb-item active" aria-current="page">{{ucwords(strtolower(str_replace('_',' ',$teamdata->name)), '\',. ')}}</li>
                 
             </ol>

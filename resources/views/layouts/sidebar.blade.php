@@ -88,7 +88,7 @@
                 <a  
                     href="{{route('brands.allBrands')}}">
                     <span class="nav-link-icon">
-                        <i class="bi bi-bar-chart"></i>
+                    <i class="bi bi-building"></i>
                     </span>
                     <span>Brands</span>
                 </a>
@@ -97,7 +97,7 @@
                 <a  
                     href="{{route('packages.allPackages')}}">
                     <span class="nav-link-icon">
-                        <i class="bi bi-broadcast"></i>
+                    <i class="bi bi-box"></i>
                     </span>
                     <span>Packages</span>
                 </a>

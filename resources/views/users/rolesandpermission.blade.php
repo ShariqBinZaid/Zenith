@@ -7,11 +7,14 @@
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">
+                    <a href="{{route('users.allUsers')}}">
                         <i class="bi bi-user small me-2"></i> Users
                     </a>
                 </li>
-                <li class="breadcrumb-item " aria-current="page">{{$userdata->name}}</li>
+                <!-- <li class="breadcrumb-item " aria-current="page">{{$userdata->name}}</li> -->
+                <li class="breadcrumb-item " aria-current="page">
+                    <a href="{{route('users.editUser',$userdata->id)}}">{{$userdata->name}}</a>
+                </li>
                 <li class="breadcrumb-item active" aria-current="page">Assign Roles and Permissions</li>
                 
             </ol>
