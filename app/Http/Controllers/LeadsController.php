@@ -138,24 +138,15 @@ class LeadsController extends Controller
             )->get();
         }
         else{
-            $userdata = User::where('id',Auth::user()->id)->with('teams')->first();
             $users = User::whereHas(
                 'roles', function($q){
-                    $q->where('name', 'front_sales_executive');
-                })->
-                whereHas(
-                'teams.users', function($q) use($userdata){
-                    $q->where('teams_id', 2);
-                    foreach($userdata->teams as $thisteam)
-                    {
-                        if($thisteam->count == 1)
-                        {
-                            $q->where('teams_id', $thisteam->id);
-                        }else{
-                            $q->orWhere('teams_id', $thisteam->id);
-                        }
-                    }
-                })->get();
+                    $q->orWhere('name', 'front_sales_executive');
+                }
+            )->whereHas(
+                'teams', function($q){
+                    $q->where('leader', Auth::user()->id);
+                }
+            )->get();
         }
         return view('leads.assign_lead',compact(['lead','users']));
     }
