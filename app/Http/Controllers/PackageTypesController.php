@@ -18,7 +18,7 @@ class PackageTypesController extends Controller
      */
     public function index()
     {
-        $packagetypes = PackageTypes::orderBy('created_at')->paginate(10);
+        $packagetypes = PackageTypes::orderBy('created_at')->paginate(20);
         $totalpackagetypes = PackageTypes::count();
         return view('packagetypes.index',compact(['packagetypes','totalpackagetypes']));
     }
