@@ -182,7 +182,7 @@
                 <th>Type</th>
                 <th>URL</th>
                 <th>Initials</th>
-                <th>Created At</th>
+                <!-- <th>Created At</th> -->
                 <th class="text-end">Actions</th>
             </tr>
             </thead>
@@ -199,7 +199,7 @@
                     <span class="badge bg-success">{{$thisbrand->url}}</span>
                 </td>
                 <td>{{$thisbrand->initials}}</td>
-                <td>{{$thisbrand->created_at}}</td>
+                <!-- <td>{{$thisbrand->created_at}}</td> -->
                 <td class="text-end">
                     <div class="d-flex">
                         <div class="dropdown ms-auto">

@@ -15,6 +15,24 @@ class DashboardController extends Controller
         $totalopportunity=Opportunity::count();
         $totalbrand=Brands::count();
         $totalpackage=Packages::count();
-        return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage']));
+        $brands = Brands::orderBy('created_at','desc')->paginate(10);
+        $totalbrand = Brands::count();
+        return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage','brands']));
     }
 }
+
+
+
+
+
+
+
+// {
+//     public function adminDashboard(){
+//         $totalead=Leads::count();
+//         $totalopportunity=Opportunity::count();
+//         $totalbrand=Brands::count();
+//         $totalpackage=Packages::count();
+//         return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage']));
+//     }
+// }
