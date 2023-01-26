@@ -554,9 +554,18 @@
                 </a>
             </li>
             <li class="nav-item ms-3">
+                <a href="{{route('lead.allLeads')}}">
                     <button class="btn btn-primary btn-icon">
-                        <i class="bi bi-plus-circle"></i> Add Lead
+                        <i class="bi bi-plus-circle"></i> Add Leads
                     </button>
+                </a>    
+            </li>
+            <li class="nav-item ms-3">
+                <a href="{{route('opportunity.allOpportunities')}}">
+                    <button class="btn btn-primary btn-icon">
+                        <i class="bi bi-plus-circle"></i> Add Opportunities
+                    </button>
+                </a>    
             </li>
         </ul>
     </div>

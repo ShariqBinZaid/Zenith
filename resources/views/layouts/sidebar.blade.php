@@ -145,6 +145,15 @@
                     <span>Permissions</span>
                 </a>
             </li>
+            <li>
+                <a  
+                    href="{{route('packageTypes.allPackageTypes')}}">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-box-seam"></i>
+                    </span>
+                    <span>Package Types</span>
+                </a>
+            </li>
             @endrole
             <!-- <li class="menu-divider">Apps</li>
             <li>

@@ -11,7 +11,7 @@
                         <i class="bi bi-globe2 small me-2"></i> Marketing
                     </a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Packages</li>
+                <li class="breadcrumb-item active" aria-current="page">Package Types</li>
             </ol>
         </nav>
     </div>
@@ -20,7 +20,7 @@
         <div class="col-md-8">
             <div class="card h-100">
                 <div class="card-body">
-                    <h6 class="card-title mb-5">Add New Package</h6>
+                    <h6 class="card-title mb-5">Add New Package Types</h6>
                     @if ($message = Session::get('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>{{ $message }}</strong>
@@ -44,54 +44,14 @@
                             
                         </div>
                     @endif
-                    <form class="row gx-3 gy-2 align-items-center " method="POST" action="{{route('packages.addPackage')}}">
+                    <form class="row gx-3 gy-2 align-items-center " method="POST" action="{{route('packageTypes.addPackageTypes')}}">
                     {{csrf_field()}}
                     <div class="row mb-3">
                         <div class="col">
                             <input type="text" value="{{ old('name') }}" class="form-control" name="name" placeholder="Name" aria-label="Name">
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <select class="form-select" name="package_type">
-                                <option selected disabled>Choose Package Type...</option>
-                                @foreach($packagetypes as $thispackagetype)
-                                <option value="{{$thispackagetype->id}}">{{$thispackagetype->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col">
-                        <select class="form-select" name="brand_id">
-                            <option selected disabled>Choose Brand...</option>
-                            @foreach($allbrands as $thisbrand)
-                            <option value="{{$thisbrand->id}}">{{$thisbrand->name}}</option>
-                            @endforeach
-                        </select>
-                        </div>
-                        <div class="col">
-                            <input type="text" value="{{ old('discount') }}" name="discount" class="form-control" placeholder="Discount(Optional)" aria-label="Discount(Optional)">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <input type="text" value="{{ old('price') }}" class="form-control" name="price" placeholder="Price" aria-label="Price">
-                        </div>
-                        <div class="col">
-                            <input type="text" value="{{ old('cut_price') }}" name="cut_price" class="form-control" placeholder="Cut Price" aria-label="Cut Price">
-                        </div>
-                        <div class="col">
-                        <select class="form-select" name="currency">
-                            <option selected disabled>Choose Currency...</option>
-                            @foreach($currencies as $thiscurrency)
-                            <option value="{{$thiscurrency->id}}">{{$thiscurrency->code}} ({{$thiscurrency->symbol}})</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    
-                    </div>
-                    <div class="row mb-3">
-                        <textarea class="description" name="description" id="packagedetails"></textarea>
-                    </div>
+
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
@@ -104,7 +64,7 @@
             <div class="card h-100">
                 <div class="card-body">
                     <div class="d-flex mb-4">
-                        <h6 class="card-title mb-0">Total Packages</h6>
+                        <h6 class="card-title mb-0">Total Package Types</h6>
                         <div class="dropdown ms-auto">
                             <!-- <a href="#" data-bs-toggle="dropdown" class="btn btn-sm" aria-haspopup="true"
                                aria-expanded="false">
@@ -117,7 +77,7 @@
                         </div>
                     </div>
                      <div class="text-center">
-                        <div class="display-6">{{$totalpackages}}</div>
+                        <div class="display-6">{{$totalpackagetypes}}</div>
                         <!-- <div class="d-flex justify-content-center gap-3 my-3">
                             <i class="bi bi-star-fill icon-lg text-warning"></i>
                             <i class="bi bi-star-fill icon-lg text-warning"></i>
@@ -193,32 +153,24 @@
             </div>
         </div>
     </div> -->
-    <div class="table-responsive" id="allPackages">
+    <div class="table-responsive" id="allPackageTypes">
         <table class="table table-custom table-lg mb-0" id="customers">
             <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Package Type</th>
-                <th>Brand</th>
-                <th>Price</th>
-                <th>Created At</th>
+                <!-- <th>Created At</th> -->
                 <th class="text-end">Actions</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($packages as $thispackage)
+            @foreach($packagetypes as $thispackagetypes)
             <tr>
                 <td>
                     <a href="javascript:;">{{$loop->iteration}}</a>
                 </td>
-                <td>{{$thispackage->name}}</td>
-                <td>{{$thispackage->getPackageType->name}}</td>
-                <td>
-                    <span class="badge bg-success">{{$thispackage->getBrand->name}}</span>
-                </td>
-                <td>{{$thispackage->getCurrency->symbol}}{{$thispackage->price}}</td>
-                <td>{{$thispackage->created_at}}</td>
+                <td>{{$thispackagetypes->name}}</td>
+                <!-- <td>{{$thispackagetypes->created_at}}</td> -->
                 <td class="text-end">
                     <div class="d-flex">
                         <div class="dropdown ms-auto">
@@ -228,9 +180,9 @@
                                 <i class="bi bi-three-dots"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="javascript:;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#ShowPackageModal" data-bs-id="{{$thispackage->id}}" data-bs-name="{{$thispackage->name}}" data-bs-price="{{$thispackage->getCurrency->symbol}}{{$thispackage->price}}" data-bs-cut_price="{{$thispackage->getCurrency->symbol}}{{$thispackage->cut_price}}" data-bs-description="{!!$thispackage->description!!}" data-bs-currency="{{$thispackage->getCurrency->name}}" data-bs-brand_id="{{$thispackage->getBrand->name}}" data-bs-package_type="{{$thispackage->getPackageType->name}}" data-bs-created_at="{{$thispackage->created_at}}" data-bs-discount="{{$thispackage->discount}}" >Show</a>
-                                <a href="{{route('packages.editPackage',$thispackage->id)}}" class="dropdown-item">Edit</a>
-                                <a href="javascript:;" class="dropdown-item deletePackage" rel="{{$thispackage->id}}">Delete</a>
+                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ShowPackageTypesModal" data-bs-id="{{$thispackagetypes->id}}" data-bs-name="{{$thispackagetypes->name}}" data-bs-created_at="{{$thispackagetypes->created_at}}" >Show</a>
+                                <a href="{{route('packageTypes.editPackageTypes',$thispackagetypes->id)}}" class="dropdown-item">Edit</a>
+                                <a href="javascript:;" class="dropdown-item deletePackageTypes" rel="{{$thispackagetypes->id}}">Delete</a>
                             </div>
                         </div>
                     </div>
@@ -243,7 +195,7 @@
 
     <nav class="mt-4" aria-label="Page navigation example">
         
-        {!! $packages->withQueryString()->links('pagination::bootstrap-5') !!}
+        {!! $packagetypes->withQueryString()->links('pagination::bootstrap-5') !!}
     </nav>
 
     </div>

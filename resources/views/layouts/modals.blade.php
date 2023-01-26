@@ -602,7 +602,58 @@
 </script>
 <!-- Show Packages Modal End -->
 
-<!-- ------------------------------------------Roles------------------------------------- -->
+<!-- ------------------------------------------Packages Types--------------------------------------->
+
+<!-- Show Packages Types Modal Start -->
+
+<div class="modal fade" id="ShowPackageTypesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ShowPackageTypesModalLabel">Details of this Package Types</h5>
+        
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body showbranddetails">
+      <div class="mb-3">
+      <image class="brandimage"/></div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Name:</label><span class="pkgname"></span>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Created at:</label><span class="created_at"></span>
+          </div>
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var ShowPackageModal = document.getElementById('ShowPackageTypesModal')
+  ShowPackageModal.addEventListener('show.bs.modal', function (event) {
+    // Button that triggered the modal
+  var button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+  var nameval = button.getAttribute('data-bs-name')
+  var pkgcreated_at = button.getAttribute('data-bs-created_at')
+  // If necessary, you could initiate an AJAX request here
+  // and then do the updating in a callback.
+  //
+  // Update the modal's content.
+  var pkgname = ShowPackageModal.querySelector('.pkgname')
+  var created_at = ShowPackageModal.querySelector('.created_at')
+  
+  pkgname.textContent = nameval
+  created_at.textContent = pkgcreated_at
+  })
+</script>
+
+<!-- Show Packages Types Modal End -->
+
+
+<!-- ------------------------------------------Roles--------------------------------------->
 <!-- Edit Roles Modal Start -->
 <div class="modal fade" id="EditRolesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">

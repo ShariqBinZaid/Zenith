@@ -123,7 +123,9 @@ $(document).on('click','.deleteBrand',function(e){
 
 </script>
 <!-- Delete Brand Ajax End -->
+
 <!-- Delete Package Ajax Start -->
+
 <script type="text/javascript">
 $(document).on('click','.deletePackage',function(e){
     e.preventDefault();
@@ -161,6 +163,46 @@ $(document).on('click','.deletePackage',function(e){
 </script>
 
 <!-- Delete Package Ajax End -->
+
+<!-- Delete Package Types Ajax Start -->
+
+<script type="text/javascript">
+$(document).on('click','.deletePackageTypes',function(e){
+    e.preventDefault();
+    var id = $(this).attr('rel');
+    Swal.fire({
+  title: 'Are you sure you want to delete this package types?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    $.ajax({
+        url: "{{route('packageTypes.deletePackageTypes')}}",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        data: {type:'deletePackageTypes',id:id},
+        success: function(res){
+           	Swal.fire(
+			  'Deleted!',
+			  'Package Type has been deleted successfully!',
+			  'success'
+			)
+            $('#allPackageTypes').load(document.URL +  ' #allPackageTypes');
+        }
+    })
+  }})
+    })
+
+
+</script>
+
+<!-- Delete Package Types Ajax End -->
 
 <!-- Delete Roles Ajax Start -->
 <script type="text/javascript">
