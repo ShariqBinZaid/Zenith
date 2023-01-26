@@ -63,8 +63,8 @@ Route::group(['prefix'=>'marketing/packages','as'=>'packages.','middleware' => [
 
 
 // Packages Types
-Route::group(['prefix'=>'marketing/package_types','as'=>'packageTypes.','middleware' => ['auth','role:admin']], function(){
-    Route::get('/', [App\Http\Controllers\PackageTypesController::class, 'index'])->name('allPackageTypes');
+Route::group(['prefix'=>'admin/settings','as'=>'packageTypes.','middleware' => ['auth','role:admin']], function(){
+    Route::get('/package-types', [App\Http\Controllers\PackageTypesController::class, 'index'])->name('allPackageTypes');
     Route::post('add-packagetypes',[App\Http\Controllers\PackageTypesController::class, 'store'])->name('addPackageTypes');
     Route::get('edit-packagetypes/{id}', [App\Http\Controllers\PackageTypesController::class, 'edit'])->name('editPackageTypes');
     Route::post('update-packagetypes',[App\Http\Controllers\PackageTypesController::class, 'update'])->name('updatePackageTypes');
