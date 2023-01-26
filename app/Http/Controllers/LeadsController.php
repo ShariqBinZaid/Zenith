@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Brands;
 use App\Models\Teams;
 Use Exception;
+use Validator;
 use Auth;
 use Illuminate\Support\Facades\Redirect;
 class LeadsController extends Controller
@@ -63,12 +64,12 @@ class LeadsController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'username' => 'required',
+            'name' => 'required',
             'email' => 'required|email|unique:leads',
             'phone' => 'required|unique:leads',
             'brand_id' => 'required'
         ], [
-            'username.required' => 'Name field is required.',
+            'name.required' => 'Name field is required.',
             'email.required' => 'Email field is required.',
             'email.email' => 'Email field must contain the email address.',
             'email.unique' => 'Email already registered as a lead!',
@@ -77,6 +78,7 @@ class LeadsController extends Controller
             'phone.unique' => 'Phone already registered as a lead!'
         ]);
         $inputs = $request->all();
+        $input['created_by'] = auth()->user()->id;
         $inputs['url']= "www.google.com";
         Leads::create($inputs);
         $successmessage = "Lead saved successfully!";
@@ -161,14 +163,14 @@ class LeadsController extends Controller
     public function update(Request $request)
     {
         $validatedData = $request->validate([
-            'username' => 'required',
+            'name' => 'required',
             'brand_id' => 'required'
         ], [
-            'username.required' => 'Name field is required.',
+            'name.required' => 'Name field is required.',
             'brand_id.required' => 'Select Brand',
         ]);
         $leadsupdate = Leads::find($request->id);
-        $leadsupdate->update(['username' => $request->username , 'brand_id' => $request->brand_id]);
+        $leadsupdate->update(['name' => $request->name , 'brand_id' => $request->brand_id]);
         $successmessage = "Lead updated successfully!";
         return 'success';
     }
@@ -203,5 +205,22 @@ class LeadsController extends Controller
         $lead->users()->detach($request->user_id);
         $successmessage = "Lead unassigned successfully!";
         return Redirect::back()->with('success',$successmessage);
+    }
+    public function addLeadApi(Request $request){
+        $input = $request->all();
+        $validator = Validator::make($input, [
+        'name' => 'required',
+        'email' => 'required',
+        'phone'=>'required'
+        ]);
+        if($validator->fails()){
+        return $this->sendError('Validation Error.', $validator->errors());       
+        }
+        $lead = Leads::create($input);
+        return response()->json([
+        "success" => true,
+        "message" => "Lead created successfully.",
+        "data" => $lead
+        ]);
     }
 }

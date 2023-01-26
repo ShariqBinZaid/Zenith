@@ -44,7 +44,7 @@
                     {{csrf_field()}}
                     <div class="row mb-3">
                         <div class="col">
-                            <input type="text" value="{{ old('username') }}" class="form-control" name="username" placeholder="Name" aria-label="Name">
+                            <input type="text" value="{{ old('name') }}" class="form-control" name="name" placeholder="Name" aria-label="Name">
                         </div>
                         <div class="col">
                             <input type="text" value="{{ old('email') }}" name="email" class="form-control" placeholder="Email" aria-label="Email">
@@ -195,13 +195,13 @@
                     <a href="javascript:;">{{$loop->iteration}}</a>
                 </td>
                 @php
-                $explodedname = explode(' ',$thisopportunity->username);
+                $explodedname = explode(' ',$thisopportunity->name);
                 $initial = $explodedname[0][0];
                 @endphp
                 <td><div class="avatar avatar-info">
                         <span class="avatar-text rounded-circle">{{$initial}}</span>
                     </div></td>
-                <td>{{$thisopportunity->username}}</td>
+                <td>{{$thisopportunity->name}}</td>
                 <!-- <td>{{$thisopportunity->email}}</td> -->
                 <!-- <td>{{$thisopportunity->phone}}</td> -->
                 <td>{{$thisopportunity->getbrand->name}}</td>
@@ -248,8 +248,8 @@
                                 @can('convert opportunity to project')
                                 <a href="{{route('projects.opportunity_to_project',$thisopportunity->id)}}" class="dropdown-item">Convert into Project</a>
                                 @endcan
-                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ShowOpportunityModal" data-bs-opportunityid="{{$thisopportunity->id}}" data-bs-opportunityphone="{{$thisopportunity->phone}}" data-bs-opportunityusername="{{$thisopportunity->username}}" data-bs-email="{{$thisopportunity->email}}" data-bs-brand_id="{{$thisopportunity->getbrand->name}}" data-bs-package_id="{{$thisopportunity->getpackage->name}}" data-bs-url="{{$thisopportunity->url}}" data-bs-created_at="{{$thisopportunity->created_at}}">Show</a>
-                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditOpportunityModal" data-bs-opportunityid="{{$thisopportunity->id}}" data-bs-opportunityphone="{{$thisopportunity->phone}}" data-bs-opportunityusername="{{$thisopportunity->username}}" data-bs-email="{{$thisopportunity->email}}" data-bs-brand_id="{{$thisopportunity->brand_id}}" data-bs-package_id="{{$thisopportunity->package_id}}">Edit</a>
+                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ShowOpportunityModal" data-bs-opportunityid="{{$thisopportunity->id}}" data-bs-opportunityphone="{{$thisopportunity->phone}}" data-bs-opportunityusername="{{$thisopportunity->name}}" data-bs-email="{{$thisopportunity->email}}" data-bs-brand_id="{{$thisopportunity->getbrand->name}}" data-bs-package_id="{{$thisopportunity->getpackage->name}}" data-bs-url="{{$thisopportunity->url}}" data-bs-created_at="{{$thisopportunity->created_at}}">Show</a>
+                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditOpportunityModal" data-bs-opportunityid="{{$thisopportunity->id}}" data-bs-opportunityphone="{{$thisopportunity->phone}}" data-bs-opportunityusername="{{$thisopportunity->name}}" data-bs-email="{{$thisopportunity->email}}" data-bs-brand_id="{{$thisopportunity->brand_id}}" data-bs-package_id="{{$thisopportunity->package_id}}">Edit</a>
                                 <a href="javascript:;" class="dropdown-item deleteOpportunity" rel="{{$thisopportunity->id}}">Delete</a>
                                 
                             </div>
@@ -281,7 +281,7 @@
       <div class="modal-body">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Username:</label>
-            <input type="text" class="form-control opportunityusername" id="opportunityusername" name="username">
+            <input type="text" class="form-control opportunityusername" id="opportunityusername" name="name">
             <input type="hidden" name="id" id="opportunityid" class="opportunityid"/>
             {{@csrf_field()}}
           </div>

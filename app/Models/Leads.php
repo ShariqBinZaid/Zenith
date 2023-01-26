@@ -12,7 +12,7 @@ class Leads extends Model
     use SoftDeletes;
     protected $primarykey = 'id';
     protected $fillable = [
-        'username',
+        'name',
         'url',
         'email',
         'phone',
@@ -24,14 +24,6 @@ class Leads extends Model
         'email',
         'phone'
     ];
-    protected static function boot()
-    {
-        parent::boot();
-
-        Leads::creating(function($model) {
-            $model->created_by = auth()->user()->id;
-        });
-    }
     public function getBrand()
     {
         return $this->hasOne(Brands::class,'id','brand_id');

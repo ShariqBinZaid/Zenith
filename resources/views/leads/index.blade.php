@@ -50,7 +50,7 @@
                     {{csrf_field()}}
                     <div class="row mb-3">
                         <div class="col">
-                            <input type="text" value="{{ old('username') }}" class="form-control" name="username" placeholder="Name" aria-label="Name">
+                            <input type="text" value="{{ old('name') }}" class="form-control" name="name" placeholder="Name" aria-label="Name">
                         </div>
                         <div class="col">
                             <input type="text" value="{{ old('email') }}" name="email" class="form-control" placeholder="Email" aria-label="Email">
@@ -190,13 +190,13 @@
                     <a href="javascript:;">{{$loop->iteration}}</a>
                 </td>
                 @php
-                $explodedname = explode(' ',$thislead->username);
+                $explodedname = explode(' ',$thislead->name);
                 $initial = $explodedname[0][0];
                 @endphp
                 <td><div class="avatar avatar-info">
                         <span class="avatar-text rounded-circle">{{$initial}}</span>
                     </div></td>
-                <td>{{$thislead->username}}</td>
+                <td>{{$thislead->name}}</td>
                 <td>{{$thislead->getbrand->name}}</td>
                 
                 <td>
@@ -232,9 +232,9 @@
                                 <i class="bi bi-three-dots"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="javascript:;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#ShowLeadModal" data-bs-leadid="{{$thislead->id}}" data-bs-leadphone="{{$thislead->phone}}" data-bs-leadusername="{{$thislead->username}}" data-bs-email="{{$thislead->email}}" data-bs-brand_id="{{$thislead->getBrand->name}}" data-bs-url="{{$thislead->url}}" data-bs-created_at="{{$thislead->created_at}}">Show</a>
+                                <a href="javascript:;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#ShowLeadModal" data-bs-leadid="{{$thislead->id}}" data-bs-leadphone="{{$thislead->phone}}" data-bs-leadusername="{{$thislead->name}}" data-bs-email="{{$thislead->email}}" data-bs-brand_id="{{$thislead->getBrand->name}}" data-bs-url="{{$thislead->url}}" data-bs-created_at="{{$thislead->created_at}}">Show</a>
                                 @can('update leads')
-                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditLeadModal" data-bs-leadid="{{$thislead->id}}" data-bs-leadphone="{{$thislead->phone}}" data-bs-leadusername="{{$thislead->username}}" data-bs-email="{{$thislead->email}}" data-bs-brand_id="{{$thislead->brand_id}}">Edit</a>
+                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditLeadModal" data-bs-leadid="{{$thislead->id}}" data-bs-leadphone="{{$thislead->phone}}" data-bs-leadusername="{{$thislead->name}}" data-bs-email="{{$thislead->email}}" data-bs-brand_id="{{$thislead->brand_id}}">Edit</a>
                                 @endcan
                                 @can('delete leads')
                                 <a href="javascript:;" class="dropdown-item deleteLead" rel="{{$thislead->id}}">Delete</a>

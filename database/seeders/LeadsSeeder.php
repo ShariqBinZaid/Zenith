@@ -15,28 +15,28 @@ class LeadsSeeder extends Seeder
     public function run()
     {
         $leads = [[
-            'username' => 'Test Lead',
+            'name' => 'Test Lead',
             'email' => 'testlead@gmail.com',
             'phone' => '123456789',
             'message'=>'This is test lead',
             'url'=>'www.google.com',
             'brand_id'=>'2'
         ],[
-            'username' => 'Test Lead 1',
+            'name' => 'Test Lead 1',
             'email' => 'testlead1@gmail.com',
             'phone' => '1234567890',
             'message'=>'This is test lead 1',
             'url'=>'www.google.com',
             'brand_id'=>'2'
         ],[
-            'username' => 'Test Lead 2',
+            'name' => 'Test Lead 2',
             'email' => 'testlead2@gmail.com',
             'phone' => '12345678900',
             'message'=>'This is test lead 2',
             'url'=>'www.google.com',
             'brand_id'=>'1'
         ],[
-            'username' => 'Test Lead 3',
+            'name' => 'Test Lead 3',
             'email' => 'testlead3@gmail.com',
             'phone' => '123456789010',
             'message'=>'This is test lead 3',

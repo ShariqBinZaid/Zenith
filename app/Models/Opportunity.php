@@ -11,7 +11,7 @@ class Opportunity extends Model
     use SoftDeletes;
     protected $table = 'opportunity';
     protected $fillable = [
-        'username',
+        'name',
         'url',
         'email',
         'phone',
