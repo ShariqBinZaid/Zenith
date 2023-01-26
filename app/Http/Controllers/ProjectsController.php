@@ -35,13 +35,13 @@ class ProjectsController extends Controller
     {
         $opportunity = Opportunity::with('getBrand')->with('getPackage')->find($id);
         $useradded = User::create([
-            'name' => $opportunity->username,
+            'name' => $opportunity->name,
             'email' => $opportunity->email,
             'password' => bcrypt('123456789'),
             'phone'=>$opportunity->phone
         ])->assignRole('client');
         Projects::create([
-            'name'=>$opportunity->getBrand->initials.'- ('.$opportunity->username.'| '.$opportunity->email.')',
+            'name'=>$opportunity->getBrand->initials.'- ('.$opportunity->name.'| '.$opportunity->email.')',
             'package_id'=>$opportunity->getPackage->id,
             'customer_id'=>$useradded->id,
             'brand_id'=>$opportunity->getBrand->id,

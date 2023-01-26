@@ -15,7 +15,7 @@ class OpportunitySeeder extends Seeder
     public function run()
     {
         $opportunity = [[
-            'username' => 'Test Opportunity',
+            'name' => 'Test Opportunity',
             'email' => 'testopportunity@gmail.com',
             'phone' => '123456789',
             'message'=>'This is test Opportunity',
@@ -23,7 +23,7 @@ class OpportunitySeeder extends Seeder
             'url'=>'www.google.com',
             'package_id'=>'4'
         ],[
-            'username' => 'Test Opportunity 1',
+            'name' => 'Test Opportunity 1',
             'email' => 'testopportunity1@gmail.com',
             'phone' => '1234567890',
             'message'=>'This is test Opportunity 1',
@@ -31,7 +31,7 @@ class OpportunitySeeder extends Seeder
             'url'=>'www.google.com',
             'package_id'=>'3'
         ],[
-            'username' => 'Test Opportunity 2',
+            'name' => 'Test Opportunity 2',
             'email' => 'testopportunity2@gmail.com',
             'phone' => '12345678900',
             'message'=>'This is test Opportunity 2',
@@ -39,7 +39,7 @@ class OpportunitySeeder extends Seeder
             'url'=>'www.google.com',
             'package_id'=>'2'
         ],[
-            'username' => 'Test Opportunity 3',
+            'name' => 'Test Opportunity 3',
             'email' => 'testopportunity3@gmail.com',
             'phone' => '123456789010',
             'message'=>'This is test Opportunity 3',

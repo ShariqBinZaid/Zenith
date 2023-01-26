@@ -27,7 +27,6 @@ Route::group(['prefix'=>'salesforce/leads','as'=>'lead.','middleware' => ['auth'
     Route::post('update-lead',[App\Http\Controllers\LeadsController::class, 'update'])->name('updatelead');
     Route::post('delete-lead',[App\Http\Controllers\LeadsController::class, 'destroy'])->name('deleteLead');
     Route::get('assign-lead/{id}',[App\Http\Controllers\LeadsController::class, 'assignLead'])->name('assignLead')->permission('assign leads');
-    
     Route::post('assign-lead-submit',[App\Http\Controllers\LeadsController::class, 'assignLeadSubmit'])->name('assignLeadSubmit');
     Route::post('unassign-lead-submit',[App\Http\Controllers\LeadsController::class, 'unassignLeadSubmit'])->name('unassignLeadSubmit');
 });

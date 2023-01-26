@@ -83,7 +83,7 @@
                     <div class="text-center">
                     <div class="card mt-3" style="width: 18rem;">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><b>Name</b> : {{$opportunity->username}}</li>
+                            <li class="list-group-item"><b>Name</b> : {{$opportunity->name}}</li>
                             <li class="list-group-item"><b>Email</b> :  {{$opportunity->email}}</li>
                             <li class="list-group-item"><b>Phone</b> :  {{$opportunity->phone}}</li>
                         </ul>

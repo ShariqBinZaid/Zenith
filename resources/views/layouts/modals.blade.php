@@ -12,7 +12,7 @@
       <div class="modal-body">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Username:</label>
-            <input type="text" class="form-control leadusername" id="leadusername" name="username">
+            <input type="text" class="form-control leadusername" id="leadusername" name="name">
             <input type="hidden" name="id" id="leadid" class="leadid"/>
             {{@csrf_field()}}
           </div>

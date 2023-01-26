@@ -51,12 +51,12 @@ class OpportunityController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'username' => 'required',
+            'name' => 'required',
             'email' => 'required|email|unique:opportunity',
             'phone' => 'required|unique:opportunity',
             'package_id'=>'required'
         ], [
-            'username.required' => 'Name field is required.',
+            'name.required' => 'Name field is required.',
             'email.required' => 'Email field is required.',
             'email.email' => 'Email field must contain the email address.',
             'email.unique' => 'Email already registered as an opportunity!',
@@ -105,15 +105,15 @@ class OpportunityController extends Controller
     public function update(Request $request)
     {
         $validatedData = $request->validate([
-            'username' => 'required',
+            'name' => 'required',
             'package_id' => 'required'
         ], [
-            'username.required' => 'Name field is required.',
+            'name.required' => 'Name field is required.',
             'package_id' => 'Select Package'
         ]);
         $opportunityupdate = Opportunity::find($request->id);
         $brand_id = Packages::where('id',$request->package_id)->pluck('brand_id')->first();
-        $opportunityupdate->update(['username' => $request->username , 'brand_id' => $brand_id ,'package_id' => $request->package_id]);
+        $opportunityupdate->update(['name' => $request->name , 'brand_id' => $brand_id ,'package_id' => $request->package_id]);
         $successmessage = "Opportunity updated successfully!";
         return 'success';
     }
