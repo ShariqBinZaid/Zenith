@@ -119,6 +119,7 @@
                             <li class="list-group-item"><b>Name</b> : {{$userdata->name}}</li>
                             <li class="list-group-item"><b>Email</b> :  {{$userdata->email}}</li>
                             <li class="list-group-item"><b>Role</b> :  {{ucwords(strtolower(str_replace('_',' ',$userdata->roles->pluck('name')[0] ?? '')), '\',. ')}}</li>
+                            <li class="list-group-item"><b>Reporting Authority</b> :  @foreach($reportingauthority as $thisreportingauth)<a href="{{route('users.editUser',$thisreportingauth->id)}}">{{$thisreportingauth->name}}</a>@endforeach</li>
                         </ul>
                     </div>
                     </div>

@@ -179,7 +179,6 @@
                 <th>Fullname</th>
                 <th>Brand</th>
                 <th>Assigned to</th>
-                <th>Created By</th>
                 <th class="text-end">Actions</th>
             </tr>
             </thead>
@@ -197,7 +196,9 @@
                         <span class="avatar-text rounded-circle">{{$initial}}</span>
                     </div></td>
                 <td>{{$thislead->name}}</td>
-                <td>{{$thislead->getbrand->name}}</td>
+                <td><a href="javascript:;" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thislead->getBrand->name}}">
+                            <img src="{{asset('images/'.$thislead->getBrand->image)}}" class="rounded" alt="image">
+                        </a></td>
                 
                 <td>
                     <div class="avatar-group me-2">
@@ -207,21 +208,6 @@
                         </a>
                         @endforeach
                     </div>
-                </td>
-                <td>
-                    @if($thislead->created_by==null)
-                    <div class="avatar-group me-2">
-                        <a href="javascript:;" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thislead->getBrand->name}}">
-                            <img src="{{asset('images/'.$thislead->getBrand->image)}}" class="rounded-circle" alt="image">
-                        </a>
-                    </div>
-                    @else
-                    <div class="avatar-group me-2">
-                        <a href="{{route('users.editUser',$thislead->getCreator->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thislead->getCreator->name}}">
-                            <img src="{{asset('images/'.$thislead->getCreator->image)}}" class="rounded-circle" alt="image">
-                        </a>
-                    </div>
-                    @endif
                 </td>
                 <td class="text-end">
                     <div class="d-flex">

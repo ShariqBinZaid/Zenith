@@ -51,9 +51,6 @@ class PermissionsSeeder extends Seeder
             'name' => 'edit opportunities',
             'guard_name' => 'api',
         ],[
-            'name' => 'update opportunities',
-            'guard_name' => 'api',
-        ],[
             'name' => 'view opportunities',
             'guard_name' => 'api',
         ],[

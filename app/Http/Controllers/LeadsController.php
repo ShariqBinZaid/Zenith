@@ -39,8 +39,7 @@ class LeadsController extends Controller
                 $query->where('leads_user.user_id', '=', $user->id);
             })->paginate(10);
         }
-        
-        $allbrands = Brands::orderBy('created_at','desc')->get();
+        $allbrands = Brands::latest()->get();
         $totalleads = Leads::count();
         return view('leads.index',compact(['leads','totalleads','allbrands']));
     }

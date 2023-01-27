@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
-
+use DB;
+use App\Models\Teams;
 class UserController extends Controller
 {
     /**
@@ -106,8 +107,28 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $teams = DB::table('teams_user')->where('user_id',$id)->get();
+        $reportingauthority = array();
+        foreach($teams as $thisteam)
+        {
+            $leader = Teams::where('id','=',$thisteam->teams_id)->with('getLeader')->first();
+            $user = User::find($leader->getLeader->id);
+            array_push($reportingauthority,$user);
+        }
+        $admin = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'admin');
+            }
+        )->get();
+        if($reportingauthority == NULL)
+        {
+            foreach($admin as $thisadmin)
+            {
+                array_push($reportingauthority,$thisadmin);
+            }
+        }
         $userdata = User::find($id);
-        return view('users.show',compact(['userdata']));
+        return view('users.show',compact(['userdata','reportingauthority']));
     }
     public function changepassword(Request $request)
     {

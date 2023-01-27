@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Opportunity;
 use App\Models\Brands;
+use App\Models\Teams;
 use App\Models\User;
 use App\Models\Packages;
 use Auth;
@@ -21,7 +22,17 @@ class OpportunityController extends Controller
         if(Auth::user()->roles->pluck('name')[0] == 'admin')
         {
             $opportunities = Opportunity::latest()->with('getBrand')->with('getPackage')->paginate(10);
-        }else{
+        }
+        else if(Auth::user()->roles->pluck('name')[0] == 'business_unit_head'){
+            $teamid = Teams::where('leader',Auth::user()->id)->with('brands')->first();
+            $brands = array();
+            foreach($teamid->brands as $thisbrand)
+            {
+                array_push($brands,$thisbrand->id);
+            }
+            $opportunities = Opportunity::whereIn('brand_id', $brands)->paginate(10);
+        }
+        else{
             $user = Auth::user();
             $opportunities =Opportunity::whereHas('users', function ($query) use ($user) {
                         $query->where('opportunity_user.user_id', '=', $user->id);

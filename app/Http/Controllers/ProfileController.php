@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Teams;
 use Auth;
+use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 class ProfileController extends Controller
@@ -16,7 +18,15 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('profile.index');
+        $teams = DB::table('teams_user')->where('user_id',Auth::user()->id)->get();
+        $reportingauthority = array();
+        foreach($teams as $thisteam)
+        {
+            $leader = Teams::where('id','=',$thisteam->teams_id)->with('getLeader')->first();
+            $user = User::find($leader->getLeader->id);
+            array_push($reportingauthority,$user);
+        }
+        return view('profile.index',compact('reportingauthority'));
     }
 
     /**

@@ -183,7 +183,6 @@
                 <th>Brand</th>
                 <th>Package</th>
                 <th>Assigned to</th>
-                <th>Created By</th>
                 <!-- <th>URL</th> -->
                 <th class="text-end">Actions</th>
             </tr>
@@ -204,7 +203,9 @@
                 <td>{{$thisopportunity->name}}</td>
                 <!-- <td>{{$thisopportunity->email}}</td> -->
                 <!-- <td>{{$thisopportunity->phone}}</td> -->
-                <td>{{$thisopportunity->getbrand->name}}</td>
+                <td><a href="javascript:;" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisopportunity->getBrand->name}}">
+                            <img src="{{asset('images/'.$thisopportunity->getBrand->image)}}" class="rounded" alt="image">
+                        </a></td>
                 <td>{{$thisopportunity->getpackage->name}}</td>
                 <td>
                     <div class="avatar-group me-2">
@@ -215,21 +216,7 @@
                         @endforeach
                     </div>
                 </td>
-                <td>
-                    @if($thisopportunity->created_by==null)
-                    <div class="avatar-group me-2">
-                        <a href="javascript:;" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisopportunity->getBrand->name}}">
-                            <img src="{{asset('images/'.$thisopportunity->getBrand->image)}}" class="rounded-circle" alt="image">
-                        </a>
-                    </div>
-                    @else
-                    <div class="avatar-group me-2">
-                        <a href="{{route('users.editUser',$thisopportunity->getCreator->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisopportunity->getCreator->name}}">
-                            <img src="{{asset('images/'.$thisopportunity->getCreator->image)}}" class="rounded-circle" alt="image">
-                        </a>
-                    </div>
-                    @endif
-                </td>
+                
                 <!-- <td>
                     <span class="badge bg-success">{{$thisopportunity->url}}</span>
                 </td> -->
@@ -248,10 +235,14 @@
                                 @can('convert opportunity to project')
                                 <a href="{{route('projects.opportunity_to_project',$thisopportunity->id)}}" class="dropdown-item">Convert into Project</a>
                                 @endcan
-                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ShowOpportunityModal" data-bs-opportunityid="{{$thisopportunity->id}}" data-bs-opportunityphone="{{$thisopportunity->phone}}" data-bs-opportunityusername="{{$thisopportunity->name}}" data-bs-email="{{$thisopportunity->email}}" data-bs-brand_id="{{$thisopportunity->getbrand->name}}" data-bs-package_id="{{$thisopportunity->getpackage->name}}" data-bs-url="{{$thisopportunity->url}}" data-bs-created_at="{{$thisopportunity->created_at}}">Show</a>
-                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditOpportunityModal" data-bs-opportunityid="{{$thisopportunity->id}}" data-bs-opportunityphone="{{$thisopportunity->phone}}" data-bs-opportunityusername="{{$thisopportunity->name}}" data-bs-email="{{$thisopportunity->email}}" data-bs-brand_id="{{$thisopportunity->brand_id}}" data-bs-package_id="{{$thisopportunity->package_id}}">Edit</a>
-                                <a href="javascript:;" class="dropdown-item deleteOpportunity" rel="{{$thisopportunity->id}}">Delete</a>
                                 
+                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ShowOpportunityModal" data-bs-opportunityid="{{$thisopportunity->id}}" data-bs-opportunityphone="{{$thisopportunity->phone}}" data-bs-opportunityusername="{{$thisopportunity->name}}" data-bs-email="{{$thisopportunity->email}}" data-bs-brand_id="{{$thisopportunity->getbrand->name}}" data-bs-package_id="{{$thisopportunity->getpackage->name}}" data-bs-url="{{$thisopportunity->url}}" data-bs-created_at="{{$thisopportunity->created_at}}">Show</a>
+                                @can('edit opportunities')
+                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditOpportunityModal" data-bs-opportunityid="{{$thisopportunity->id}}" data-bs-opportunityphone="{{$thisopportunity->phone}}" data-bs-opportunityusername="{{$thisopportunity->name}}" data-bs-email="{{$thisopportunity->email}}" data-bs-brand_id="{{$thisopportunity->brand_id}}" data-bs-package_id="{{$thisopportunity->package_id}}">Edit</a>
+                                @endcan
+                                @can('delete opportunities')
+                                <a href="javascript:;" class="dropdown-item deleteOpportunity" rel="{{$thisopportunity->id}}">Delete</a>
+                                @endcan
                             </div>
                         </div>
                     </div>
@@ -355,7 +346,7 @@
         success: function(res){
            	Swal.fire(
 			  'Thank You!',
-			  'opportunity has been updated successfully!',
+			  'Opportunity has been updated successfully!',
 			  'success'
 			)
             $('#allOpportunity').load(document.URL +  ' #allOpportunity');
