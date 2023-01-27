@@ -72,8 +72,6 @@ Route::group(['prefix'=>'admin/settings','as'=>'packageTypes.','middleware' => [
 });
 
 
-
-
 Route::group(['prefix'=>'profile','as'=>'profile.','middleware' => ['auth']], function(){
     Route::get('myProfile', [App\Http\Controllers\ProfileController::class, 'index'])->name('myProfile');
     Route::post('editProfile',[App\Http\Controllers\ProfileController::class, 'update'])->name('editProfile');
@@ -114,7 +112,6 @@ Route::group(['prefix'=>'users','as'=>'users.','middleware' => ['auth']], functi
     Route::get('inactive-users', [App\Http\Controllers\UserController::class, 'inactiveusers'])->name('inactiveUsers');
     Route::post('add-user',[App\Http\Controllers\UserController::class, 'store'])->name('addUser');
     Route::post('add-client',[App\Http\Controllers\UserController::class, 'addClient'])->name('addClient');
-    
     Route::get('show-user/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('editUser');
     Route::post('update-user',[App\Http\Controllers\UserController::class, 'update'])->name('updateUser');
     Route::post('delete-user',[App\Http\Controllers\UserController::class, 'destroy'])->name('inactiveUser');
@@ -125,6 +122,7 @@ Route::group(['prefix'=>'users','as'=>'users.','middleware' => ['auth']], functi
     Route::post('unassign-user-role',[App\Http\Controllers\UserController::class, 'unassignRoletoUser'])->name('unassignRoletoUser');
     Route::post('assign-user-perm',[App\Http\Controllers\UserController::class, 'assignPermtoUser'])->name('assignPermtoUser');
     Route::post('unassign-user-perm',[App\Http\Controllers\UserController::class, 'unassignPermtoUser'])->name('unassignPermtoUser');
+    Route::get('team/{id}', [App\Http\Controllers\TeamsController::class, 'show'])->name('thisTeam');
 });
 
 Route::group(['prefix'=>'projects','as'=>'projects.','middleware' => ['auth']], function(){

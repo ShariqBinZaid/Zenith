@@ -20,13 +20,15 @@ class ProfileController extends Controller
     {
         $teams = DB::table('teams_user')->where('user_id',Auth::user()->id)->get();
         $reportingauthority = array();
+        $teamdata = array();
         foreach($teams as $thisteam)
         {
             $leader = Teams::where('id','=',$thisteam->teams_id)->with('getLeader')->first();
             $user = User::find($leader->getLeader->id);
             array_push($reportingauthority,$user);
+            array_push($teamdata,$leader);
         }
-        return view('profile.index',compact('reportingauthority'));
+        return view('profile.index',compact('reportingauthority','teamdata'));
     }
 
     /**

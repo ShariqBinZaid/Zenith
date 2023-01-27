@@ -64,9 +64,9 @@ class TeamsController extends Controller
      * @param  \App\Models\Teams  $teams
      * @return \Illuminate\Http\Response
      */
-    public function show(Teams $teams)
+    public function show($id)
     {
-        //
+        return view('teams.index');
     }
 
     /**
