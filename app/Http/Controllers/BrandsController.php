@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Brands;
+use App\Models\Teams;
 Use Exception;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Resources\ImagesResource;
 use Image;
 use File;
+use Auth;
 class BrandsController extends Controller
 {
     /**
@@ -18,7 +20,15 @@ class BrandsController extends Controller
      */
     public function index()
     {
-        $brands = Brands::orderBy('created_at','desc')->paginate(10);
+        if(Auth::user()->roles->pluck('name')[0] == 'admin')
+        {
+            $brands = Brands::latest()->paginate(10);
+        }else{
+            $teamid = Teams::isLeader(Auth::user()->id)->pluck('id')->first();
+            $brands =Brands::whereHas('teams', function ($query) use ($teamid) {
+                $query->where('brands_teams.teams_id', '=', $teamid);
+            })->latest()->paginate(10);
+        }
         $totalbrand = Brands::count();
         return view('brands.index',compact(['brands','totalbrand']));
     }

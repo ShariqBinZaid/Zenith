@@ -63,7 +63,7 @@ class PermissionsSeeder extends Seeder
             'name' => 'add opportunities',
             'guard_name' => 'api',
         ],[
-            'name' => 'edit brands',
+            'name' => 'add brands',
             'guard_name' => 'api',
         ],[
             'name' => 'update brands',

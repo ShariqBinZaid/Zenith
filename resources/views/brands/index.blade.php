@@ -15,7 +15,7 @@
             </ol>
         </nav>
     </div>
-
+    @can('add brands')
     <div class="row g-4 mb-4">
         <div class="col-md-8">
             <div class="card h-100">
@@ -125,7 +125,7 @@
             </div>
         </div>
     </div>
-
+    @endcan
     <!-- <div class="card">
         <div class="card-body">
             <div class="d-md-flex">
@@ -192,7 +192,7 @@
                 <td>
                     <a href="javascript:;">{{$loop->iteration}}</a>
                 </td>
-                <td><img src="{{asset('images/'.$thisbrand->image)}}" class="imageintable"/></td>
+                <td><a class="image-popup" href="{{asset('images/'.$thisbrand->image)}}"><img src="{{asset('images/'.$thisbrand->image)}}" class="imageintable"/></a></td>
                 <td>{{$thisbrand->name}}</td>
                 <td>{{$thisbrand->type}}</td>
                 <td>
@@ -210,8 +210,12 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a href="javascript:;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#ShowbrandModal" data-bs-id="{{$thisbrand->id}}" data-bs-name="{{$thisbrand->name}}" data-bs-image="{{asset('images/'.$thisbrand->image)}}" data-bs-type="{{$thisbrand->type}}" data-bs-url="{{$thisbrand->url}}" data-bs-initials="{{$thisbrand->initials}}" data-bs-created_at="{{$thisbrand->created_at}}">Show</a>
+                                @can('update brands')
                                 <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditbrandModal" data-bs-id="{{$thisbrand->id}}" data-bs-name="{{$thisbrand->name}}" data-bs-image="{{asset('images/'.$thisbrand->image)}}" data-bs-type="{{$thisbrand->type}}" data-bs-url="{{$thisbrand->url}}" data-bs-initials="{{$thisbrand->initials}}" data-bs-oldimagelink="{{$thisbrand->image}}">Edit</a>
+                                @endcan
+                                @can('delete brands')
                                 <a href="javascript:;" class="dropdown-item deleteBrand" rel="{{$thisbrand->id}}">Delete</a>
+                                @endcan
                             </div>
                         </div>
                     </div>

@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{asset('css/bootstrap-docs.css')}}" type="text/css">
 
     <!-- Slick -->
+<link rel="stylesheet" href="{{asset('libs/lightbox/magnific-popup.css')}}" type="text/css">
 <link rel="stylesheet" href="{{asset('libs/slick/slick.css')}}" type="text/css">
 
 <!-- Main style file -->

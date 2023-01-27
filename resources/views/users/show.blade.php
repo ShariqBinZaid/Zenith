@@ -107,9 +107,11 @@
                         <h6 class="card-title mb-0">{{$userdata->name}}'s Profile</h6>
                     </div>
                      <div class="text-center">
+                     <a class="image-popup" href="{{asset('images/'.$userdata->image)}}">
                         <div class="avatar avatar-xl">
                             <img src="{{asset('images/'.$userdata->image)}}" class="rounded-circle" alt="image">
                         </div>
+                     </a>
                     </div>
                     <div class="text-center">
                     <div class="card mt-3" style="width: 18rem;">

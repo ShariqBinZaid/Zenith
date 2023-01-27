@@ -12,10 +12,10 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item " aria-current="page">
-                    <a href="{{route('admin.allRoles')}}">Roles</a>
+                    <a href="{{route('admin.allPermissions')}}">Permissions</a>
                 </li>
                 <li class="breadcrumb-item " aria-current="page">
-                    <a href="">Assign Roles</a>
+                    <a href="javascript:;">Assign Roles</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">{{ucwords(strtolower(str_replace('_',' ',$permissiondata->name)), '\',. ')}}</li>
                 

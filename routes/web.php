@@ -44,7 +44,7 @@ Route::group(['prefix'=>'salesforce/opportunities','as'=>'opportunity.','middlew
 
 });
 
-Route::group(['prefix'=>'marketing/brands','as'=>'brands.','middleware' => ['auth','role:admin']], function(){
+Route::group(['prefix'=>'marketing/brands','as'=>'brands.','middleware' => ['auth','role:admin|business_unit_head']], function(){
     Route::get('/', [App\Http\Controllers\BrandsController::class, 'index'])->name('allBrands');
     Route::post('add-brand',[App\Http\Controllers\BrandsController::class, 'store'])->name('addBrand');
     Route::post('update-brand',[App\Http\Controllers\BrandsController::class, 'update'])->name('updateBrand');

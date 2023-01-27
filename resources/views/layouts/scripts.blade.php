@@ -19,6 +19,7 @@
 
 <!-- Prism -->
 <script src="{{asset('libs/prism/prism.js')}}"></script>
+<script src="{{asset('libs/lightbox/jquery.magnific-popup.min.js')}}"></script>
 <script src="{{asset('libs/ckeditor5/ckeditor.js')}}"></script>
 <!-- Examples -->
 

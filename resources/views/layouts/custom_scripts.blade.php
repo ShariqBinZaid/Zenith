@@ -8,7 +8,20 @@
         ]
     }
 })
+
+$('.image-popup').magnificPopup({
+    type: 'image',
+    zoom: {
+        enabled: true,
+        duration: 300,
+        easing: 'ease-in-out',
+        opener: function(openerElement) {
+            return openerElement.is('img') ? openerElement : openerElement.find('img');
+        }
+    }
+});
 </script>
+
 <!--CK EDITOR SCRIPT END-->
 <!-- Delete Lead Ajax Start -->
 <script type="text/javascript">

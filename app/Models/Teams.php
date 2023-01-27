@@ -22,4 +22,8 @@ class Teams extends Model
     {
         return $this->hasOne(User::class,'id','leader');
     }
+    public function scopeisLeader($query,$id)
+    {
+        return $query->where('leader',$id);
+    }
 }
