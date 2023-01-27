@@ -530,7 +530,7 @@
             <div class="col-lg-7 col-md-12">
                 <div class="card widget">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5 class="card-title">Recent Products</h5>
+                        <h5 class="card-title">Recent Brands</h5>
                         <div class="dropdown ms-auto">
                             <a href="#" data-bs-toggle="dropdown" class="btn btn-sm btn-floating" aria-haspopup="true"
                             aria-expanded="false">
@@ -544,8 +544,64 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <p class="text-muted">Products added today. Click <a href="#">here</a> for more details</p>
+                        <p class="text-muted">Brands added today. Click <a href="{{route('brands.allBrands')}}">here</a> for more details</p>
                         <div class="table-responsive">
+                            <table class="table table-custom mb-0" id="recent-brands">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <input class="form-check-input select-all" type="checkbox"
+                                            data-select-all-target="#recent-brands" id="defaultCheck1">
+                                    </th>
+                                    <th>ID</th>
+                                    <th>Logo</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>URL</th>
+                                    <th>Initials</th>
+                                    <!-- <th class="text-end">Actions</th> -->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($brands as $thisbrand)
+                                <tr>
+                                    <td>
+                                        <input class="form-check-input" type="checkbox">
+                                    </td>
+                                    <td>{{$thisbrand->id}}</td>
+                                    <td>
+                                        <a href="javascript:;">
+                                            <img src="{{asset('images/'.$thisbrand->image)}}" class="rounded" width="40"
+                                                alt="...">
+                                        </a>
+                                    </td>
+                                    <td>{{$thisbrand->name}}</td>
+                                    <td>{{$thisbrand->type}}</td>
+                                    <td>{{$thisbrand->url}}</td>
+                                    <td>{{$thisbrand->initials}}</td>
+                                    <!-- <td>{{$thisbrand->created_at}}</td> -->
+                                    <!-- <td class="text-end">
+                                        <div class="d-flex">
+                                        <div class="dropdown ms-auto">
+                                            <a href="#" data-bs-toggle="dropdown"
+                                            class="btn btn-floating"
+                                            aria-haspopup="true" aria-expanded="false">
+                                                <i class="bi bi-three-dots"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a href="javascript:;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#ShowbrandModal" data-bs-id="{{$thisbrand->id}}" data-bs-name="{{$thisbrand->name}}" data-bs-image="{{asset('images/'.$thisbrand->image)}}" data-bs-type="{{$thisbrand->type}}" data-bs-url="{{$thisbrand->url}}" data-bs-initials="{{$thisbrand->initials}}" data-bs-created_at="{{$thisbrand->created_at}}">Show</a>
+                                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditbrandModal" data-bs-id="{{$thisbrand->id}}" data-bs-name="{{$thisbrand->name}}" data-bs-image="{{asset('images/'.$thisbrand->image)}}" data-bs-type="{{$thisbrand->type}}" data-bs-url="{{$thisbrand->url}}" data-bs-initials="{{$thisbrand->initials}}" data-bs-oldimagelink="{{$thisbrand->image}}">Edit</a>
+                                                <a href="javascript:;" class="dropdown-item deleteBrand" rel="{{$thisbrand->id}}">Delete</a>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </td> -->
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- <div class="table-responsive">
                             <table class="table table-custom mb-0" id="recent-products">
                                 <thead>
                                 <tr>
@@ -691,7 +747,7 @@
                                 </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

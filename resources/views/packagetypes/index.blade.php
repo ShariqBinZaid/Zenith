@@ -8,7 +8,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{route('adminDashboard')}}">
-                        <i class="bi bi-globe2 small me-2"></i> Marketing
+                        <i class="bi bi-globe2 small me-2"></i> Setting
                     </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Package Types</li>
