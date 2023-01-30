@@ -89,6 +89,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Team Leader</th>
+                <th>Number of members</th>
                 <th class="text-end">Actions</th>
             </tr>
             </thead>
@@ -99,7 +100,12 @@
                     <a href="javascript:;">{{$loop->iteration}}</a>
                 </td>
                 <td><a href="{{route('users.thisTeam',$thisteam->id)}}">{{$thisteam->name}}</a></td>
-                <td><a href="{{route('users.editUser',$thisteam->getLeader->id)}}">{{$thisteam->getLeader->name}}</a></td>
+                <td><a href="{{route('users.editUser',$thisteam->getLeader->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisteam->getLeader->name}}"><img src="{{asset('images/'.$thisteam->getLeader->image)}}" class="rounded" alt="image"></a></td>
+                <td><div class="avatar-group me-2">@foreach($thisteam->users as $thisuser)
+                        <a href="{{route('users.editUser',$thisuser->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisuser->name}}">
+                            <img src="{{asset('images/'.$thisuser->image)}}" class="rounded-circle" alt="image">
+                        </a>
+                        @endforeach</div></td>
                 <td class="text-end">
                     <div class="d-flex">
                         <div class="dropdown ms-auto">
