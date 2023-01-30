@@ -22,7 +22,7 @@
     </div>
     <div class="row align-items-center mb-4 g-3 mt-4">
         <div class="col-md-9">
-            <h6 class="mb-0">Team Members</h6>
+            <h4 class="mb-0">Team Members</h4>
         </div>
         <div class="col-md-3 ms-auto">
             
@@ -47,8 +47,31 @@
         </div>
         @endforeach
     </div>
-
-    
+    <div class="row align-items-center mb-4 g-3 mt-4">
+        <div class="col-md-9">
+            <h4 class="mb-0">Brands</h4>
+        </div>
+        <div class="col-md-3 ms-auto">
+            
+        </div>
+    </div>
+    <div class="row g-4">
+        @foreach($teamdetails->brands as $thisbrand)
+        
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="avatar avatar-xl mb-3">
+                        <img src="{{asset('images/'.$thisbrand->image)}}" class="rounded-circle" alt="...">
+                    </div>
+                    <div class="mb-4">
+                        <h6><a href="javascript:;">{{$thisbrand->name}}</a></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
 
     </div>
     @endsection

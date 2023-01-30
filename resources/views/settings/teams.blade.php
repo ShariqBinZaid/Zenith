@@ -89,7 +89,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Team Leader</th>
-                <th>Number of members</th>
+                <th>Members</th>
                 <th class="text-end">Actions</th>
             </tr>
             </thead>
