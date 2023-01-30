@@ -67,7 +67,7 @@
                     <div class="card-body">
                         <div class="d-flex mb-3">
                             <div class="display-7">
-                                <i class="bi bi-briefcase"></i>
+                                <i class="bi bi-box"></i>
                                 <!-- <i class="bi bi-credit-card-2-front"></i> -->
                             </div>
                             <div class="dropdown ms-auto">
