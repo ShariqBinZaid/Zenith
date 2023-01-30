@@ -150,7 +150,7 @@
                     <a href="javascript:;">{{$loop->iteration}}</a>
                 </td>
                 <td><a class="image-popup" href="{{asset('images/'.$thisuser->image)}}"><img src="{{asset('images/'.$thisuser->image)}}" height="50px" width="50px" class="showusersimage"/></a></td>
-                <td>{{$thisuser->name}}</td>
+                <td><a href="{{route('users.editUser',$thisuser->id)}}">{{$thisuser->name}}</a></td>
                 <td>{{$thisuser->email}}</td>
                 <td>{{ucwords(strtolower(str_replace('_',' ',$thisuser->roles->pluck('name')[0] ?? '')), '\',. ')}}</td>
                 @can('update users')
