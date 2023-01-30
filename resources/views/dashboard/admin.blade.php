@@ -215,7 +215,7 @@
                     <div class="card-body">
                         <div id="sales-channels"></div>
                         <div class="row text-center mb-5 mt-4">
-                            <div class="col-4">
+                            <div class="col-3">
                                 <div class="display-7">48%</div>
                                 <div class="text-success my-2 small">
                                     <i class="bi bi-arrow-up me-1 small"></i>30.50%
@@ -225,7 +225,17 @@
                                     <span class="text-muted">Social Media</span>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
+                                <div class="display-7">80%</div>
+                                <div class="text-success my-2 small">
+                                    <i class="bi bi-arrow-up me-1 small"></i>50.50%
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-circle-fill text-orange me-2 small"></i>
+                                    <span class="text-muted">PPC</span>
+                                </div>
+                            </div>
+                            <div class="col-3">
                                 <div class="display-7">30%</div>
                                 <div class="text-danger my-2 small">
                                     <i class="bi bi-arrow-down me-1 small"></i>15.20%
@@ -235,7 +245,7 @@
                                     <span class="text-muted">Google</span>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <div class="display-7">22%</div>
                                 <div class="text-success my-2 small">
                                     <i class="bi bi-arrow-up me-1 small"></i>1.80%
@@ -557,9 +567,9 @@
                                     <th>ID</th>
                                     <th>Logo</th>
                                     <th>Name</th>
+                                    <th>Initials</th>
                                     <th>Type</th>
                                     <th>URL</th>
-                                    <th>Initials</th>
                                     <!-- <th class="text-end">Actions</th> -->
                                 </tr>
                                 </thead>
@@ -577,9 +587,9 @@
                                         </a>
                                     </td>
                                     <td>{{$thisbrand->name}}</td>
+                                    <td>{{$thisbrand->initials}}</td>
                                     <td>{{$thisbrand->type}}</td>
                                     <td>{{$thisbrand->url}}</td>
-                                    <td>{{$thisbrand->initials}}</td>
                                     <!-- <td>{{$thisbrand->created_at}}</td> -->
                                     <!-- <td class="text-end">
                                         <div class="d-flex">

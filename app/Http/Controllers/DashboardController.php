@@ -16,7 +16,7 @@ class DashboardController extends Controller
         $totalopportunity=Opportunity::count();
         $totalbrand=Brands::count();
         $totalpackage=Packages::count();
-        $brands = Brands::orderBy('created_at','desc')->paginate(10);
+        $brands = Brands::latest()->take(4)->get();
         $totalbrand = Brands::count();
         return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage','brands']));
     }
