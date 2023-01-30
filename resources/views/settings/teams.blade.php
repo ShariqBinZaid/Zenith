@@ -98,8 +98,8 @@
                 <td>
                     <a href="javascript:;">{{$loop->iteration}}</a>
                 </td>
-                <td>{{$thisteam->name}}</td>
-                <td>{{$thisteam->getLeader->name}}</td>
+                <td><a href="{{route('users.thisTeam',$thisteam->id)}}">{{$thisteam->name}}</a></td>
+                <td><a href="{{route('users.editUser',$thisteam->getLeader->id)}}">{{$thisteam->getLeader->name}}</a></td>
                 <td class="text-end">
                     <div class="d-flex">
                         <div class="dropdown ms-auto">

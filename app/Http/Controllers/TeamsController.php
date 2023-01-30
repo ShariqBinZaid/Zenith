@@ -66,7 +66,8 @@ class TeamsController extends Controller
      */
     public function show($id)
     {
-        return view('teams.index');
+        $teamdetails = Teams::find($id);
+        return view('teams.index',compact(['teamdetails']));
     }
 
     /**
