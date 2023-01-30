@@ -92,7 +92,7 @@ class BrandsController extends Controller
      */
     public function show($id)
     {
-        //
+        $branddetails = Brands::find($id);
     }
 
     /**
