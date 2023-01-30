@@ -10,7 +10,8 @@ use App\Models\Opportunity;
 
 class DashboardController extends Controller
 {
-    public function adminDashboard(){
+    public function adminDashboard()
+    {
         $totalead=Leads::count();
         $totalopportunity=Opportunity::count();
         $totalbrand=Brands::count();
@@ -27,12 +28,4 @@ class DashboardController extends Controller
 
 
 
-// {
-//     public function adminDashboard(){
-//         $totalead=Leads::count();
-//         $totalopportunity=Opportunity::count();
-//         $totalbrand=Brands::count();
-//         $totalpackage=Packages::count();
-//         return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage']));
-//     }
-// }
+
