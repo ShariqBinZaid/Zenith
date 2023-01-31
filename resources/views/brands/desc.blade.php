@@ -112,23 +112,21 @@
             </div>
 
             <div class="col-lg-4 col-md-6 col-sm-12 mt-5" style="margin:0px auto;">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="avatar avatar-xl mb-3">
-                                <img src="{{asset('images/'.$branddetails->image)}}" class="rounded-circle" alt="...">
-                            </div>
-                            <div class="mb-4">
-                                <h3>Name : {{$branddetails->name}}</h3>
-                                <h6>Type : {{$branddetails->type}}</h6>
-                                <h6>Initials : {{$branddetails->initials}}</h6>
-                                <h6>URL : {{$branddetails->url}}</h6>
-                            </div>
-                            
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="avatar avatar-xl mb-3">
+                            <img src="{{asset('images/'.$branddetails->image)}}" class="rounded-circle" alt="...">
                         </div>
+                        <div class="mb-4">
+                            <h3>Name : {{$branddetails->name}}</h3>
+                            <h6>Type : {{$branddetails->type}}</h6>
+                            <h6>Initials : {{$branddetails->initials}}</h6>
+                            <h6>URL : {{$branddetails->url}}</h6>
+                        </div>
+                        
                     </div>
                 </div>
-            </div>
-            
+            </div>            
         </div>    
     </div>        
 

@@ -193,7 +193,7 @@
                     <a href="javascript:;">{{$loop->iteration}}</a>
                 </td>
                 <td><a class="image-popup" href="{{asset('images/'.$thisbrand->image)}}"><img src="{{asset('images/'.$thisbrand->image)}}" class="imageintable"/></a></td>
-                <td><a href="{{route('users.editUser',$thisbrand->id)}}">{{$thisbrand->name}}</a></td>
+                <td><a href="{{route('brands.theBrandDesc',$thisbrand->id)}}">{{$thisbrand->name}}</a></td>
                 <td>{{$thisbrand->type}}</td>
                 <td>
                     <span class="badge bg-success">{{$thisbrand->url}}</span>

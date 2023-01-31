@@ -586,7 +586,7 @@
                                                 alt="...">
                                         </a>
                                     </td>
-                                    <td><a href="{{route('users.editUser',$thisbrand->id)}}">{{$thisbrand->name}}</a></td>
+                                    <td><a href="{{route('brands.theBrandDesc',$thisbrand->id)}}">{{$thisbrand->name}}</a></td>
                                     <td>{{$thisbrand->initials}}</td>
                                     <td>{{$thisbrand->type}}</td>
                                     <td>{{$thisbrand->url}}</td>
