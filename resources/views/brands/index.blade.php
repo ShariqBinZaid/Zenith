@@ -193,7 +193,7 @@
                     <a href="javascript:;">{{$loop->iteration}}</a>
                 </td>
                 <td><a class="image-popup" href="{{asset('images/'.$thisbrand->image)}}"><img src="{{asset('images/'.$thisbrand->image)}}" class="imageintable"/></a></td>
-                <td>{{$thisbrand->name}}</td>
+                <td><a href="{{route('users.editUser',$thisbrand->id)}}">{{$thisbrand->name}}</a></td>
                 <td>{{$thisbrand->type}}</td>
                 <td>
                     <span class="badge bg-success">{{$thisbrand->url}}</span>
@@ -209,7 +209,7 @@
                                 <i class="bi bi-three-dots"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="javascript:;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#ShowbrandModal" data-bs-id="{{$thisbrand->id}}" data-bs-name="{{$thisbrand->name}}" data-bs-image="{{asset('images/'.$thisbrand->image)}}" data-bs-type="{{$thisbrand->type}}" data-bs-url="{{$thisbrand->url}}" data-bs-initials="{{$thisbrand->initials}}" data-bs-created_at="{{$thisbrand->created_at}}">Show</a>
+                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ShowbrandModal" data-bs-id="{{$thisbrand->id}}" data-bs-name="{{$thisbrand->name}}" data-bs-image="{{asset('images/'.$thisbrand->image)}}" data-bs-type="{{$thisbrand->type}}" data-bs-url="{{$thisbrand->url}}" data-bs-initials="{{$thisbrand->initials}}" data-bs-created_at="{{$thisbrand->created_at}}">Show</a>
                                 @can('update brands')
                                 <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditbrandModal" data-bs-id="{{$thisbrand->id}}" data-bs-name="{{$thisbrand->name}}" data-bs-image="{{asset('images/'.$thisbrand->image)}}" data-bs-type="{{$thisbrand->type}}" data-bs-url="{{$thisbrand->url}}" data-bs-initials="{{$thisbrand->initials}}" data-bs-oldimagelink="{{$thisbrand->image}}">Edit</a>
                                 @endcan

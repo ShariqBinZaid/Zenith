@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/home', [App\Http\Controllers\DashboardController::class, 'adminDashboard'])->name('adminDashboard');
 });
 
+
 Route::group(['prefix'=>'salesforce/leads','as'=>'lead.','middleware' => ['auth']], function(){
     Route::get('/', [App\Http\Controllers\LeadsController::class, 'index'])->name('allLeads')->permission('view leads');
     Route::post('add-lead',[App\Http\Controllers\LeadsController::class, 'store'])->name('addLead');
@@ -32,6 +33,7 @@ Route::group(['prefix'=>'salesforce/leads','as'=>'lead.','middleware' => ['auth'
     Route::post('assign-lead-submit',[App\Http\Controllers\LeadsController::class, 'assignLeadSubmit'])->name('assignLeadSubmit');
     Route::post('unassign-lead-submit',[App\Http\Controllers\LeadsController::class, 'unassignLeadSubmit'])->name('unassignLeadSubmit');
 });
+
 
 Route::group(['prefix'=>'salesforce/opportunities','as'=>'opportunity.','middleware' => ['auth']], function(){
     Route::get('/', [App\Http\Controllers\OpportunityController::class, 'index'])->name('allOpportunities')->permission('view opportunities');
@@ -44,20 +46,28 @@ Route::group(['prefix'=>'salesforce/opportunities','as'=>'opportunity.','middlew
 
 });
 
+
+
 Route::group(['prefix'=>'marketing/brands','as'=>'brands.','middleware' => ['auth','role:admin|business_unit_head']], function(){
     Route::get('/', [App\Http\Controllers\BrandsController::class, 'index'])->name('allBrands');
     Route::post('add-brand',[App\Http\Controllers\BrandsController::class, 'store'])->name('addBrand');
     Route::post('update-brand',[App\Http\Controllers\BrandsController::class, 'update'])->name('updateBrand');
     Route::post('delete-brand',[App\Http\Controllers\BrandsController::class, 'destroy'])->name('deleteBrand');
+    Route::get('/show/{id}', [App\Http\Controllers\BrandsController::class, 'show'])->name('theBrandDesc');
 });
 
-Route::group(['prefix'=>'marketing/packages','as'=>'packages.','middleware' => ['auth','role:admin']], function(){
+
+
+
+
+Route::group(['prefix'=>'marketing/packages','as'=>'packages.','middleware' => ['auth','role:admin|business_unit_head']], function(){
     Route::get('/', [App\Http\Controllers\PackagesController::class, 'index'])->name('allPackages');
     Route::post('add-package',[App\Http\Controllers\PackagesController::class, 'store'])->name('addPackage');
     Route::get('edit-package/{id}', [App\Http\Controllers\PackagesController::class, 'edit'])->name('editPackage');
     Route::post('update-package',[App\Http\Controllers\PackagesController::class, 'update'])->name('updatePackage');
     Route::post('delete-package',[App\Http\Controllers\PackagesController::class, 'destroy'])->name('deletePackage');
 });
+
 
 
 
@@ -72,12 +82,22 @@ Route::group(['prefix'=>'admin/settings','as'=>'packageTypes.','middleware' => [
 });
 
 
+
+
+
+
+
+
 Route::group(['prefix'=>'profile','as'=>'profile.','middleware' => ['auth']], function(){
     Route::get('myProfile', [App\Http\Controllers\ProfileController::class, 'index'])->name('myProfile');
     Route::post('editProfile',[App\Http\Controllers\ProfileController::class, 'update'])->name('editProfile');
     Route::post('changePassword',[App\Http\Controllers\ProfileController::class, 'changepassword'])->name('changePassword');
     
 });
+
+
+
+
 
 Route::group(['prefix'=>'admin/settings','as'=>'admin.','middleware' => ['auth','role:admin']], function(){
     Route::get('/roles',[App\Http\Controllers\RolesController::class,'index'])->name('allRoles');
@@ -107,6 +127,10 @@ Route::group(['prefix'=>'admin/settings','as'=>'admin.','middleware' => ['auth',
 
 });
 
+
+
+
+
 Route::group(['prefix'=>'users','as'=>'users.','middleware' => ['auth']], function(){
     Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('allUsers');
     Route::get('inactive-users', [App\Http\Controllers\UserController::class, 'inactiveusers'])->name('inactiveUsers');
@@ -124,6 +148,10 @@ Route::group(['prefix'=>'users','as'=>'users.','middleware' => ['auth']], functi
     Route::post('unassign-user-perm',[App\Http\Controllers\UserController::class, 'unassignPermtoUser'])->name('unassignPermtoUser');
     Route::get('team/{id}', [App\Http\Controllers\TeamsController::class, 'show'])->name('thisTeam');
 });
+
+
+
+
 
 Route::group(['prefix'=>'projects','as'=>'projects.','middleware' => ['auth']], function(){
     Route::get('opportunity_to_project/{id}',[App\Http\Controllers\ProjectsController::class, 'convert_opportunity_to_project'])->name('opportunity_to_project')->permission('convert opportunity to project');

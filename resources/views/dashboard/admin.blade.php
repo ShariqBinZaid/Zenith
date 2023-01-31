@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row row-cols-1 row-cols-md-3 g-4">
-<div class="col-lg-3 col-md-12">
+            <div class="col-lg-3 col-md-12">
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="d-flex mb-3">
@@ -586,7 +586,7 @@
                                                 alt="...">
                                         </a>
                                     </td>
-                                    <td>{{$thisbrand->name}}</td>
+                                    <td><a href="{{route('users.editUser',$thisbrand->id)}}">{{$thisbrand->name}}</a></td>
                                     <td>{{$thisbrand->initials}}</td>
                                     <td>{{$thisbrand->type}}</td>
                                     <td>{{$thisbrand->url}}</td>

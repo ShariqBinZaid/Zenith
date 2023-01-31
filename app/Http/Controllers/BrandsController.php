@@ -93,6 +93,7 @@ class BrandsController extends Controller
     public function show($id)
     {
         $branddetails = Brands::find($id);
+        return view('brands.desc', compact(['branddetails']));
     }
 
     /**
