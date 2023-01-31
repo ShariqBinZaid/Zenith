@@ -12,8 +12,6 @@
 <!-- Main Javascript file -->
 <script src="{{asset('js/app.min.js')}}"></script>
 
-<script src="{{asset('libs/charts/apex/apexcharts.min.js')}}"></script>
-
     <!-- Examples -->
     <script src="{{asset('js/examples/customers.js')}}"></script>
 

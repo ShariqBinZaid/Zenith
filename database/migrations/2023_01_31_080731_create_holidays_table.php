@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attendances', function (Blueprint $table) {
+        Schema::create('holidays', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('userid')->constrained('users');
-            $table->string('timein')->nullable();
-            $table->string('timeout')->nullable();
-            $table->string('date');
-            $table->string('totalhours')->nullable();
+            $table->string('holiday_date');
+            $table->string('name');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('holidays');
     }
 };

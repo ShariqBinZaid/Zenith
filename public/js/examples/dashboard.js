@@ -395,5 +395,35 @@ $(function () {
             rtl: $('body').hasClass('rtl') ? true : false
         });
     }
+    function apex_chart_demo_6(){
+        let options = {
+            series: [60, 40],
+            chart: {
+                width: '70%',
+                type: 'pie',
+                foreColor: colors.chartTextColor,
+            },
+            stroke: {
+                show: false,
+                width: 0
+            },
+            colors: [colors.success, colors.danger],
+            labels: ['Present', 'Absent'],
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
 
+        new ApexCharts(document.querySelector("#apex_chart_demo_6"), options).render();
+    }
+
+    apex_chart_demo_6();
 });
