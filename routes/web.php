@@ -163,3 +163,9 @@ Route::group(['prefix'=>'projects','as'=>'projects.','middleware' => ['auth']], 
 });
 
 //Route::get('send', [App\Http\Controllers\HomeController::class,'sendNotification']);
+
+// Attendance
+Route::group(['prefix'=>'attendance','as'=>'attendance.','middleware' => ['auth']], function(){
+    Route::post('/timein', [App\Http\Controllers\AttendanceController::class, 'timeIn'])->name('timeIn');
+    Route::post('/timeout', [App\Http\Controllers\AttendanceController::class, 'timeOut'])->name('timeOut');
+});

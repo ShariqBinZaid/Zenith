@@ -7,7 +7,8 @@ use App\Models\Leads;
 use App\Models\Brands;
 use App\Models\Packages;
 use App\Models\Opportunity;
-
+use Auth;
+use App\Models\Attendance;
 class DashboardController extends Controller
 {
     public function adminDashboard()
@@ -18,14 +19,25 @@ class DashboardController extends Controller
         $totalpackage=Packages::count();
         $brands = Brands::latest()->take(4)->get();
         $totalbrand = Brands::count();
-        return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage','brands']));
+        $date = strtotime(date('d-M-Y'));
+        $attendance = Attendance::where(['date'=>$date,'userid'=>Auth::user()->id])->first();
+        if($attendance == NULL)
+        {
+            $timedin = 0;
+            $timedout = 0;
+        }
+        else{
+            if($attendance->timein != NULL && $attendance->timeout == NULL)
+            {
+                $timedin = 1;
+                $timedout = 0;
+            }
+            else{
+                $timedin = 1;
+                $timedout = 1;
+            }
+        }
+        
+        return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage','brands','timedin','timedout','attendance']));
     }
 }
-
-
-
-
-
-
-
-

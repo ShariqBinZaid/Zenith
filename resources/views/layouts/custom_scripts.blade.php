@@ -1,5 +1,6 @@
 <!--CK EDITOR SCRIPT START-->
 <script type="text/javascript">
+  
   ClassicEditor.create(document.querySelector('#packagedetails'), {
     toolbar: ['heading', '|', 'bold', 'italic', 'bulletedList'],
     heading: {

@@ -122,6 +122,66 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-7 col-md-12">    
+                <div class="card h-100">
+                    <div class="card-body">
+                    <h6 class="card-title">
+                        Attendance Chart
+                        <a href="#" class="bi bi-question-circle ms-1 small" data-bs-toggle="tooltip"
+                        title="Your Attendance"></a>
+                    </h6>
+                        <div id="apex_chart_demo_6" style="height: 300px"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex mb-4">
+                            <h6 class="card-title mb-0">Attendance Report</h6>
+                            
+                        </div>
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            @if($timedin == 0 && $timedout == 0)
+                            <form action="{{route('attendance.timeIn')}}" method="POST">
+                            {{csrf_field()}}
+                            <button type="submit" class="btn btn-success">Check In</button>
+                            </form>
+                            @elseif($timedin == 1 && $timedout == 0)
+                            <form action="{{route('attendance.timeOut')}}" method="POST">
+                            {{csrf_field()}}
+                            <button type="submit" class="btn btn-danger"><p id="demo"></p></button>
+                            </form>
+                            @else
+                            <span>Your Today's Working Hours are {{date('H:i:s',$attendance->totalhours)}}</span>
+                            @endif
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div class="d-flex flex-grow-1 align-items-center">
+                                    <img width="45" class="me-3" src="{{asset('flags/venezuela.svg')}}" alt="...">
+                                    <span>Venezuela</span>
+                                </div>
+                                <span>$1.064,75</span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div class="d-flex flex-grow-1 align-items-center">
+                                    <img width="45" class="me-3" src="{{asset('flags/salvador.svg')}}" alt="...">
+                                    <span>Salvador</span>
+                                </div>
+                                <span>$1.055,98</span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div class="d-flex flex-grow-1 align-items-center">
+                                    <img width="45" class="me-3" src="{{asset('flags/russia.svg')}}" alt="...">
+                                    <span>Russia</span>
+                                </div>
+                                <span>$1.042,00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-7 col-md-12">
                 <div class="card widget h-100">
                     <div class="card-header d-flex">
@@ -764,3 +824,37 @@
             </div>
         </div>
 @endsection
+@push('scripts')
+@if($attendance == NULL)
+@else
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("{{date('M d,y H:i:s',($attendance->timein))}}").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = now - countDownDate;
+console.log(countDownDate);
+  // Time calculations for days, hours, minutes and seconds
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML = hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
+@endif
+@endpush
