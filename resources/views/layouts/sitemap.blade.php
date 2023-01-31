@@ -553,6 +553,13 @@
                     <i class="bi bi-bell icon-lg"></i>
                 </a>
             </li>
+            <!-- <li class="nav-item ms-3">
+                <a href="{{route('brands.allBrands')}}">
+                    <button class="btn btn-primary btn-icon">
+                        <i class="bi bi-plus-circle"></i> Add Brands
+                    </button>
+                </a>    
+            </li>
             <li class="nav-item ms-3">
                 <a href="{{route('lead.allLeads')}}">
                     <button class="btn btn-primary btn-icon">
@@ -566,7 +573,7 @@
                         <i class="bi bi-plus-circle"></i> Add Opportunities
                     </button>
                 </a>    
-            </li>
+            </li> -->
         </ul>
     </div>
     <!-- Header mobile buttons -->

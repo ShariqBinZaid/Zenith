@@ -202,7 +202,7 @@
                 <th>Package Type</th>
                 <th>Brand</th>
                 <th>Price</th>
-                <th>Created At</th>
+                <!-- <th>Created At</th> -->
                 <th class="text-end">Actions</th>
             </tr>
             </thead>
@@ -218,7 +218,7 @@
                     <span class="badge bg-success">{{$thispackage->getBrand->name}}</span>
                 </td>
                 <td>{{$thispackage->getCurrency->symbol}}{{$thispackage->price}}</td>
-                <td>{{$thispackage->created_at}}</td>
+                <!-- <td>{{$thispackage->created_at}}</td> -->
                 <td class="text-end">
                     <div class="d-flex">
                         <div class="dropdown ms-auto">

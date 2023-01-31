@@ -469,7 +469,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-12">
+            <!-- <div class="col-lg-5 col-md-12">
                 <div class="card widget">
                     <div class="card-header">
                         <h5 class="card-title">Activity Overview</h5>
@@ -537,230 +537,270 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-7 col-md-12">
-                <div class="card widget">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5 class="card-title">Recent Brands</h5>
-                        <div class="dropdown ms-auto">
-                            <a href="#" data-bs-toggle="dropdown" class="btn btn-sm btn-floating" aria-haspopup="true"
-                            aria-expanded="false">
-                                <i class="bi bi-three-dots"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a href="#" class="dropdown-item">Action</a>
-                                <a href="#" class="dropdown-item">Another action</a>
-                                <a href="#" class="dropdown-item">Something else here</a>
+            </div> -->
+
+            <div class="col-lg-6 col-md-12">
+                @can('view leads')
+                    <div class="card widget">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                            <h5 class="card-title"><span class="nav-link-icon">
+                        <i class="bi bi-telephone-inbound"></i>
+                    </span>Recent Leads :</h5>
+                            <div class="dropdown ms-auto">
+                                <!-- <a href="#" data-bs-toggle="dropdown" class="btn btn-sm btn-floating" aria-haspopup="true"
+                                aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </a> -->
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="#" class="dropdown-item">Action</a>
+                                    <a href="#" class="dropdown-item">Another action</a>
+                                    <a href="#" class="dropdown-item">Something else here</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <p class="text-muted">Brands added today. Click <a href="{{route('brands.allBrands')}}">here</a> for more details</p>
-                        <div class="table-responsive">
-                            <table class="table table-custom mb-0" id="recent-brands">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <input class="form-check-input select-all" type="checkbox"
-                                            data-select-all-target="#recent-brands" id="defaultCheck1">
-                                    </th>
-                                    <th>ID</th>
-                                    <th>Logo</th>
-                                    <th>Name</th>
-                                    <th>Initials</th>
-                                    <th>Type</th>
-                                    <th>URL</th>
-                                    <!-- <th class="text-end">Actions</th> -->
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($brands as $thisbrand)
-                                <tr>
-                                    <td>
-                                        <input class="form-check-input" type="checkbox">
-                                    </td>
-                                    <td>{{$thisbrand->id}}</td>
-                                    <td>
-                                        <a href="javascript:;">
-                                            <img src="{{asset('images/'.$thisbrand->image)}}" class="rounded" width="40"
-                                                alt="...">
-                                        </a>
-                                    </td>
-                                    <td><a href="{{route('brands.theBrandDesc',$thisbrand->id)}}">{{$thisbrand->name}}</a></td>
-                                    <td>{{$thisbrand->initials}}</td>
-                                    <td>{{$thisbrand->type}}</td>
-                                    <td>{{$thisbrand->url}}</td>
-                                    <!-- <td>{{$thisbrand->created_at}}</td> -->
-                                    <!-- <td class="text-end">
-                                        <div class="d-flex">
-                                        <div class="dropdown ms-auto">
-                                            <a href="#" data-bs-toggle="dropdown"
-                                            class="btn btn-floating"
-                                            aria-haspopup="true" aria-expanded="false">
-                                                <i class="bi bi-three-dots"></i>
+
+                        <div class="card-body">
+                            <p class="text-muted">Brands added today. Click <a href="{{route('lead.allLeads')}}">here</a> for more details</p>
+                            <div class="table-responsive">
+                                <table class="table table-custom mb-0" id="recent-leads">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <input class="form-check-input select-all" type="checkbox"
+                                                data-select-all-target="#recent-leads" id="defaultCheck1">
+                                        </th>
+                                        <th>ID</th>
+                                        <th>Photo</th>
+                                        <th>Name</th>
+                                        <th>Brand</th>
+                                        <!-- <th class="text-end">Actions</th> -->
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($leads as $thislead)
+                                    <tr>
+                                        <td>
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td>{{$thislead->id}}</td>
+                                        @php
+                                        $explodedname = explode(' ',$thislead->name);
+                                        $initial = $explodedname[0][0];
+                                        @endphp
+                                        <td><div class="avatar avatar-info">
+                                                <span class="avatar-text rounded-circle">{{$initial}}</span>
+                                            </div>
+                                        </td>
+                                        <!-- <td><a href="{{route('brands.theBrandDesc',$thislead->id)}}">{{$thislead->name}}</a></td> -->
+                                        <td>{{$thislead->name}}</td>
+                                        <td><a href="{{route('brands.theBrandDesc',$thislead->brand_id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thislead->getBrand->name}}">
+                                            <img src="{{asset('images/'.$thislead->getBrand->image)}}" class="rounded" alt="image">
                                             </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a href="javascript:;" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#ShowbrandModal" data-bs-id="{{$thisbrand->id}}" data-bs-name="{{$thisbrand->name}}" data-bs-image="{{asset('images/'.$thisbrand->image)}}" data-bs-type="{{$thisbrand->type}}" data-bs-url="{{$thisbrand->url}}" data-bs-initials="{{$thisbrand->initials}}" data-bs-created_at="{{$thisbrand->created_at}}">Show</a>
-                                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditbrandModal" data-bs-id="{{$thisbrand->id}}" data-bs-name="{{$thisbrand->name}}" data-bs-image="{{asset('images/'.$thisbrand->image)}}" data-bs-type="{{$thisbrand->type}}" data-bs-url="{{$thisbrand->url}}" data-bs-initials="{{$thisbrand->initials}}" data-bs-oldimagelink="{{$thisbrand->image}}">Edit</a>
-                                                <a href="javascript:;" class="dropdown-item deleteBrand" rel="{{$thisbrand->id}}">Delete</a>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </td> -->
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- <div class="table-responsive">
-                            <table class="table table-custom mb-0" id="recent-products">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <input class="form-check-input select-all" type="checkbox"
-                                            data-select-all-target="#recent-products" id="defaultCheck1">
-                                    </th>
-                                    <th>Photo</th>
-                                    <th>Name</th>
-                                    <th>Stock</th>
-                                    <th>Price</th>
-                                    <th class="text-end">Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <input class="form-check-input" type="checkbox">
-                                    </td>
-                                    <td>
-                                        <a href="#">
-                                            <img src="{{asset('images/products/10.jpg')}}" class="rounded" width="40"
-                                                alt="...">
-                                        </a>
-                                    </td>
-                                    <td>Cookie</td>
-                                    <td>
-                                        <span class="text-danger">Out of Stock</span>
-                                    </td>
-                                    <td>$10,50</td>
-                                    <td class="text-end">
-                                        <div class="d-flex">
-                                            <div class="dropdown ms-auto">
-                                                <a href="#" data-bs-toggle="dropdown"
-                                                class="btn btn-floating"
-                                                aria-haspopup="true" aria-expanded="false">
-                                                    <i class="bi bi-three-dots"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a href="#" class="dropdown-item">Action</a>
-                                                    <a href="#" class="dropdown-item">Another action</a>
-                                                    <a href="#" class="dropdown-item">Something else here</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input class="form-check-input" type="checkbox">
-                                    </td>
-                                    <td>
-                                        <a href="#">
-                                            <img src="{{asset('images/products/7.jpg')}}" class="rounded" width="40"
-                                                alt="...">
-                                        </a>
-                                    </td>
-                                    <td>Glass</td>
-                                    <td>
-                                        <span class="text-success">In Stock</span>
-                                    </td>
-                                    <td>$70,20</td>
-                                    <td class="text-end">
-                                        <div class="d-flex">
-                                            <div class="dropdown ms-auto">
-                                                <a href="#" data-bs-toggle="dropdown"
-                                                class="btn btn-floating"
-                                                aria-haspopup="true" aria-expanded="false">
-                                                    <i class="bi bi-three-dots"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a href="#" class="dropdown-item">Action</a>
-                                                    <a href="#" class="dropdown-item">Another action</a>
-                                                    <a href="#" class="dropdown-item">Something else here</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input class="form-check-input" type="checkbox">
-                                    </td>
-                                    <td>
-                                        <a href="#">
-                                            <img src="{{asset('images/products/8.jpg')}}" class="rounded" width="40"
-                                                alt="...">
-                                        </a>
-                                    </td>
-                                    <td>Headphone</td>
-                                    <td>
-                                        <span class="text-success">In Stock</span>
-                                    </td>
-                                    <td>$870,50</td>
-                                    <td class="text-end">
-                                        <div class="d-flex">
-                                            <div class="dropdown ms-auto">
-                                                <a href="#" data-bs-toggle="dropdown"
-                                                class="btn btn-floating"
-                                                aria-haspopup="true" aria-expanded="false">
-                                                    <i class="bi bi-three-dots"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a href="#" class="dropdown-item">Action</a>
-                                                    <a href="#" class="dropdown-item">Another action</a>
-                                                    <a href="#" class="dropdown-item">Something else here</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input class="form-check-input" type="checkbox">
-                                    </td>
-                                    <td>
-                                        <a href="#">
-                                            <img src="{{asset('images/products/9.jpg')}}" class="rounded" width="40"
-                                                alt="...">
-                                        </a>
-                                    </td>
-                                    <td>Perfume</td>
-                                    <td>
-                                        <span class="text-success">In Stock</span>
-                                    </td>
-                                    <td>$170,50</td>
-                                    <td class="text-end">
-                                        <div class="d-flex">
-                                            <div class="dropdown ms-auto">
-                                                <a href="#" data-bs-toggle="dropdown"
-                                                class="btn btn-floating"
-                                                aria-haspopup="true" aria-expanded="false">
-                                                    <i class="bi bi-three-dots"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a href="#" class="dropdown-item">Action</a>
-                                                    <a href="#" class="dropdown-item">Another action</a>
-                                                    <a href="#" class="dropdown-item">Something else here</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div> -->
+                                        </td>
+                                        <td>{{$thislead->brand}}</td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>  
                     </div>
-                </div>
+                @endcan
+            </div>
+
+            <div class="col-lg-6 col-md-12">
+                @can('view brands')
+                    <div class="card widget">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                            <h5 class="card-title"><span class="nav-link-icon">
+                        <i class="bi bi-building"></i>
+                    </span>Recent Brands :</h5>
+                            <div class="dropdown ms-auto">
+                                <!-- <a href="#" data-bs-toggle="dropdown" class="btn btn-sm btn-floating" aria-haspopup="true"
+                                aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </a> -->
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="#" class="dropdown-item">Action</a>
+                                    <a href="#" class="dropdown-item">Another action</a>
+                                    <a href="#" class="dropdown-item">Something else here</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <p class="text-muted">Brands added today. Click <a href="{{route('brands.allBrands')}}">here</a> for more details</p>
+                            <div class="table-responsive">
+                                <table class="table table-custom mb-0" id="recent-brands">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <input class="form-check-input select-all" type="checkbox"
+                                                data-select-all-target="#recent-brands" id="defaultCheck1">
+                                        </th>
+                                        <th>ID</th>
+                                        <th>Logo</th>
+                                        <th>Name</th>
+                                        <th>Initials</th>
+                                        <th>Type</th>
+                                        <th>URL</th>
+                                        <!-- <th class="text-end">Actions</th> -->
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($brands as $thisbrand)
+                                    <tr>
+                                        <td>
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td>{{$thisbrand->id}}</td>
+                                        <td>
+                                            <a href="javascript:;">
+                                                <img src="{{asset('images/'.$thisbrand->image)}}" class="rounded" width="50"
+                                                    alt="...">
+                                            </a>
+                                        </td>
+                                        <td><a href="{{route('brands.theBrandDesc',$thisbrand->id)}}">{{$thisbrand->name}}</a></td>
+                                        <td>{{$thisbrand->initials}}</td>
+                                        <td>{{$thisbrand->type}}</td>
+                                        <td>{{$thisbrand->url}}</td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>  
+                    </div>
+                @endcan
+            </div>
+            <div class="col-lg-6 col-md-12">
+                @can('view opportunities')
+                    <div class="card widget">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                            <h5 class="card-title"><span class="nav-link-icon">
+                        <i class="bi bi-briefcase"></i>
+                    </span>Opportunities Brands :</h5>
+                            <div class="dropdown ms-auto">
+                                <!-- <a href="#" data-bs-toggle="dropdown" class="btn btn-sm btn-floating" aria-haspopup="true"
+                                aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </a> -->
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="#" class="dropdown-item">Action</a>
+                                    <a href="#" class="dropdown-item">Another action</a>
+                                    <a href="#" class="dropdown-item">Something else here</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <p class="text-muted">Opportunities added today. Click <a href="{{route('opportunity.allOpportunities')}}">here</a> for more details</p>
+                            <div class="table-responsive">
+                                <table class="table table-custom mb-0" id="recent-opportunity">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <input class="form-check-input select-all" type="checkbox"
+                                                data-select-all-target="#recent-opportunity" id="defaultCheck1">
+                                        </th>
+                                        <th>ID</th>
+                                        <th>Photo</th>
+                                        <th>Name</th>
+                                        <th>Brand</th>
+                                        <th>Package</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($opportunities as $thisopportunities)
+                                    <tr>
+                                        <td>
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td>{{$thisopportunities->id}}</td>
+                                        @php
+                                        $explodedname = explode(' ',$thisopportunities->name);
+                                        $initial = $explodedname[0][0];
+                                        @endphp
+                                        <td><div class="avatar avatar-info">
+                                                <span class="avatar-text rounded-circle">{{$initial}}</span>
+                                            </div>
+                                        </td>                                        
+                                        <td>{{$thisopportunities->name}}</td>
+                                        <td>
+                                            <a href="javascript:;" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisopportunities->getBrand->name}}">
+                                            <img src="{{asset('images/'.$thisopportunities->getBrand->image)}}" class="rounded" alt="image">
+                                            </a>
+                                        </td>
+                                        <td>{{$thisopportunities->getpackage->name}}</td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>  
+                    </div>
+                @endcan
+            </div>
+            <div class="col-lg-6 col-md-12">
+                @can('view packages')
+                    <div class="card widget">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                            <h5 class="card-title"><span class="nav-link-icon">
+                        <i class="bi bi-box"></i>
+                    </span>Recent Packages :</h5>
+                            <div class="dropdown ms-auto">
+                                <!-- <a href="#" data-bs-toggle="dropdown" class="btn btn-sm btn-floating" aria-haspopup="true"
+                                aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </a> -->
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="#" class="dropdown-item">Action</a>
+                                    <a href="#" class="dropdown-item">Another action</a>
+                                    <a href="#" class="dropdown-item">Something else here</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <p class="text-muted">Packages added today. Click <a href="{{route('packages.allPackages')}}">here</a> for more details</p>
+                            <div class="table-responsive">
+                                <table class="table table-custom mb-0" id="recent-package">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <input class="form-check-input select-all" type="checkbox"
+                                                data-select-all-target="#recent-package" id="defaultCheck1">
+                                        </th>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Package Type</th>
+                                        <th>Brand</th>
+                                        <th>Price</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($packages as $thispackage)
+                                    <tr>
+                                        <td>
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td>{{$thispackage->id}}</td>
+
+                                        <td>{{$thispackage->name}}</td>
+                                        <td>{{$thispackage->getPackageType->name}}</td>
+                                        <td>
+                                            <span class="badge bg-success">{{$thispackage->getBrand->name}}</span>
+                                        </td>
+                                        <td>{{$thispackage->price}} $</td>
+                                        <!-- <td>{{$thisbrand->created_at}}</td> -->
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>  
+                    </div>
+                @endcan
             </div>
         </div>
 @endsection
