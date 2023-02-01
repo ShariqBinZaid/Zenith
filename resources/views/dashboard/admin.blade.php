@@ -4,7 +4,7 @@
 <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col-lg-3 col-md-12">
                 <div class="card h-100">
-                    <div class="card-body">
+                    <div class="card-body icon-color-top">
                         <div class="d-flex mb-3">
                             <div class="display-7">
                                 <i class="bi bi-telephone-inbound"></i>
@@ -34,7 +34,7 @@
             </div>
             <div class="col-lg-3 col-md-12">
                 <div class="card h-100">
-                    <div class="card-body">
+                    <div class="card-body icon-color-top">
                         <div class="d-flex mb-3">
                             <div class="display-7">
                                 <i class="bi bi-briefcase"></i>
@@ -64,7 +64,7 @@
             </div>
             <div class="col-lg-3 col-md-12">
                 <div class="card h-100">
-                    <div class="card-body">
+                    <div class="card-body icon-color-top">
                         <div class="d-flex mb-3">
                             <div class="display-7">
                                 <i class="bi bi-box"></i>
@@ -94,7 +94,7 @@
             </div>
             <div class="col-lg-3 col-md-12">
                 <div class="card h-100">
-                    <div class="card-body">
+                    <div class="card-body icon-color-top">
                         <div class="d-flex mb-3">
                             <div class="display-7">
                                 <i class="bi bi-building"></i>
@@ -480,7 +480,7 @@
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
-                <div class="card h-100 bg-purple">
+                <div class="card h-100 bg-zenith-yellow">
                     <div class="card-body text-center">
                         <div class="text-white-50">
                             <div class="bi bi-box-seam display-6 mb-3"></div>
@@ -609,7 +609,7 @@
             <div class="col-lg-6 col-md-12">
                 @can('view leads')
                     <div class="card widget">
-                        <div class="card-header d-flex align-items-center justify-content-between">
+                        <div class="card-header d-flex align-items-center justify-content-between icon-color">
                             <h5 class="card-title"><span class="nav-link-icon">
                         <i class="bi bi-telephone-inbound"></i>
                     </span>Recent Leads :</h5>
@@ -662,7 +662,7 @@
             <div class="col-lg-6 col-md-12">
                 @can('view opportunities')
                     <div class="card widget">
-                        <div class="card-header d-flex align-items-center justify-content-between">
+                        <div class="card-header d-flex align-items-center justify-content-between icon-color">
                             <h5 class="card-title"><span class="nav-link-icon">
                         <i class="bi bi-briefcase"></i>
                     </span>Recent Opportunities :</h5>

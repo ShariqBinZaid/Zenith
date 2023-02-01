@@ -46,12 +46,12 @@
                     @endif
                     <form class="row gx-3 gy-2 align-items-center " method="POST" action="{{route('packages.addPackage')}}">
                     {{csrf_field()}}
-                    <div class="row mb-3">
+                    <div class="row mb-3 p-0">
                         <div class="col">
                             <input type="text" value="{{ old('name') }}" class="form-control" name="name" placeholder="Name" aria-label="Name">
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-3 p-0">
                         <div class="col">
                             <select class="form-select" name="package_type">
                                 <option selected disabled>Choose Package Type...</option>
@@ -72,7 +72,7 @@
                             <input type="text" value="{{ old('discount') }}" name="discount" class="form-control" placeholder="Discount(Optional)" aria-label="Discount(Optional)">
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row mb-3 p-0">
                         <div class="col">
                             <input type="text" value="{{ old('price') }}" class="form-control" name="price" placeholder="Price" aria-label="Price">
                         </div>
