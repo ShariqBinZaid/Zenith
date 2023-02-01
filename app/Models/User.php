@@ -58,6 +58,6 @@ class User extends Authenticatable
     }
     public function usermeta()
     {
-        return $this->hasMany('App\Models\UserMeta');
+        return $this->hasMany(UserMeta::class,'userid','id');
     }
 }

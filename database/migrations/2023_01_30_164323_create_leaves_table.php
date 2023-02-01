@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('leaves', function (Blueprint $table) {
             $table->id();
             $table->string('date');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('userid')->constrained('users');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserMeta;
 use App\Models\Teams;
 use Auth;
 use DB;
@@ -28,7 +29,13 @@ class ProfileController extends Controller
             array_push($reportingauthority,$user);
             array_push($teamdata,$leader);
         }
-        return view('profile.index',compact('reportingauthority','teamdata'));
+        $meta = User::where('id',Auth::user()->id)->with('usermeta')->first();
+        $usermeta = array();
+        foreach($meta->usermeta as $key=>$value)
+        {
+            $usermeta[$value->metakey] = $value->metavalue;
+        }
+        return view('profile.index',compact('reportingauthority','teamdata','usermeta'));
     }
 
     /**
@@ -114,15 +121,21 @@ class ProfileController extends Controller
         $updateprofile = User::find(auth()->user()->id);
         if($request->image == NULL)
         {   
-            $updateprofile->update(['name' => $request->name ]);   
+            $updateprofile->update(['name' => $request->name,'phone'=>$request->phone ]); 
         }
         else{
             $imageName = 'user/'.time().'-'.$request->name.'.'.$request->image->extension();
             $request->image->move(public_path('images/user'), $imageName);
             User::whereId(auth()->user()->id)->update([
-                'name' => $request->name,'image' => $imageName
+                'name' => $request->name,'image' => $imageName,'phone'=>$request->phone
             ]);
         }
+        UserMeta::updateOrCreate([
+            'userid' => auth()->user()->id,
+            'metakey'=>'gender'
+        ], [
+            'metavalue'=>$request->gender
+        ]);
         $successmessage = "Profile updated successfully!";
         return Redirect::back()->with('success',$successmessage);
     }

@@ -482,7 +482,6 @@ $(document).on('click','.timeout',function(e){
 			  'success'
 			)
             $('#attendancedetails').load(document.URL +  ' #attendancedetails');
-            $('.header').load(document.URL +  ' .header');
         }
     })
   }})

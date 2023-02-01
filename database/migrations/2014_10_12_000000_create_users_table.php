@@ -22,7 +22,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->longtext('image')->default('user/man_avatar3.jpg');
             $table->integer('created_by')->nullable();
-            $table->integer('phone')->nullable();
+            $table->string('phone')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

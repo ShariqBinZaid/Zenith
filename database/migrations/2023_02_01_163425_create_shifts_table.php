@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('usermeta', function (Blueprint $table) {
+        Schema::create('shifts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('userid')->constrained('users');
-            $table->string('metakey');
-            $table->string('metavalue');
-            $table->softDeletes();
+            $table->string('name');
+            $table->string('timing');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_metas');
+        Schema::dropIfExists('shifts');
     }
 };

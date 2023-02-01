@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
+use App\Models\UserMeta;
+use App\Models\Shifts;
 use DB;
 use App\Models\Teams;
 class UserController extends Controller
@@ -23,7 +25,8 @@ class UserController extends Controller
         $totalusers = User::count();
         $users = User::paginate(10);
         $charaterstic = 'Active';
-        return view('users.index',compact(['allRoles','totalusers','users','charaterstic']));
+        $allshifts = Shifts::latest()->get();
+        return view('users.index',compact(['allRoles','totalusers','users','charaterstic','allshifts']));
     }
     public function inactiveusers()
     {
@@ -62,8 +65,10 @@ class UserController extends Controller
         ]);
         $inputs = $request->all();
         $inputs['password']= Hash::make('123456789');
-        $createuser = User::create($inputs);
+        $createuser = User::create(['name'=>$inputs['name'],'email'=>$inputs['email'],'password'=>$inputs['password'],'phone'=>$inputs['phone']]);
         $createuser->assignRole($inputs['role']);
+        UserMeta::create(['userid'=>$createuser->id,'metakey'=>'gender','metavalue'=>$inputs['gender']]);
+        UserMeta::create(['userid'=>$createuser->id,'metakey'=>'shift','metavalue'=>$inputs['shift']]);
         $successmessage = "User created successfully!";
         return Redirect::back()->with('success',$successmessage);
     }
@@ -127,8 +132,15 @@ class UserController extends Controller
                 array_push($reportingauthority,$thisadmin);
             }
         }
-        $userdata = User::find($id);
-        return view('users.show',compact(['userdata','reportingauthority']));
+        $userdata = User::where('id',$id)->first();
+        $meta = User::where('id',$id)->with('usermeta')->first();
+        $usermeta = array();
+        foreach($meta->usermeta as $key=>$value)
+        {
+            $usermeta[$value->metakey] = $value->metavalue;
+        }
+        $allshifts = Shifts::latest()->get();
+        return view('users.show',compact(['userdata','reportingauthority','allshifts','usermeta']));
     }
     public function changepassword(Request $request)
     {
@@ -168,15 +180,27 @@ class UserController extends Controller
         $updateprofile = User::find($request->id);
         if($request->image == NULL)
         {   
-            $updateprofile->update(['name' => $request->name ]);   
+            $updateprofile->update(['name' => $request->name,'phone'=>$request->phone ]);   
         }
         else{
             $imageName = 'user/'.time().'-'.$request->name.'.'.$request->image->extension();
             $request->image->move(public_path('images/user'), $imageName);
             User::whereId($request->id)->update([
-                'name' => $request->name,'image' => $imageName
+                'name' => $request->name,'image' => $imageName,'phone'=>$request->phone
             ]);
         }
+        UserMeta::updateOrCreate([
+            'userid' => $request->id,
+            'metakey'=>'gender'
+        ], [
+            'metavalue'=>$request->gender
+        ]);
+        UserMeta::updateOrCreate([
+            'userid' => $request->id,
+            'metakey'=>'shift'
+        ], [
+            'metavalue'=>$request->shift
+        ]);
         $successmessage = "Profile updated successfully!";
         return Redirect::back()->with('success',$successmessage);
     }

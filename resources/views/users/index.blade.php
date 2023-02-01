@@ -49,12 +49,33 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                        <select class="form-select" name="role">
-                            <option selected disabled>Choose the Role...</option>
-                            @foreach($allRoles as $thisRole)
-                            <option value="{{$thisRole->id}}">{{ucwords(strtolower(str_replace('_',' ',$thisRole->name)), '\',. ')}}</option>
-                            @endforeach
-                        </select>
+                            <input type="text" value="{{ old('phone') }}" name="phone" class="form-control" placeholder="Phone" aria-label="Phone">
+                        </div>
+                        
+                        <div class="col">
+                            <select class="form-select" name="role">
+                                <option selected disabled>Choose the Role...</option>
+                                @foreach($allRoles as $thisRole)
+                                <option value="{{$thisRole->id}}">{{ucwords(strtolower(str_replace('_',' ',$thisRole->name)), '\',. ')}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <select class="form-select" name="shift">
+                                <option selected disabled>Choose the Shift Timings...</option>
+                                @foreach($allshifts as $thisshift)
+                                <option value="{{$thisshift->id}}">{{$thisshift->name}}( {{$thisshift->timing}} )</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select class="form-select" name="gender">
+                                <option selected disabled>Choose the Gender...</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-auto">
@@ -87,22 +108,6 @@
                 <div class="d-md-flex gap-4 align-items-center">
                     <form class="mb-3 mb-md-0">
                         <div class="row g-3">
-                            <!-- <div class="col-md-3">
-                                <select class="form-select">
-                                    <option>Sort by</option>
-                                    <option value="desc">Desc</option>
-                                    <option value="asc">Asc</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <select class="form-select">
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="40">40</option>
-                                    <option value="50">50</option>
-                                </select>
-                            </div> -->
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search">

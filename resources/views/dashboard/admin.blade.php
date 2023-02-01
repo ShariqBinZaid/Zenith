@@ -165,21 +165,21 @@
                             <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <div class="d-flex flex-grow-1 align-items-center">
                                     <!-- <img width="45" class="me-3" src="{{asset('flags/salvador.svg')}}" alt="..."> -->
-                                    <span>Discrepancies</span>
+                                    <span>Discrepancies:</span>
                                 </div>
                                 <span>2</span>
                             </div>
                             <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <div class="d-flex flex-grow-1 align-items-center">
                                     <!-- <img width="45" class="me-3" src="{{asset('flags/russia.svg')}}" alt="..."> -->
-                                    <span>Shift Timings</span>
+                                    <span>Shift Timings:</span>
                                 </div>
                                 <span>Morning Shift</span>
                             </div>
                             <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <div class="d-flex flex-grow-1 align-items-center">
                                     <!-- <img width="45" class="me-3" src="{{asset('flags/russia.svg')}}" alt="..."> -->
-                                    <span>Joining Date</span>
+                                    <span>Joining Date:</span>
                                 </div>
                                 <span>12-05-2022</span>
                             </div>

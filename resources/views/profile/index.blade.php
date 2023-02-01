@@ -67,6 +67,25 @@
                                 <div class="col-md-6">
                                     <input type="file" class="form-control" name="image" placeholder="Profile Picture" aria-label="Profile Picture">
                                 </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <input type="text" value="{{Auth::user()->phone}}" name="phone" class="form-control" placeholder="Phone" aria-label="Phone" >
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <select class="form-select" name="gender">
+                                        <option selected disabled>Choose the Gender...</option>
+                                        @php
+                                        if(array_key_exists('gender', $usermeta)) {
+                                        $gender = $usermeta['gender'];
+                                        }
+                                        else{
+                                            $gender = NULL;
+                                        }
+                                        @endphp
+                                        <option value="male"  {{ ($gender == 'male')? "selected":""  }} >Male</option>
+                                        <option value="female" {{($gender == 'female')? "selected":""}}>Female</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-auto">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -87,6 +106,7 @@
                                 <div class="col-md-6">
                                     <input type="text" name="new_password_confirmation" class="form-control" placeholder="Confirm New Password" aria-label="Confirm New Password">
                                 </div>
+                                
                             </div>
                             <div class="col-auto">
                                 <button type="submit" class="btn btn-primary">Submit</button>
