@@ -17,7 +17,6 @@ class DashboardController extends Controller
         $totalopportunity=Opportunity::count();
         $totalbrand=Brands::count();
         $totalpackage=Packages::count();
-        $brands = Brands::latest()->take(3)->get();
         $totalbrand = Brands::count();
         $leads = Leads::latest()->take(3)->get();
         $totalead = Leads::count();
@@ -45,6 +44,6 @@ class DashboardController extends Controller
             }
         }
         
-        return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage','brands','leads','totalead','opportunities','totaopportunity','packages','totapackage','timedin','timedout','attendance']));
+        return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage','leads','totalead','opportunities','totaopportunity','packages','totapackage','timedin','timedout','attendance']));
     }
 }

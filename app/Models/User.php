@@ -56,4 +56,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Teams::class);
     }
+    public function usermeta()
+    {
+        return $this->hasMany('App\Models\UserMeta');
+    }
 }

@@ -770,6 +770,7 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
         'App\\Models\\Teams' => __DIR__ . '/../..' . '/app/Models/Teams.php',
         'App\\Models\\Transactions' => __DIR__ . '/../..' . '/app/Models/Transactions.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\UserMeta' => __DIR__ . '/../..' . '/app/Models/UserMeta.php',
         'App\\Notifications\\AlertNotification' => __DIR__ . '/../..' . '/app/Notifications/AlertNotification.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',

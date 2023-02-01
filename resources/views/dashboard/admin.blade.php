@@ -141,7 +141,7 @@
                             <h6 class="card-title mb-0">Attendance Report</h6>
                             
                         </div>
-                        <div class="list-group list-group-flush">
+                        <div class="list-group list-group-flush" id="attendancedetails">
                             <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                             @if($timedin == 0 && $timedout == 0)
                             <form action="{{route('attendance.timeIn')}}" method="POST">
@@ -149,35 +149,41 @@
                             <button type="submit" class="btn btn-success">Check In</button>
                             </form>
                             @elseif($timedin == 1 && $timedout == 0)
-                            <form action="{{route('attendance.timeOut')}}" method="POST">
-                            {{csrf_field()}}
-                            <button type="submit" class="btn btn-danger"><p id="demo"></p></button>
-                            </form>
+                            <button type="button" class="btn btn-danger timeout" rel="{{($attendance->timein)+32400}}">Checkout</button>
+                            <h5>Your Working Time : <span id="demo"></span></h5>
                             @else
-                            <span>Your Today's Working Hours are {{date('H:i:s',$attendance->totalhours)}}</span>
+                            <h5>Your Today's Working Hours are <b>{{gmdate('H:i:s',$attendance->totalhours)}}</b></h5>
                             @endif
                             </div>
                             <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <div class="d-flex flex-grow-1 align-items-center">
-                                    <img width="45" class="me-3" src="{{asset('flags/venezuela.svg')}}" alt="...">
-                                    <span>Venezuela</span>
+                                    <!-- <img width="45" class="me-3" src="{{asset('flags/venezuela.svg')}}" alt="..."> -->
+                                    <span>Leaves:</span>
                                 </div>
-                                <span>$1.064,75</span>
+                                <span>12/42</span>
                             </div>
                             <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <div class="d-flex flex-grow-1 align-items-center">
-                                    <img width="45" class="me-3" src="{{asset('flags/salvador.svg')}}" alt="...">
-                                    <span>Salvador</span>
+                                    <!-- <img width="45" class="me-3" src="{{asset('flags/salvador.svg')}}" alt="..."> -->
+                                    <span>Discrepancies</span>
                                 </div>
-                                <span>$1.055,98</span>
+                                <span>2</span>
                             </div>
                             <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <div class="d-flex flex-grow-1 align-items-center">
-                                    <img width="45" class="me-3" src="{{asset('flags/russia.svg')}}" alt="...">
-                                    <span>Russia</span>
+                                    <!-- <img width="45" class="me-3" src="{{asset('flags/russia.svg')}}" alt="..."> -->
+                                    <span>Shift Timings</span>
                                 </div>
-                                <span>$1.042,00</span>
+                                <span>Morning Shift</span>
                             </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div class="d-flex flex-grow-1 align-items-center">
+                                    <!-- <img width="45" class="me-3" src="{{asset('flags/russia.svg')}}" alt="..."> -->
+                                    <span>Joining Date</span>
+                                </div>
+                                <span>12-05-2022</span>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -625,12 +631,7 @@
                                 <table class="table table-custom mb-0" id="recent-leads">
                                     <thead>
                                     <tr>
-                                        <th>
-                                            <input class="form-check-input select-all" type="checkbox"
-                                                data-select-all-target="#recent-leads" id="defaultCheck1">
-                                        </th>
                                         <th>ID</th>
-                                        <th>Photo</th>
                                         <th>Name</th>
                                         <th>Brand</th>
                                         <!-- <th class="text-end">Actions</th> -->
@@ -639,18 +640,7 @@
                                     <tbody>
                                     @foreach($leads as $thislead)
                                     <tr>
-                                        <td>
-                                            <input class="form-check-input" type="checkbox">
-                                        </td>
-                                        <td>{{$thislead->id}}</td>
-                                        @php
-                                        $explodedname = explode(' ',$thislead->name);
-                                        $initial = $explodedname[0][0];
-                                        @endphp
-                                        <td><div class="avatar avatar-info">
-                                                <span class="avatar-text rounded-circle">{{$initial}}</span>
-                                            </div>
-                                        </td>
+                                        <td>{{$loop->iteration}}</td>
                                         <!-- <td><a href="{{route('brands.theBrandDesc',$thislead->id)}}">{{$thislead->name}}</a></td> -->
                                         <td>{{$thislead->name}}</td>
                                         <td><a href="{{route('brands.theBrandDesc',$thislead->brand_id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thislead->getBrand->name}}">
@@ -669,77 +659,12 @@
             </div>
 
             <div class="col-lg-6 col-md-12">
-                @can('view brands')
-                    <div class="card widget">
-                        <div class="card-header d-flex align-items-center justify-content-between">
-                            <h5 class="card-title"><span class="nav-link-icon">
-                        <i class="bi bi-building"></i>
-                    </span>Recent Brands :</h5>
-                            <div class="dropdown ms-auto">
-                                <!-- <a href="#" data-bs-toggle="dropdown" class="btn btn-sm btn-floating" aria-haspopup="true"
-                                aria-expanded="false">
-                                    <i class="bi bi-three-dots"></i>
-                                </a> -->
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="#" class="dropdown-item">Action</a>
-                                    <a href="#" class="dropdown-item">Another action</a>
-                                    <a href="#" class="dropdown-item">Something else here</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <p class="text-muted">Brands added today. Click <a href="{{route('brands.allBrands')}}">here</a> for more details</p>
-                            <div class="table-responsive">
-                                <table class="table table-custom mb-0" id="recent-brands">
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            <input class="form-check-input select-all" type="checkbox"
-                                                data-select-all-target="#recent-brands" id="defaultCheck1">
-                                        </th>
-                                        <th>ID</th>
-                                        <th>Logo</th>
-                                        <th>Name</th>
-                                        <th>Initials</th>
-                                        <th>Type</th>
-                                        <th>URL</th>
-                                        <!-- <th class="text-end">Actions</th> -->
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($brands as $thisbrand)
-                                    <tr>
-                                        <td>
-                                            <input class="form-check-input" type="checkbox">
-                                        </td>
-                                        <td>{{$thisbrand->id}}</td>
-                                        <td>
-                                            <a href="javascript:;">
-                                                <img src="{{asset('images/'.$thisbrand->image)}}" class="rounded" width="50"
-                                                    alt="...">
-                                            </a>
-                                        </td>
-                                        <td><a href="{{route('brands.theBrandDesc',$thisbrand->id)}}">{{$thisbrand->name}}</a></td>
-                                        <td>{{$thisbrand->initials}}</td>
-                                        <td>{{$thisbrand->type}}</td>
-                                        <td>{{$thisbrand->url}}</td>
-                                    </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>  
-                    </div>
-                @endcan
-            </div>
-            <div class="col-lg-6 col-md-12">
                 @can('view opportunities')
                     <div class="card widget">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <h5 class="card-title"><span class="nav-link-icon">
                         <i class="bi bi-briefcase"></i>
-                    </span>Opportunities Brands :</h5>
+                    </span>Recent Opportunities :</h5>
                             <div class="dropdown ms-auto">
                                 <!-- <a href="#" data-bs-toggle="dropdown" class="btn btn-sm btn-floating" aria-haspopup="true"
                                 aria-expanded="false">
@@ -759,12 +684,7 @@
                                 <table class="table table-custom mb-0" id="recent-opportunity">
                                     <thead>
                                     <tr>
-                                        <th>
-                                            <input class="form-check-input select-all" type="checkbox"
-                                                data-select-all-target="#recent-opportunity" id="defaultCheck1">
-                                        </th>
                                         <th>ID</th>
-                                        <th>Photo</th>
                                         <th>Name</th>
                                         <th>Brand</th>
                                         <th>Package</th>
@@ -773,18 +693,8 @@
                                     <tbody>
                                     @foreach($opportunities as $thisopportunities)
                                     <tr>
-                                        <td>
-                                            <input class="form-check-input" type="checkbox">
-                                        </td>
-                                        <td>{{$thisopportunities->id}}</td>
-                                        @php
-                                        $explodedname = explode(' ',$thisopportunities->name);
-                                        $initial = $explodedname[0][0];
-                                        @endphp
-                                        <td><div class="avatar avatar-info">
-                                                <span class="avatar-text rounded-circle">{{$initial}}</span>
-                                            </div>
-                                        </td>                                        
+                                        <td>{{$loop->iteration}}</td>
+                                                                                
                                         <td>{{$thisopportunities->name}}</td>
                                         <td>
                                             <a href="javascript:;" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisopportunities->getBrand->name}}">
@@ -792,67 +702,6 @@
                                             </a>
                                         </td>
                                         <td>{{$thisopportunities->getpackage->name}}</td>
-                                    </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>  
-                    </div>
-                @endcan
-            </div>
-            <div class="col-lg-6 col-md-12">
-                @can('view packages')
-                    <div class="card widget">
-                        <div class="card-header d-flex align-items-center justify-content-between">
-                            <h5 class="card-title"><span class="nav-link-icon">
-                        <i class="bi bi-box"></i>
-                    </span>Recent Packages :</h5>
-                            <div class="dropdown ms-auto">
-                                <!-- <a href="#" data-bs-toggle="dropdown" class="btn btn-sm btn-floating" aria-haspopup="true"
-                                aria-expanded="false">
-                                    <i class="bi bi-three-dots"></i>
-                                </a> -->
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="#" class="dropdown-item">Action</a>
-                                    <a href="#" class="dropdown-item">Another action</a>
-                                    <a href="#" class="dropdown-item">Something else here</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <p class="text-muted">Packages added today. Click <a href="{{route('packages.allPackages')}}">here</a> for more details</p>
-                            <div class="table-responsive">
-                                <table class="table table-custom mb-0" id="recent-package">
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            <input class="form-check-input select-all" type="checkbox"
-                                                data-select-all-target="#recent-package" id="defaultCheck1">
-                                        </th>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Package Type</th>
-                                        <th>Brand</th>
-                                        <th>Price</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($packages as $thispackage)
-                                    <tr>
-                                        <td>
-                                            <input class="form-check-input" type="checkbox">
-                                        </td>
-                                        <td>{{$thispackage->id}}</td>
-
-                                        <td>{{$thispackage->name}}</td>
-                                        <td>{{$thispackage->getPackageType->name}}</td>
-                                        <td>
-                                            <span class="badge bg-success">{{$thispackage->getBrand->name}}</span>
-                                        </td>
-                                        <td>{{$thispackage->price}} $</td>
-                                        <!-- <td>{{$thisbrand->created_at}}</td> -->
                                     </tr>
                                     @endforeach
                                     </tbody>
@@ -879,7 +728,6 @@ var x = setInterval(function() {
 
   // Find the distance between now and the count down date
   var distance = now - countDownDate;
-console.log(countDownDate);
   // Time calculations for days, hours, minutes and seconds
   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
