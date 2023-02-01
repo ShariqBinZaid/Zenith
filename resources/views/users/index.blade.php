@@ -63,6 +63,11 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
+                            <input type="date" value="{{ old('joining') }}" class="form-control" name="joining" placeholder="Joining" aria-label="Joining">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
                             <select class="form-select" name="shift">
                                 <option selected disabled>Choose the Shift Timings...</option>
                                 @foreach($allshifts as $thisshift)

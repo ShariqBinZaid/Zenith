@@ -60,4 +60,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserMeta::class,'userid','id');
     }
+    public function getMetaValue($key) {
+        $usermeta = $this->usermeta->filter(function ($usermeta) use ($key) {
+            return $usermeta->meta_key === $key;
+        });
+    
+        if ($usermeta->count() > 0) {
+            return $usermeta[0]->meta_value;
+        }
+    }
 }

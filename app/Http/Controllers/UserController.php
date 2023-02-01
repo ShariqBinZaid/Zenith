@@ -69,6 +69,7 @@ class UserController extends Controller
         $createuser->assignRole($inputs['role']);
         UserMeta::create(['userid'=>$createuser->id,'metakey'=>'gender','metavalue'=>$inputs['gender']]);
         UserMeta::create(['userid'=>$createuser->id,'metakey'=>'shift','metavalue'=>$inputs['shift']]);
+        UserMeta::create(['userid'=>$createuser->id,'metakey'=>'joining','metavalue'=>$inputs['joining']]);
         $successmessage = "User created successfully!";
         return Redirect::back()->with('success',$successmessage);
     }
@@ -200,6 +201,12 @@ class UserController extends Controller
             'metakey'=>'shift'
         ], [
             'metavalue'=>$request->shift
+        ]);
+        UserMeta::updateOrCreate([
+            'userid' => $request->id,
+            'metakey'=>'joining'
+        ], [
+            'metavalue'=>$request->joining
         ]);
         $successmessage = "Profile updated successfully!";
         return Redirect::back()->with('success',$successmessage);
