@@ -26,8 +26,6 @@ class DashboardController extends Controller
         $packages = Packages::latest()->take(4)->get();
         $totapackage = Packages::count();
         $date = strtotime(date('d-M-Y'));
-        $user = User::where('id',Auth::user()->id)->with('usermeta')->first();
-        dd($user->getMetaValue('shift'));
         $attendance = Attendance::where(['date'=>$date,'userid'=>Auth::user()->id])->first();
         if($attendance == NULL)
         {
@@ -46,6 +44,6 @@ class DashboardController extends Controller
             }
         }
         
-        return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage','leads','totalead','opportunities','totaopportunity','packages','totapackage','timedin','timedout','attendance','user']));
+        return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage','leads','totalead','opportunities','totaopportunity','packages','totapackage','timedin','timedout','attendance']));
     }
 }

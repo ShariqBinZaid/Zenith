@@ -175,14 +175,14 @@
                                     <!-- <img width="45" class="me-3" src="{{asset('flags/russia.svg')}}" alt="..."> -->
                                     <span>Shift Timings:</span>
                                 </div>
-                                <span>{{$user->getMetaValue('shift')}}</span>
+                                <span></span>
                             </div>
                             <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <div class="d-flex flex-grow-1 align-items-center">
                                     <!-- <img width="45" class="me-3" src="{{asset('flags/russia.svg')}}" alt="..."> -->
                                     <span>Joining Date:</span>
                                 </div>
-                                <span>{{date('d-M-Y',strtotime($user->getMetaValue('joining')))}}</span>
+                                <span></span>
                             </div>
                             
                         </div>
