@@ -169,33 +169,20 @@
                                 </div>
                                 <span>2</span>
                             </div>
-                            @php
-                            if(array_key_exists('shift', $usermeta)) {
-                            $shift = $usermeta['shift'];
-                            }
-                            else{
-                                $shift = NULL;
-                            }
-                            if(array_key_exists('joining', $usermeta)) {
-                            $joining = $usermeta['joining'];
-                            }
-                            else{
-                                $joining = NULL;
-                            }
-                            @endphp
+                            
                             <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <div class="d-flex flex-grow-1 align-items-center">
                                     <!-- <img width="45" class="me-3" src="{{asset('flags/russia.svg')}}" alt="..."> -->
                                     <span>Shift Timings:</span>
                                 </div>
-                                <span>{{$shift}}</span>
+                                <span>{{$user->getMetaValue('shift')}}</span>
                             </div>
                             <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <div class="d-flex flex-grow-1 align-items-center">
                                     <!-- <img width="45" class="me-3" src="{{asset('flags/russia.svg')}}" alt="..."> -->
                                     <span>Joining Date:</span>
                                 </div>
-                                <span>{{date('d-M-Y',strtotime($joining))}}</span>
+                                <span>{{date('d-M-Y',strtotime($user->getMetaValue('joining')))}}</span>
                             </div>
                             
                         </div>

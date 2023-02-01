@@ -9,11 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Plank\Metable\Metable;
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles,SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable,HasRoles,SoftDeletes,Metable;
     
-
     /**
      * The attributes that are mass assignable.
      *
@@ -55,18 +55,5 @@ class User extends Authenticatable
     public function teams()
     {
         return $this->belongsToMany(Teams::class);
-    }
-    public function usermeta()
-    {
-        return $this->hasMany(UserMeta::class,'userid','id');
-    }
-    public function getMetaValue($key) {
-        $usermeta = $this->usermeta->filter(function ($usermeta) use ($key) {
-            return $usermeta->meta_key === $key;
-        });
-    
-        if ($usermeta->count() > 0) {
-            return $usermeta[0]->meta_value;
-        }
     }
 }

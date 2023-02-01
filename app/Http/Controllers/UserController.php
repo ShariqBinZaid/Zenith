@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
-use App\Models\UserMeta;
 use App\Models\Shifts;
 use DB;
 use App\Models\Teams;
@@ -67,9 +66,11 @@ class UserController extends Controller
         $inputs['password']= Hash::make('123456789');
         $createuser = User::create(['name'=>$inputs['name'],'email'=>$inputs['email'],'password'=>$inputs['password'],'phone'=>$inputs['phone']]);
         $createuser->assignRole($inputs['role']);
-        UserMeta::create(['userid'=>$createuser->id,'metakey'=>'gender','metavalue'=>$inputs['gender']]);
-        UserMeta::create(['userid'=>$createuser->id,'metakey'=>'shift','metavalue'=>$inputs['shift']]);
-        UserMeta::create(['userid'=>$createuser->id,'metakey'=>'joining','metavalue'=>$inputs['joining']]);
+        $createuser->setMeta('gender',$inputs['gender']);
+        
+        $createuser->setMeta('shift',$inputs['shift']);
+        
+        $createuser->setMeta('joining',$inputs['joining']);
         $successmessage = "User created successfully!";
         return Redirect::back()->with('success',$successmessage);
     }
@@ -134,14 +135,8 @@ class UserController extends Controller
             }
         }
         $userdata = User::where('id',$id)->first();
-        $meta = User::where('id',$id)->with('usermeta')->first();
-        $usermeta = array();
-        foreach($meta->usermeta as $key=>$value)
-        {
-            $usermeta[$value->metakey] = $value->metavalue;
-        }
         $allshifts = Shifts::latest()->get();
-        return view('users.show',compact(['userdata','reportingauthority','allshifts','usermeta']));
+        return view('users.show',compact(['userdata','reportingauthority','allshifts']));
     }
     public function changepassword(Request $request)
     {
@@ -190,24 +185,6 @@ class UserController extends Controller
                 'name' => $request->name,'image' => $imageName,'phone'=>$request->phone
             ]);
         }
-        UserMeta::updateOrCreate([
-            'userid' => $request->id,
-            'metakey'=>'gender'
-        ], [
-            'metavalue'=>$request->gender
-        ]);
-        UserMeta::updateOrCreate([
-            'userid' => $request->id,
-            'metakey'=>'shift'
-        ], [
-            'metavalue'=>$request->shift
-        ]);
-        UserMeta::updateOrCreate([
-            'userid' => $request->id,
-            'metakey'=>'joining'
-        ], [
-            'metavalue'=>$request->joining
-        ]);
         $successmessage = "Profile updated successfully!";
         return Redirect::back()->with('success',$successmessage);
     }

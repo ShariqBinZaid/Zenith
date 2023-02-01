@@ -25,13 +25,9 @@ class DashboardController extends Controller
         $totaopportunity = Opportunity::count();
         $packages = Packages::latest()->take(4)->get();
         $totapackage = Packages::count();
-        $meta = User::where('id',Auth::user()->id)->with('usermeta')->first();
-        $usermeta = array();
-        foreach($meta->usermeta as $key=>$value)
-        {
-            $usermeta[$value->metakey] = $value->metavalue;
-        }
         $date = strtotime(date('d-M-Y'));
+        $user = User::where('id',Auth::user()->id)->with('usermeta')->first();
+        dd($user->getMetaValue('shift'));
         $attendance = Attendance::where(['date'=>$date,'userid'=>Auth::user()->id])->first();
         if($attendance == NULL)
         {
@@ -50,6 +46,6 @@ class DashboardController extends Controller
             }
         }
         
-        return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage','leads','totalead','opportunities','totaopportunity','packages','totapackage','timedin','timedout','attendance','usermeta']));
+        return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage','leads','totalead','opportunities','totaopportunity','packages','totapackage','timedin','timedout','attendance','user']));
     }
 }

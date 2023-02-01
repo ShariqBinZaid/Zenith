@@ -131,6 +131,7 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
             'Psr\\Http\\Client\\' => 16,
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
+            'Plank\\Metable\\' => 14,
             'PhpParser\\' => 10,
             'PhpOption\\' => 10,
             'PHPStan\\ExtensionInstaller\\' => 27,
@@ -492,6 +493,10 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Plank\\Metable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/plank/laravel-metable/src',
         ),
         'PhpParser\\' => 
         array (
@@ -1211,6 +1216,7 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
         'Database\\Seeders\\PackageTypeSeeder' => __DIR__ . '/../..' . '/database/seeders/PackageTypeSeeder.php',
         'Database\\Seeders\\PackagesSeeder' => __DIR__ . '/../..' . '/database/seeders/PackagesSeeder.php',
         'Database\\Seeders\\PermissionsSeeder' => __DIR__ . '/../..' . '/database/seeders/PermissionsSeeder.php',
+        'Database\\Seeders\\ShiftSeeder' => __DIR__ . '/../..' . '/database/seeders/ShiftSeeder.php',
         'Database\\Seeders\\TeamsSeeder' => __DIR__ . '/../..' . '/database/seeders/TeamsSeeder.php',
         'Database\\Seeders\\UserMetaSeeder' => __DIR__ . '/../..' . '/database/seeders/UserMetaSeeder.php',
         'Database\\Seeders\\UserRolesSeeder' => __DIR__ . '/../..' . '/database/seeders/UserRolesSeeder.php',
@@ -4973,6 +4979,25 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
         'Pimple\\Tests\\Psr11\\ContainerTest' => __DIR__ . '/..' . '/pimple/pimple/src/Pimple/Tests/Psr11/ContainerTest.php',
         'Pimple\\Tests\\Psr11\\ServiceLocatorTest' => __DIR__ . '/..' . '/pimple/pimple/src/Pimple/Tests/Psr11/ServiceLocatorTest.php',
         'Pimple\\Tests\\ServiceIteratorTest' => __DIR__ . '/..' . '/pimple/pimple/src/Pimple/Tests/ServiceIteratorTest.php',
+        'Plank\\Metable\\DataType\\ArrayHandler' => __DIR__ . '/..' . '/plank/laravel-metable/src/DataType/ArrayHandler.php',
+        'Plank\\Metable\\DataType\\BooleanHandler' => __DIR__ . '/..' . '/plank/laravel-metable/src/DataType/BooleanHandler.php',
+        'Plank\\Metable\\DataType\\DateTimeHandler' => __DIR__ . '/..' . '/plank/laravel-metable/src/DataType/DateTimeHandler.php',
+        'Plank\\Metable\\DataType\\FloatHandler' => __DIR__ . '/..' . '/plank/laravel-metable/src/DataType/FloatHandler.php',
+        'Plank\\Metable\\DataType\\HandlerInterface' => __DIR__ . '/..' . '/plank/laravel-metable/src/DataType/HandlerInterface.php',
+        'Plank\\Metable\\DataType\\IntegerHandler' => __DIR__ . '/..' . '/plank/laravel-metable/src/DataType/IntegerHandler.php',
+        'Plank\\Metable\\DataType\\ModelCollectionHandler' => __DIR__ . '/..' . '/plank/laravel-metable/src/DataType/ModelCollectionHandler.php',
+        'Plank\\Metable\\DataType\\ModelHandler' => __DIR__ . '/..' . '/plank/laravel-metable/src/DataType/ModelHandler.php',
+        'Plank\\Metable\\DataType\\NullHandler' => __DIR__ . '/..' . '/plank/laravel-metable/src/DataType/NullHandler.php',
+        'Plank\\Metable\\DataType\\ObjectHandler' => __DIR__ . '/..' . '/plank/laravel-metable/src/DataType/ObjectHandler.php',
+        'Plank\\Metable\\DataType\\Registry' => __DIR__ . '/..' . '/plank/laravel-metable/src/DataType/Registry.php',
+        'Plank\\Metable\\DataType\\ScalarHandler' => __DIR__ . '/..' . '/plank/laravel-metable/src/DataType/ScalarHandler.php',
+        'Plank\\Metable\\DataType\\SerializableHandler' => __DIR__ . '/..' . '/plank/laravel-metable/src/DataType/SerializableHandler.php',
+        'Plank\\Metable\\DataType\\StringHandler' => __DIR__ . '/..' . '/plank/laravel-metable/src/DataType/StringHandler.php',
+        'Plank\\Metable\\Exceptions\\DataTypeException' => __DIR__ . '/..' . '/plank/laravel-metable/src/Exceptions/DataTypeException.php',
+        'Plank\\Metable\\Meta' => __DIR__ . '/..' . '/plank/laravel-metable/src/Meta.php',
+        'Plank\\Metable\\Metable' => __DIR__ . '/..' . '/plank/laravel-metable/src/Metable.php',
+        'Plank\\Metable\\MetableInterface' => __DIR__ . '/..' . '/plank/laravel-metable/src/MetableInterface.php',
+        'Plank\\Metable\\MetableServiceProvider' => __DIR__ . '/..' . '/plank/laravel-metable/src/MetableServiceProvider.php',
         'Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
         'Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
         'Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',

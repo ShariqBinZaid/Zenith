@@ -29,13 +29,7 @@ class ProfileController extends Controller
             array_push($reportingauthority,$user);
             array_push($teamdata,$leader);
         }
-        $meta = User::where('id',Auth::user()->id)->with('usermeta')->first();
-        $usermeta = array();
-        foreach($meta->usermeta as $key=>$value)
-        {
-            $usermeta[$value->metakey] = $value->metavalue;
-        }
-        return view('profile.index',compact('reportingauthority','teamdata','usermeta'));
+        return view('profile.index',compact('reportingauthority','teamdata'));
     }
 
     /**
@@ -130,12 +124,6 @@ class ProfileController extends Controller
                 'name' => $request->name,'image' => $imageName,'phone'=>$request->phone
             ]);
         }
-        UserMeta::updateOrCreate([
-            'userid' => auth()->user()->id,
-            'metakey'=>'gender'
-        ], [
-            'metavalue'=>$request->gender
-        ]);
         $successmessage = "Profile updated successfully!";
         return Redirect::back()->with('success',$successmessage);
     }

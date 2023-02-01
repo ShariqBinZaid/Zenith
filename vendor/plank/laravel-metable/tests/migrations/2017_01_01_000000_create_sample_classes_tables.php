@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateSampleClassesTables extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('usermeta', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('userid')->constrained('users');
-            $table->string('metakey');
-            $table->string('metavalue');
+        Schema::create('sample_metables', function (Blueprint $table) {
+            $table->increments('id');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_metas');
+        Schema::dropIfExists('sample_metables');
     }
-};
+}
