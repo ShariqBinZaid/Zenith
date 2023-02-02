@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
+use App\Models\User;
 use Auth;
 use DB;
 use Illuminate\Support\Facades\Redirect;
@@ -114,5 +115,14 @@ class AttendanceController extends Controller
         ]);
         $successmessage = "Timed Out Successfuly!";
         return Redirect::back()->with('success',$successmessage);
+    }
+    public function attendance($id,$month,$year)
+    {
+        $userdata = User::find($id);
+        $date = "01-".$month."-".$year;
+        $firstday = strtotime(date('Y-m-01',strtotime($date)));
+        $lastday = strtotime(date('Y-m-t',strtotime($date)));
+        $attendance = Attendance::where([['userid','=',$id],['date','>=',$firstday],['date','<=',$lastday]])->get();
+        return view('attendance.index',compact(['userdata','attendance','firstday','lastday','month','year']));
     }
 }

@@ -70,6 +70,8 @@ class UserController extends Controller
         
         $createuser->setMeta('shift',$inputs['shift']);
         
+        $createuser->setMeta('shift_name', Shifts::where('id',$inputs['shift'])->pluck()->first());
+        $createuser->setMeta('shift_name', Shifts::where('id',$inputs['shift'])->pluck('name')->first()." (".Shifts::where('id',$inputs['shift'])->pluck('timing')->first().")");
         $createuser->setMeta('joining',$inputs['joining']);
         $successmessage = "User created successfully!";
         return Redirect::back()->with('success',$successmessage);
@@ -173,18 +175,24 @@ class UserController extends Controller
         ], [
             'name.required' => 'Name field is required.'
         ]);
+        
         $updateprofile = User::find($request->id);
         if($request->image == NULL)
         {   
-            $updateprofile->update(['name' => $request->name,'phone'=>$request->phone ]);   
+            $updateprofile->update(['name' => $request->name,'phone'=>$request->phone ]);  
         }
         else{
+            
             $imageName = 'user/'.time().'-'.$request->name.'.'.$request->image->extension();
             $request->image->move(public_path('images/user'), $imageName);
             User::whereId($request->id)->update([
                 'name' => $request->name,'image' => $imageName,'phone'=>$request->phone
             ]);
         }
+        $updateprofile->setMeta('joining', $request->joining);
+        $updateprofile->setMeta('shift', $request->shift);
+        $updateprofile->setMeta('shift_name', Shifts::where('id',$request->shift)->pluck('name')->first()." (".Shifts::where('id',$request->shift)->pluck('timing')->first().")");
+        $updateprofile->setMeta('gender', $request->gender);
         $successmessage = "Profile updated successfully!";
         return Redirect::back()->with('success',$successmessage);
     }

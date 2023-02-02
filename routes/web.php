@@ -168,4 +168,5 @@ Route::group(['prefix'=>'projects','as'=>'projects.','middleware' => ['auth']], 
 Route::group(['prefix'=>'attendance','as'=>'attendance.','middleware' => ['auth']], function(){
     Route::post('/timein', [App\Http\Controllers\AttendanceController::class, 'timeIn'])->name('timeIn');
     Route::post('/timeout', [App\Http\Controllers\AttendanceController::class, 'timeOut'])->name('timeOut');
+    Route::get('/user/{id}/{month}/{year}', [App\Http\Controllers\AttendanceController::class, 'attendance'])->name('userAttendance');
 });

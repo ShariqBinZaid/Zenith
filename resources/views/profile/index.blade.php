@@ -74,16 +74,9 @@
                                 <div class="col-md-6 mb-3">
                                     <select class="form-select" name="gender">
                                         <option selected disabled>Choose the Gender...</option>
-                                        @php
-                                        if(array_key_exists('gender', $usermeta)) {
-                                        $gender = $usermeta['gender'];
-                                        }
-                                        else{
-                                            $gender = NULL;
-                                        }
-                                        @endphp
-                                        <option value="male"  {{ ($gender == 'male')? "selected":""  }} >Male</option>
-                                        <option value="female" {{($gender == 'female')? "selected":""}}>Female</option>
+                                        
+                                        <option value="male"  {{ (auth()->user()->getMeta('gender', NULL) == 'male')? "selected":""  }} >Male</option>
+                                        <option value="female" {{(auth()->user()->getMeta('gender', NULL) == 'female')? "selected":""}}>Female</option>
                                     </select>
                                 </div>
                             </div>

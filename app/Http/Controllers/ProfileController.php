@@ -112,18 +112,20 @@ class ProfileController extends Controller
         ], [
             'name.required' => 'Name field is required.'
         ]);
-        $updateprofile = User::find(auth()->user()->id);
+        $updateprofile = User::find(Auth::user()->id);
         if($request->image == NULL)
         {   
-            $updateprofile->update(['name' => $request->name,'phone'=>$request->phone ]); 
+            $updateprofile->update(['name' => $request->name,'phone'=>$request->phone ]);  
         }
         else{
+            
             $imageName = 'user/'.time().'-'.$request->name.'.'.$request->image->extension();
             $request->image->move(public_path('images/user'), $imageName);
-            User::whereId(auth()->user()->id)->update([
+            User::whereId(Auth::user()->id)->update([
                 'name' => $request->name,'image' => $imageName,'phone'=>$request->phone
             ]);
         }
+        $updateprofile->setMeta('gender',$request->gender);
         $successmessage = "Profile updated successfully!";
         return Redirect::back()->with('success',$successmessage);
     }

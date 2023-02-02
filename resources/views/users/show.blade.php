@@ -72,40 +72,20 @@
                                 <div class="col-md-6 mb-3">
                                     <select class="form-select" name="gender">
                                         <option selected disabled>Choose the Gender...</option>
-                                        @php
-                                        if(array_key_exists('gender', $usermeta)) {
-                                        $gender = $usermeta['gender'];
-                                        }
-                                        else{
-                                            $gender = NULL;
-                                        }
-                                        if(array_key_exists('shift', $usermeta)) {
-                                        $shift = $usermeta['shift'];
-                                        }
-                                        else{
-                                            $shift = NULL;
-                                        }
-                                        if(array_key_exists('joining', $usermeta)) {
-                                        $joining = $usermeta['joining'];
-                                        }
-                                        else{
-                                            $joining = NULL;
-                                        }
-                                        @endphp
-                                        <option value="male"  {{ ($gender == 'male')? "selected":""  }} >Male</option>
-                                        <option value="female" {{($gender == 'female')? "selected":""}}>Female</option>
+                                        <option value="male"  {{ ($userdata->getMeta('gender', NULL) == 'male')? "selected":""  }} >Male</option>
+                                        <option value="female" {{($userdata->getMeta('gender', NULL) == 'female')? "selected":""}}>Female</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <select class="form-select" name="shift">
                                         <option selected disabled>Choose the Shift Timings...</option>
                                         @foreach($allshifts as $thisshift)
-                                        <option value="{{$thisshift->id}}" {{($shift == $thisshift->id)? "selected":""}}>{{$thisshift->name}}( {{$thisshift->timing}} )</option>
+                                        <option value="{{$thisshift->id}}" {{($userdata->getMeta('shift', NULL) == $thisshift->id)? "selected":""}}>{{$thisshift->name}}( {{$thisshift->timing}} )</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <input type="date" value="{{$joining}}" name="joining" class="form-control" placeholder="Joining" aria-label="Joining">
+                                    <input type="date" value="{{$userdata->getMeta('joining', '')}}" name="joining" class="form-control" placeholder="Joining" aria-label="Joining">
                                 </div>
                                 <div class="col-md-6">
                                     <input type="file" class="form-control" name="image" placeholder="Profile Picture" aria-label="Profile Picture">

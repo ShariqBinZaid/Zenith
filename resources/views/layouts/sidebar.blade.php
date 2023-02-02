@@ -15,6 +15,13 @@
                     </span>
                     <span>Users</span>
                 </a>
+                <a 
+                    href="{{route('attendance.userAttendance',['id'=>auth()->user()->id,'month'=>date('m'),'year'=>date('Y')])}}">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-person"></i>
+                    </span>
+                    <span>Attendance</span>
+                </a>
             </li>
             <!-- <li>
                 <a href="#">

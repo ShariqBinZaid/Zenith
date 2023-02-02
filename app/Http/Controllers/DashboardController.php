@@ -8,6 +8,7 @@ use App\Models\Brands;
 use App\Models\Packages;
 use App\Models\Opportunity;
 use App\Models\User;
+use App\Models\Shifts;
 use Auth;
 use App\Models\Attendance;
 class DashboardController extends Controller
@@ -43,7 +44,6 @@ class DashboardController extends Controller
                 $timedout = 1;
             }
         }
-        
         return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage','leads','totalead','opportunities','totaopportunity','packages','totapackage','timedin','timedout','attendance']));
     }
 }
