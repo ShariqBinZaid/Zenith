@@ -130,7 +130,7 @@ class AttendanceController extends Controller
            if($perdayattendance == NULL){
             $data = ['status'=>'absent','timein'=>'-','timeout'=>'-','totalhours'=>'-','date'=>$i];
            }
-           elseif($perdayattendance->date == strtotime(date('d-M-Y')))
+           elseif($perdayattendance->date == strtotime(date('d-M-Y')) && $perdayattendance->timeout == NULL)
            {
             $data = ['status'=>'today','timein'=>$perdayattendance->timein,'timeout'=>'-','totalhours'=>'-','date'=>$i];
            }
