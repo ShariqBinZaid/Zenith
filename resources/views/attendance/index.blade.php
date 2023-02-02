@@ -45,20 +45,32 @@
                 <th>Timein</th>
                 <th>Timeout</th>
                 <th>Working Hours</th>
+                <th>Status</th>
             </tr>
             </thead>
             <tbody>
-                @for($i = $firstday;$i<=$lastday;$i+=86400)
-                <tr>
-                    
-                    <td>1</td>
-                    <td>{{date('d-M-Y',$i)}}</td>
-                    <td>09:00AM</td>
-                    <td>09:00 PM</td>
-                    <td>8 Hours</td>
-                    
+                @foreach($attendance as $thisattendance)
+                <tr class="@if($thisattendance['status'] == 'present') table-success @elseif($thisattendance['status'] == 'today') table-light @else table-danger @endif">
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{date('d-M-Y',$thisattendance['date'])}}</td>
+                    @if($thisattendance['status'] == 'absent')
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td><span>Absent</span></td>
+                    @elseif($thisattendance['status'] == 'today')
+                    <td>{{date('h:i:s A',$thisattendance['timein'])}}</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td><span>Today</span></td>
+                    @else
+                    <td>{{date('h:i:s A',$thisattendance['timein'])}}</td>
+                    <td>{{date('h:i:s A',$thisattendance['timeout'])}}</td>
+                    <td>{{gmdate('H:i:s',$thisattendance['totalhours'])}}</td>
+                    <td><span>Present</span></td>
+                    @endif
                 </tr>
-                @endfor
+                @endforeach
             </tbody>
         </table>
     </div>

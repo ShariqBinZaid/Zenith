@@ -122,7 +122,23 @@ class AttendanceController extends Controller
         $date = "01-".$month."-".$year;
         $firstday = strtotime(date('Y-m-01',strtotime($date)));
         $lastday = strtotime(date('Y-m-t',strtotime($date)));
-        $attendance = Attendance::where([['userid','=',$id],['date','>=',$firstday],['date','<=',$lastday]])->get();
+        $attendance = array();
+        $theattendance = Attendance::where([['userid','=',$id],['date','>=',$firstday],['date','<=',$lastday]])->get();
+        for($i = $firstday;$i<=$lastday;$i+=86400)
+        {
+           $perdayattendance = Attendance::where([['userid','=',$id],['date','>=',$i]])->first();
+           if($perdayattendance == NULL){
+            $data = ['status'=>'absent','timein'=>'-','timeout'=>'-','totalhours'=>'-','date'=>$i];
+           }
+           elseif($perdayattendance->date == strtotime(date('d-M-Y')))
+           {
+            $data = ['status'=>'today','timein'=>$perdayattendance->timein,'timeout'=>'-','totalhours'=>'-','date'=>$i];
+           }
+           else{
+            $data = ['status'=>'present','timein'=>$perdayattendance->timein,'timeout'=>$perdayattendance->timeout,'totalhours'=>$perdayattendance->totalhours,'date'=>$i];
+           }
+           array_push($attendance,$data);
+        }
         return view('attendance.index',compact(['userdata','attendance','firstday','lastday','month','year']));
     }
 }
