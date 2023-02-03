@@ -119,21 +119,37 @@ class AttendanceController extends Controller
     public function attendance($id,$month,$year)
     {
         $userdata = User::find($id);
+        ;
         $date = "01-".$month."-".$year;
         $firstday = strtotime(date('Y-m-01',strtotime($date)));
         $lastday = strtotime(date('Y-m-t',strtotime($date)));
         $attendance = array();
-        $theattendance = Attendance::where([['userid','=',$id],['date','>=',$firstday],['date','<=',$lastday]])->get();
         for($i = $firstday;$i<=$lastday;$i+=86400)
         {
-           $perdayattendance = Attendance::where([['userid','=',$id],['date','>=',$i]])->first();
+           $perdayattendance = Attendance::where([['userid','=',$id],['date','=',$i]])->first();
            if($perdayattendance == NULL){
-            $data = ['status'=>'absent','timein'=>'-','timeout'=>'-','totalhours'=>'-','date'=>$i];
+                if($i > strtotime(date('d-M-Y'))){
+                    $data = ['status'=>'future','timein'=>'-','timeout'=>'-','totalhours'=>'-','date'=>$i];
+                }
+                elseif(strtotime($userdata->getMeta('joining')) > $i)
+                {
+                    $data = ['status'=>'beforejoining','timein'=>'-','timeout'=>'-','totalhours'=>'-','date'=>$i];
+                }
+                else{
+                    $data = ['status'=>'absent','timein'=>'-','timeout'=>'-','totalhours'=>'-','date'=>$i];
+                }
            }
-           //data
            elseif($perdayattendance->date == strtotime(date('d-M-Y')) && $perdayattendance->timeout == NULL)
            {
             $data = ['status'=>'today','timein'=>$perdayattendance->timein,'timeout'=>'-','totalhours'=>'-','date'=>$i];
+           }
+           elseif($perdayattendance->totalhours >= 16200 && $perdayattendance->totalhours <= 28800)
+           {
+            $data = ['status'=>'halfday','timein'=>$perdayattendance->timein,'timeout'=>$perdayattendance->timeout,'totalhours'=>$perdayattendance->totalhours,'date'=>$i];
+           }
+           elseif($perdayattendance->totalhours < 16200)
+           {
+            $data = ['status'=>'nohalfday','timein'=>$perdayattendance->timein,'timeout'=>$perdayattendance->timeout,'totalhours'=>$perdayattendance->totalhours,'date'=>$i];
            }
            else{
             $data = ['status'=>'present','timein'=>$perdayattendance->timein,'timeout'=>$perdayattendance->timeout,'totalhours'=>$perdayattendance->totalhours,'date'=>$i];

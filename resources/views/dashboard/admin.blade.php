@@ -182,7 +182,7 @@
                                     <!-- <img width="45" class="me-3" src="{{asset('flags/russia.svg')}}" alt="..."> -->
                                     <span>Joining Date:</span>
                                 </div>
-                                <span>{{date('d-M-Y',auth()->user()->getMeta('joining'))}}</span>
+                                <span>{{date('d-M-Y',strtotime(auth()->user()->getMeta('joining')))}}</span>
                             </div>
                             
                         </div>

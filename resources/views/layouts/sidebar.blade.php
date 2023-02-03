@@ -15,8 +15,7 @@
                     </span>
                     <span>Users</span>
                 </a>
-                <a 
-                    href="{{route('attendance.userAttendance',['id'=>auth()->user()->id,'month'=>date('m'),'year'=>date('Y')])}}">
+                <a href="{{route('attendance.userAttendance',['id'=>auth()->user()->id,'month'=>date('m'),'year'=>date('Y')])}}">
                     <span class="nav-link-icon">
                         <i class="bi bi-person"></i>
                     </span>
