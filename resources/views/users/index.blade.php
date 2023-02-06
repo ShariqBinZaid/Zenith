@@ -65,6 +65,13 @@
                         <div class="col">
                             <input type="date" value="{{ old('joining') }}" class="form-control" name="joining" placeholder="Joining" aria-label="Joining">
                         </div>
+                        <div class="col">
+                            <div class="form-check form-switch">
+                            <label class="form-check-label" for="flexSwitchCheckChecked">Probation Period</label>
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="probation" checked>
+                                
+                            </div>
+                        </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">

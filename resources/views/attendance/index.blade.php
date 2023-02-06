@@ -63,16 +63,16 @@
                 <div class="card-body">
                     <div class="row row-vertical-border text-center">
                         <div class="col-4 text-warning">
-                            <h3>10</h3>
-                            <span>{{$year}}'s Used Leaves</span>
+                            <h3>{{$annualleaves}}</h3>
+                            <span>Annual Leaves</span>
                         </div>
                         <div class="col-4 text-info">
-                            <h3>2</h3>
-                            <span>{{date('F', mktime(0, 0, 0, $month, 10))}}'s Discrepancies</span>
+                            <h3>{{$casualleaves}}</h3>
+                            <span>Casual Leaves</span>
                         </div>
                         <div class="col-4 text-success">
-                            <h3>32</h3>
-                            <span>{{$year}}'s Remaining Leaves</span>
+                            <h3>{{$sickleaves}}</h3>
+                            <span>Sick Leaves</span>
                         </div>
                     </div>
                 </div>
@@ -113,6 +113,7 @@
             <thead>
             <tr>
                 <th>ID</th>
+                <th>Day</th>
                 <th>Date</th>
                 <th>Timein</th>
                 <th>Timeout</th>
@@ -122,46 +123,26 @@
             </thead>
             <tbody>
                 @foreach($attendance as $thisattendance)
-                <tr class="@if($thisattendance['status'] == 'present') table-success @elseif($thisattendance['status'] == 'today') table-dark @elseif($thisattendance['status'] == 'halfday') table-warning @elseif($thisattendance['status'] == 'future' || $thisattendance['status'] == 'beforejoining') table-light @else table-danger @endif">
+                <tr class="@if($thisattendance['status'] == 'present' || $thisattendance['status'] == 'weekend' || $thisattendance['status'] == 'holiday') table-success @elseif($thisattendance['status'] == 'today') table-dark @elseif($thisattendance['status'] == 'halfday') table-warning @elseif($thisattendance['status'] == 'future' || $thisattendance['status'] == 'beforejoining') table-light @else table-danger @endif">
                     <td>{{$loop->iteration}}</td>
                     <td>{{date('d-M-Y',$thisattendance['date'])}}</td>
-                    @if($thisattendance['status'] == 'nohalfday')
-                    <td>{{date('h:i:s A',$thisattendance['timein'])}}</td>
-                    <td>{{date('h:i:s A',$thisattendance['timeout'])}}</td>
-                    <td>{{gmdate('H:i:s',$thisattendance['totalhours'])}}</td>
-                    <td><span>Absent</span></td>
-                    
-                    @elseif($thisattendance['status'] == 'absent')
+                    <td>{{$thisattendance['day']}}</td>
+                    @if($thisattendance['timein'] == '-')
                     <td>---</td>
-                    <td>---</td>
-                    <td>---</td>
-                    <td><span>Absent</span></td>
-                    @elseif($thisattendance['status'] == 'today')
-                    <td>{{date('h:i:s A',$thisattendance['timein'])}}</td>
-                    <td>---</td>
-                    <td>---</td>
-                    <td><span>Today</span></td>
-                    @elseif($thisattendance['status'] == 'future')
-                    <td>---</td>
-                    <td>---</td>
-                    <td>---</td>
-                    <td><span></span></td>
-                    @elseif($thisattendance['status'] == 'beforejoining')
-                    <td>---</td>
-                    <td>---</td>
-                    <td>---</td>
-                    <td><span>Not Joined</span></td>
-                    @elseif($thisattendance['status'] == 'halfday')
-                    <td>{{date('h:i:s A',$thisattendance['timein'])}}</td>
-                    <td>{{date('h:i:s A',$thisattendance['timeout'])}}</td>
-                    <td>{{gmdate('H:i:s',$thisattendance['totalhours'])}}</td>
-                    <td><span>Half Day</span></td>
                     @else
                     <td>{{date('h:i:s A',$thisattendance['timein'])}}</td>
-                    <td>{{date('h:i:s A',$thisattendance['timeout'])}}</td>
-                    <td>{{gmdate('H:i:s',$thisattendance['totalhours'])}}</td>
-                    <td><span>Present</span></td>
                     @endif
+                    @if($thisattendance['timeout'] == '-')
+                    <td>---</td>
+                    @else
+                    <td>{{date('h:i:s A',$thisattendance['timeout'])}}</td>
+                    @endif
+                    @if($thisattendance['totalhours'] == '-')
+                    <td>---</td>
+                    @else
+                    <td>{{gmdate('H:i:s',$thisattendance['totalhours'])}}</td>
+                    @endif
+                    <td><span>{{$thisattendance['name']}}</span></td>
                 </tr>
                 @endforeach
             </tbody>

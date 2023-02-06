@@ -160,7 +160,7 @@
                                     <!-- <img width="45" class="me-3" src="{{asset('flags/venezuela.svg')}}" alt="..."> -->
                                     <span>Leaves:</span>
                                 </div>
-                                <span>12/42</span>
+                                <span>{{$myleaves}}/{{$totalleaves}}</span>
                             </div>
                             <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <div class="d-flex flex-grow-1 align-items-center">
@@ -184,7 +184,13 @@
                                 </div>
                                 <span>{{date('d-M-Y',strtotime(auth()->user()->getMeta('joining')))}}</span>
                             </div>
-                            
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div class="d-flex flex-grow-1 align-items-center">
+                                    <!-- <img width="45" class="me-3" src="{{asset('flags/russia.svg')}}" alt="..."> -->
+                                    <span>Employment Status:</span>
+                                </div>
+                                <span>{{auth()->user()->getMeta('employment_status')}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -123,8 +123,14 @@ Route::group(['prefix'=>'admin/settings','as'=>'admin.','middleware' => ['auth',
     Route::post('/unassign-member',[App\Http\Controllers\TeamsController::class,'unassignTeamMember'])->name('unassignTeamMember');
     Route::post('/assign-brand',[App\Http\Controllers\TeamsController::class,'assignBrandSubmit'])->name('assignBrandSubmit');
     Route::post('/unassign-brand',[App\Http\Controllers\TeamsController::class,'unassignBrandSubmit'])->name('unassignBrandSubmit');
-
-
+    Route::get('/holidays',[App\Http\Controllers\HolidaysController::class,'index'])->name('allHolidays');
+    Route::post('/add-holiday',[App\Http\Controllers\HolidaysController::class,'store'])->name('addHoliday');
+    Route::post('/edit-holiday',[App\Http\Controllers\HolidaysController::class,'update'])->name('editHoliday');
+    Route::post('/delete-holiday',[App\Http\Controllers\HolidaysController::class,'destroy'])->name('deleteHoliday');
+    Route::get('/leave-types',[App\Http\Controllers\LeaveTypesController::class,'index'])->name('allLeaveTypes');
+    Route::post('/add-leavetype',[App\Http\Controllers\LeaveTypesController::class,'store'])->name('addLeaveType');
+    Route::post('/edit-leavetype',[App\Http\Controllers\LeaveTypesController::class,'update'])->name('editLeaveType');
+    Route::post('/delete-leavetype',[App\Http\Controllers\LeaveTypesController::class,'destroy'])->name('deleteLeaveType');
 });
 
 
@@ -148,11 +154,6 @@ Route::group(['prefix'=>'users','as'=>'users.','middleware' => ['auth']], functi
     Route::post('unassign-user-perm',[App\Http\Controllers\UserController::class, 'unassignPermtoUser'])->name('unassignPermtoUser');
     Route::get('team/{id}', [App\Http\Controllers\TeamsController::class, 'show'])->name('thisTeam');
 });
-
-
-
-
-
 Route::group(['prefix'=>'projects','as'=>'projects.','middleware' => ['auth']], function(){
     Route::get('opportunity_to_project/{id}',[App\Http\Controllers\ProjectsController::class, 'convert_opportunity_to_project'])->name('opportunity_to_project')->permission('convert opportunity to project');
     Route::get('/',[App\Http\Controllers\ProjectsController::class, 'index'])->name('allProjects')->permission('view projects');

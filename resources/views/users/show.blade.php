@@ -90,6 +90,10 @@
                                 <div class="col-md-6">
                                     <input type="file" class="form-control" name="image" placeholder="Profile Picture" aria-label="Profile Picture">
                                 </div>
+                                <div class="col-md-6  form-switch form-check">
+                                    <label class="form-check-label" for="flexSwitchCheckChecked">Probation Period</label>
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="probation" {{ ($userdata->getMeta('employment_status') == 'Probation')? "checked":""  }}>
+                                </div>
                             </div>
                             <div class="col-auto">
                                 <button type="submit" class="btn btn-primary">Submit</button>

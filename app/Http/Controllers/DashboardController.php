@@ -7,6 +7,8 @@ use App\Models\Leads;
 use App\Models\Brands;
 use App\Models\Packages;
 use App\Models\Opportunity;
+use App\Models\LeaveTypes;
+use App\Models\Leaves;
 use App\Models\User;
 use App\Models\Shifts;
 use Auth;
@@ -27,6 +29,8 @@ class DashboardController extends Controller
         $packages = Packages::latest()->take(4)->get();
         $totapackage = Packages::count();
         $date = strtotime(date('d-M-Y'));
+        $totalleaves = LeaveTypes::sum('days');
+        $myleaves = Leaves::where('year',date('Y'))->count();
         $attendance = Attendance::where(['date'=>$date,'userid'=>Auth::user()->id])->first();
         if($attendance == NULL)
         {
@@ -44,6 +48,6 @@ class DashboardController extends Controller
                 $timedout = 1;
             }
         }
-        return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage','leads','totalead','opportunities','totaopportunity','packages','totapackage','timedin','timedout','attendance']));
+        return view('dashboard.admin', compact(['totalead','totalopportunity','totalbrand','totalpackage','leads','totalead','opportunities','totaopportunity','packages','totapackage','timedin','timedout','attendance','totalleaves','myleaves']));
     }
 }

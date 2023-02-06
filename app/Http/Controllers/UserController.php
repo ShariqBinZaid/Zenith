@@ -69,10 +69,16 @@ class UserController extends Controller
         $createuser->setMeta('gender',$inputs['gender']);
         
         $createuser->setMeta('shift',$inputs['shift']);
-        
-        $createuser->setMeta('shift_name', Shifts::where('id',$inputs['shift'])->pluck()->first());
         $createuser->setMeta('shift_name', Shifts::where('id',$inputs['shift'])->pluck('name')->first()." (".Shifts::where('id',$inputs['shift'])->pluck('timing')->first().")");
         $createuser->setMeta('joining',$inputs['joining']);
+        if(!isset($inputs['probation']))
+        {
+            $employmentstatus = 'Permanent';
+        }
+        else{
+            $employmentstatus = 'Probation';
+        }
+        $createuser->setMeta('employment_status',$employmentstatus);
         $successmessage = "User created successfully!";
         return Redirect::back()->with('success',$successmessage);
     }
@@ -193,6 +199,14 @@ class UserController extends Controller
         $updateprofile->setMeta('shift', $request->shift);
         $updateprofile->setMeta('shift_name', Shifts::where('id',$request->shift)->pluck('name')->first()." (".Shifts::where('id',$request->shift)->pluck('timing')->first().")");
         $updateprofile->setMeta('gender', $request->gender);
+        if(!isset($request->probation))
+        {
+            $employmentstatus = 'Permanent';
+        }
+        else{
+            $employmentstatus = 'Probation';
+        }
+        $updateprofile->setMeta('employment_status', $employmentstatus);
         $successmessage = "Profile updated successfully!";
         return Redirect::back()->with('success',$successmessage);
     }

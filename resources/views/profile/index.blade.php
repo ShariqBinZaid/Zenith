@@ -131,6 +131,7 @@
                             <li class="list-group-item"><b>Role</b> :  {{ucwords(strtolower(str_replace('_',' ',Auth::user()->roles->pluck('name')[0] ?? '')), '\',. ')}}</li>
                             <li class="list-group-item"><b>Team</b> :  @foreach($teamdata as $thisteam)<a href="{{route('users.thisTeam',$thisteam->id)}}">{{$thisteam->name}}</a>@endforeach</li>
                             <li class="list-group-item"><b>Reporting Authority</b> :  @foreach($reportingauthority as $thisreportingauth)<a href="{{route('users.editUser',$thisreportingauth->id)}}">{{$thisreportingauth->name}}</a>@endforeach</li>
+                            <li class="list-group-item"><b>Employment Status</b> :  {{ auth()->user()->getMeta('employment_status') }}</li>
                         </ul>
                     </div>
                     </div>

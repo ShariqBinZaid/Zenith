@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('leaves', function (Blueprint $table) {
+        Schema::create('leave_types', function (Blueprint $table) {
             $table->id();
-            $table->string('date');
-            $table->string('year');
-            $table->foreignId('userid')->constrained('users');
-            $table->foreignId('type')->constrained('leave_types');
+            $table->string('name');
+            $table->integer('days');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leaves');
+        Schema::dropIfExists('leave_types');
     }
 };
