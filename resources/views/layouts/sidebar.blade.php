@@ -17,9 +17,15 @@
                 </a>
                 <a href="{{route('attendance.userAttendance',['id'=>auth()->user()->id,'month'=>date('m'),'year'=>date('Y')])}}">
                     <span class="nav-link-icon">
-                        <i class="bi bi-person"></i>
+                        <i class="bi bi-clock"></i>
                     </span>
                     <span>Attendance</span>
+                </a>
+                <a href="{{route('leaves.showLeaves')}}">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-calendar-plus"></i>
+                    </span>
+                    <span>Leave Request</span>
                 </a>
             </li>
             
@@ -90,8 +96,7 @@
                 </a>
             </li>
             <li>
-                <a  
-                    href="{{route('admin.allRoles')}}">
+                <a href="{{route('admin.allRoles')}}">
                     <span class="nav-link-icon">
                         <i class="bi bi-vinyl"></i>
                     </span>
@@ -121,7 +126,7 @@
                 <a  
                     href="{{route('admin.allHolidays')}}">
                     <span class="nav-link-icon">
-                        <i class="bi bi-box-seam"></i>
+                        <i class="bi bi-calendar3"></i>
                     </span>
                     <span>Holidays</span>
                 </a>
@@ -130,7 +135,7 @@
                 <a  
                     href="{{route('admin.allLeaveTypes')}}">
                     <span class="nav-link-icon">
-                        <i class="bi bi-box-seam"></i>
+                        <i class="bi bi-calendar-event"></i>
                     </span>
                     <span>Leave Types</span>
                 </a>

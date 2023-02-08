@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('year');
             $table->foreignId('userid')->constrained('users');
             $table->foreignId('type')->constrained('leave_types');
+            $table->longText('reason')->nullable();
             $table->string('status')->default('pending');
+            $table->integer('half_day')->default('0');
             $table->softDeletes();
             $table->timestamps();
         });

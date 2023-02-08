@@ -171,3 +171,16 @@ Route::group(['prefix'=>'attendance','as'=>'attendance.','middleware' => ['auth'
     Route::post('/timeout', [App\Http\Controllers\AttendanceController::class, 'timeOut'])->name('timeOut');
     Route::get('/user/{id}/{month}/{year}', [App\Http\Controllers\AttendanceController::class, 'attendance'])->name('userAttendance');
 });
+
+
+
+// Leaves
+Route::group(['prefix'=>'leaves','as'=>'leaves.','middleware' => ['auth']], function(){ 
+    Route::get('showLeaves', [App\Http\Controllers\LeavesController::class, 'index'])->name('showLeaves');
+    Route::get('showUserLeaves/{id}', [App\Http\Controllers\LeavesController::class, 'userleaves'])->name('showUserLeaves');
+    Route::post('requestLeave', [App\Http\Controllers\LeavesController::class, 'store'])->name('requestLeave');
+    Route::post('approveLeave', [App\Http\Controllers\LeavesController::class, 'approve'])->name('approveLeave');
+    Route::post('rejectLeave', [App\Http\Controllers\LeavesController::class, 'reject'])->name('rejectLeave');
+});
+
+

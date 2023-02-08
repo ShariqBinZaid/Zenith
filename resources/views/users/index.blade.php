@@ -180,6 +180,9 @@
                                 <i class="bi bi-three-dots"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
+                                @can('view leaves')
+                                <a href="{{route('leaves.showUserLeaves',$thisuser->id)}}" class="dropdown-item">Show Leaves</a>
+                                @endcan
                                 @if($charaterstic == 'Active')
                                 <a href="{{route('users.editUser',$thisuser->id)}}" class="dropdown-item">Show Profile/Edit Profile</a>
                                 <a href="javascript:;" class="dropdown-item deleteUser" rel="{{$thisuser->id}}">In-Active this User</a>
