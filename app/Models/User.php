@@ -10,9 +10,12 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Plank\Metable\Metable;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles,SoftDeletes,Metable;
+    use HasApiTokens, HasFactory, Notifiable,HasRoles,SoftDeletes,Metable,LogsActivity;
     
     /**
      * The attributes that are mass assignable.
@@ -24,7 +27,11 @@ class User extends Authenticatable
         'email',
         'password','phone'
     ];
-
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+        // Chain fluent methods for configuration options
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -55,5 +62,9 @@ class User extends Authenticatable
     public function teams()
     {
         return $this->belongsToMany(Teams::class);
+    }
+    public function latestattendance()
+    {
+        return $this->hasOne(Attendance::class,'userid','id')->latest();
     }
 }

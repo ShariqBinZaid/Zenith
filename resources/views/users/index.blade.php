@@ -90,6 +90,13 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <input type="salary" value="" name="salary" class="form-control" id="salary" placeholder="Salary" aria-label="Salary">        
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>    
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
@@ -180,6 +187,9 @@
                                 <i class="bi bi-three-dots"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
+                                @can('view attendance')
+                                <a href="{{route('attendance.userAttendance',['id'=>$thisuser->id,'month'=>date('m'),'year'=>date('Y')])}}" class="dropdown-item">Show Attendance</a>
+                                @endcan
                                 @can('view leaves')
                                 <a href="{{route('leaves.showUserLeaves',$thisuser->id)}}" class="dropdown-item">Show Leaves</a>
                                 @endcan

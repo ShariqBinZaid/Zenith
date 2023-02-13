@@ -27,6 +27,18 @@
                     </span>
                     <span>Leave Request</span>
                 </a>
+                <a href="{{route('finance.expenses',['month'=>date('m'),'year'=>date('Y')])}}">
+                    <span class="nav-link-icon">
+                    <i class="bi bi-wallet2"></i>
+                    </span>
+                    <span>Finance</span>
+                </a>
+                <a href="#">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-cash"></i>
+                    </span>
+                    <span>Payroll</span>
+                </a>
             </li>
             
             <li class="menu-divider">Sales Force</li>
@@ -86,6 +98,15 @@
             @endcan
             @role('admin')
             <li class="menu-divider">Settings</li>
+            <li>
+                <a  
+                    href="{{route('admin.allUnits')}}">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-people"></i>
+                    </span>
+                    <span>Units</span>
+                </a>
+            </li>
             <li>
                 <a  
                     href="{{route('admin.allTeams')}}">

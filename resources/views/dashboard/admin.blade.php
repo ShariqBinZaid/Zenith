@@ -501,43 +501,28 @@
                 <div class="card widget h-100">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title">
-                            Your Top Countries
+                            Online Users
                             <a href="#" class="bi bi-question-circle ms-1 small" data-bs-toggle="tooltip"
-                            title="Sales performance revenue based by country"></a>
+                            title="All users, including offline users."></a>
                         </h5>
-                        <a href="#">View All</a>
+                        <a href="{{route('users.allUsers')}}">View All</a>
                     </div>
                     <div class="card-body">
-                        <div class="list-group list-group-flush">
+                        <div class="list-group list-group-flush" style="overflow-y: scroll;height: 300px;">
+                            @foreach($users as $thisuser)
                             <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <div class="d-flex flex-grow-1 align-items-center">
-                                    <img width="45" class="me-3"
-                                        src="{{asset('flags/united-states-of-america.svg')}}" alt="...">
-                                    <span>United States</span>
+                                    <div class="list-group list-group-flush">
+                                        <div class="avatar me-1  @if(isset($thisuser->latestattendance) && $thisuser->latestattendance->timeout == NULL) avatar-state-success @else avatar-state-light @endif">
+                                            <a href="{{route('users.editUser',$thisuser->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisuser->name}}">
+                                                <img src="{{asset('images/'.$thisuser->image)}}" class="rounded-circle" alt="avatar">
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <span>$1.671,10</span>
+                                <span>{{$thisuser->name}}</span>
                             </div>
-                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <div class="d-flex flex-grow-1 align-items-center">
-                                    <img width="45" class="me-3" src="{{asset('flags/venezuela.svg')}}" alt="...">
-                                    <span>Venezuela</span>
-                                </div>
-                                <span>$1.064,75</span>
-                            </div>
-                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <div class="d-flex flex-grow-1 align-items-center">
-                                    <img width="45" class="me-3" src="{{asset('flags/salvador.svg')}}" alt="...">
-                                    <span>Salvador</span>
-                                </div>
-                                <span>$1.055,98</span>
-                            </div>
-                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <div class="d-flex flex-grow-1 align-items-center">
-                                    <img width="45" class="me-3" src="{{asset('flags/russia.svg')}}" alt="...">
-                                    <span>Russia</span>
-                                </div>
-                                <span>$1.042,00</span>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
