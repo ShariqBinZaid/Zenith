@@ -45,58 +45,7 @@
                             
                         </div>
                     @endif
-                    <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('finance.addExpense')}}">
-                    {{csrf_field()}}
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <select class="form-select month" name="month">
-                                <option selected disabled>Month</option>
-                                @for($i=01;$i<=12;$i++)
-                                <option value="{{$i}}" {{($month == $i) ? "selected" :"none"; }}>{{date('F', mktime(0, 0, 0, $i, 10))}}</option>
-                                @endfor
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <select class="form-select year" name="year">
-                                <option selected disabled>Year</option>
-                                @for($i=2023;$i<=2026;$i++)
-                                <option value="{{$i}}" {{($year == $i) ? "selected" :"none"; }}>{{$i}}</option>
-                                @endfor
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <input type="text" name="amount" class="form-control" placeholder="Enter Amount"/>
-                        </div>
-                        <div class="col">
-                            <select class="form-select" name="currencyid">
-                                <option selected disabled>--Select Currency--</option>
-                                @foreach($currencies as $thiscurrency)
-                                <option value="{{$thiscurrency->id}}">{{$thiscurrency->name}}({{$thiscurrency->symbol}})</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <select class="form-select" name="unitid">
-                                <option selected disabled>--Select Unit--</option>
-                                @foreach($units as $thisunit)
-                                <option value="{{$thisunit->id}}">{{$thisunit->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <textarea class="form-control" name="desc" placeholder="Enter Description!"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                    </form>
+                    
                 </div>
             </div>
         </div>
