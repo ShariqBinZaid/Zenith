@@ -60,6 +60,14 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="col">
+                            <select class="form-control" name="unit_id">
+                                <option selected disabled>--Select Unit--</option>
+                                @foreach($units as $thisunit)
+                                <option value="{{$thisunit->id}}">{{$thisunit->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -89,6 +97,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Team Leader</th>
+                <th>Unit</th>
                 <th>Members</th>
                 <th class="text-end">Actions</th>
             </tr>
@@ -101,11 +110,13 @@
                 </td>
                 <td><a href="{{route('users.thisTeam',$thisteam->id)}}">{{$thisteam->name}}</a></td>
                 <td><a href="{{route('users.editUser',$thisteam->getLeader->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisteam->getLeader->name}}"><img src="{{asset('images/'.$thisteam->getLeader->image)}}" class="rounded" alt="image"></a></td>
+                <td>{{$thisteam->getUnit->name}}</td>
                 <td><div class="avatar-group me-2">@foreach($thisteam->users as $thisuser)
                         <a href="{{route('users.editUser',$thisuser->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisuser->name}}">
                             <img src="{{asset('images/'.$thisuser->image)}}" class="rounded-circle" alt="image">
                         </a>
                         @endforeach</div></td>
+
                 <td class="text-end">
                     <div class="d-flex">
                         <div class="dropdown ms-auto">

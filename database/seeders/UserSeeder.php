@@ -17,6 +17,10 @@ class UserSeeder extends Seeder
     public function run()
     {
         $user = [[
+            'name' => 'Super Admin',
+            'email' => 'superadmin@gmail.com',
+            'password' => bcrypt('123456789'),
+        ],[
             'name' => 'Fahad Ali',
             'email' => 'faddimalik56@gmail.com',
             'password' => bcrypt('123456789'),

@@ -94,6 +94,7 @@ class BrandsController extends Controller
     {
         $branddetails = Brands::find($id);
         return view('brands.desc', compact(['branddetails']));
+        
     }
 
     /**
@@ -154,8 +155,6 @@ class BrandsController extends Controller
     public function destroy(Request $request)
     {
         $brand=Brands::find($request->id);
-        // $image_path = public_path().'/images/'.$brand->image;
-        // unlink($image_path);
         $brand->leads()->delete();
         $brand->opportunities()->delete();
         $brand->packages()->delete();

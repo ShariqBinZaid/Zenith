@@ -20,7 +20,7 @@ class LeadsController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->roles->pluck('name')[0] == 'admin')
+        if( Auth::user()->roles->pluck('name')[0] == 'superadmin')
         {
             $leads = Leads::latest()->with('getBrand')->paginate(10);
         }
@@ -77,7 +77,7 @@ class LeadsController extends Controller
             'phone.unique' => 'Phone already registered as a lead!'
         ]);
         $inputs = $request->all();
-        $input['created_by'] = auth()->user()->id;
+        $inputs['created_by'] = auth()->user()->id;
         $inputs['url']= "www.google.com";
         Leads::create($inputs);
         $successmessage = "Lead saved successfully!";

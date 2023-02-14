@@ -45,6 +45,7 @@ class DashboardController extends Controller
                 $timedout = 1;
             }
         }
-        return view('dashboard.admin', compact(['brands','totalbrand','leads','totalead','opportunities','totalopportunity','packages','totalpackage','timedin','timedout','attendance','totalleaves','myleaves']));
+        $users = User::with('latestattendance')->get();
+        return view('dashboard.admin', compact(['brands','totalbrand','leads','totalead','opportunities','totalopportunity','packages','totalpackage','timedin','timedout','attendance','totalleaves','myleaves','users']));
     }
 }

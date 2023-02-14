@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('url');
-            $table->longtext('image')->default('brands/default.jpg');
+            $table->string('image')->default('brands/default.jpg');
             $table->string('type');
             $table->string('initials');
             $table->integer('created_by')->nullable();

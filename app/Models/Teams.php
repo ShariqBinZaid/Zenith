@@ -9,7 +9,7 @@ use Auth;
 class Teams extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $fillable = ['name','leader'];
+    protected $fillable = ['name','leader','unit_id'];
     public function users()
     {
         return $this->belongsToMany(User::class);
@@ -25,5 +25,9 @@ class Teams extends Model
     public function scopeisLeader($query,$id)
     {
         return $query->where('leader',$id);
+    }
+    public function getUnit()
+    {
+        return $this->hasOne(Units::class,'id','unit_id');
     }
 }

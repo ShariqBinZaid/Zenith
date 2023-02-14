@@ -15,11 +15,13 @@ class TeamsSeeder extends Seeder
     public function run()
     {
         $teams = [[
-            'name' => 'Unit 1',
-            'leader'=>'2'
+            'name' => 'Designers',
+            'leader'=>'5',
+            'unit_id'=>'1'
         ],[
-            'name' => 'Unit 2',
-            'leader'=>'3'
+            'name' => 'Developers',
+            'leader'=>'6',
+            'unit_id'=>'1'
         ]];
         Teams::insert($teams);
     }

@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-
+use Spatie\Activitylog\Models\Activity;
 
 class LeavesController extends Controller
 {
@@ -20,7 +20,7 @@ class LeavesController extends Controller
     public function index()
     {
         $totalleave = Leaves::where('userid',auth()->user()->id)->count();
-        $leaves = Leaves::where('userid',auth()->user()->id)->with('leavetype')->latest()->paginate(10);
+        $leaves = Leaves::where('userid',auth()->user()->id)->with('leavetype')->latest()->paginate(25);
         $leavetypes = LeaveTypes::all();
         $personal = 1;
         $username = auth()->user()->name;
@@ -54,6 +54,9 @@ class LeavesController extends Controller
         ]);
         $LeaveStore = Leaves::all();
         $year = date('Y',strtotime($request->start_date));
+        $typedays = LeaveTypes::where('id',$request->type)->pluck('days')->first();
+        $typename = LeaveTypes::where('id',$request->type)->pluck('name')->first();
+        $takendays = Leaves::where(['type'=>$request->type,'userid'=>auth()->user()->id,'year'=>date('Y')])->count();
         if($request->half_day == NULL)
         {
             $halfday = 0;
@@ -63,17 +66,36 @@ class LeavesController extends Controller
         }
         if($request->end_date == NULL)
         {
-            Leaves::create(['date'=>strtotime($request->start_date),'year'=>$year,'userid'=>auth()->user()->id,'type'=>$request->type,'reason'=>$request->reason,'half_day'=>$halfday]);
+            if($takendays >= $typedays){
+                $message = $typename." are completely availed by you!";
+                $msgstatus = 'error';
+                
+            }else{
+                Leaves::updateOrCreate(
+                    ['date' =>  strtotime($request->start_date),'year'=>$year,'userid'=>auth()->user()->id],
+                    ['type'=>$request->type,'reason'=>$request->reason,'half_day'=>$halfday,'status'=>'pending']);
+                    $message = "Leave applied successfully!";
+                    $msgstatus = 'success';
+            }
+            
+            
         }else{
             $startdate = strtotime($request->start_date);
             $enddate = strtotime($request->end_date);
             for($i=$startdate;$i<=$enddate;$i+=86400)
             {
-                Leaves::create(['date'=>$i,'year'=>$year,'userid'=>auth()->user()->id,'type'=>$request->type,'reason'=>$request->reason,'half_day'=>$halfday]);
+                if($takendays >= $typedays){
+                    $message = $typename." are completely availed by you!";
+                    $msgstatus = 'error';
+                }else{
+                    Leaves::updateOrCreate(
+                    ['date' =>  $i,'year'=>$year,'userid'=>auth()->user()->id],
+                    ['type'=>$request->type,'reason'=>$request->reason,'half_day'=>$halfday,'status'=>'pending']);}
+                    $message = $typename." are completely availed by you!";
+                    $msgstatus = 'error';
             }
         }
-        $successmessage = "Leave Request saved successfully!";
-        return Redirect::back()->with('success',$successmessage);
+        return Redirect::back()->with($msgstatus,$message);
     }
 
     /**
@@ -135,10 +157,14 @@ class LeavesController extends Controller
         $leave->update(['status'=>'approved']);
         return 'success';
     }
-    public function reject(Request $request)
-    {
+    public function reject(Request $request){
         $leave=Leaves::find($request->id);
         $leave->update(['status'=>'rejected']);
         return 'success';
+    }
+    public function activitylogs()
+    {
+        $lastLoggedActivity = Activity::all()->last();
+        dd($lastLoggedActivity->description);
     }
 }

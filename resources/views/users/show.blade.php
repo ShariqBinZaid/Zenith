@@ -7,7 +7,7 @@
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">
+                    <a href="{{route('users.allUsers')}}">
                         <i class="bi bi-user small me-2"></i> Users
                     </a>
                 </li>
@@ -93,6 +93,9 @@
                                 <div class="col-md-6  form-switch form-check">
                                     <label class="form-check-label" for="flexSwitchCheckChecked">Probation Period</label>
                                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="probation" {{ ($userdata->getMeta('employment_status') == 'Probation')? "checked":""  }}>
+                                </div>
+                                <div class="col-md-6 mt-3">
+                                    <input type="text" value="{{$userdata->getMeta('salary', '')}}" name="salary" class="form-control" placeholder="Salary" aria-label="Salary">
                                 </div>
                             </div>
                             <div class="col-auto">

@@ -6,7 +6,7 @@ use App\Models\Teams;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Brands;
-
+use App\Models\Units;
 use Auth;
 use Illuminate\Support\Facades\Redirect;
 class TeamsController extends Controller
@@ -22,10 +22,13 @@ class TeamsController extends Controller
         $totalteams = Teams::count();
         $leaders = User::whereDoesntHave(
             'roles', function($q){
-                $q->where('name', 'admin');
+                $q->where('name','admin');
+                $q->Orwhere('name','superadmin');
+                $q->Orwhere('name','business_unit_head');
             }
         )->get();
-        return view('settings.teams',compact(['teams','totalteams','leaders']));
+        $units = Units::all();
+        return view('settings.teams',compact(['teams','totalteams','leaders','units']));
     }
     /**
      * Show the form for creating a new resource.

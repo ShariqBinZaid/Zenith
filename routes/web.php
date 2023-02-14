@@ -83,11 +83,6 @@ Route::group(['prefix'=>'admin/settings','as'=>'packageTypes.','middleware' => [
 
 
 
-
-
-
-
-
 Route::group(['prefix'=>'profile','as'=>'profile.','middleware' => ['auth']], function(){
     Route::get('myProfile', [App\Http\Controllers\ProfileController::class, 'index'])->name('myProfile');
     Route::post('editProfile',[App\Http\Controllers\ProfileController::class, 'update'])->name('editProfile');
@@ -99,7 +94,7 @@ Route::group(['prefix'=>'profile','as'=>'profile.','middleware' => ['auth']], fu
 
 
 
-Route::group(['prefix'=>'admin/settings','as'=>'admin.','middleware' => ['auth','role:admin']], function(){
+Route::group(['prefix'=>'admin/settings','as'=>'admin.','middleware' => ['auth','role:superadmin']], function(){
     Route::get('/roles',[App\Http\Controllers\RolesController::class,'index'])->name('allRoles');
     Route::get('/roles/assign-permission/{id}',[App\Http\Controllers\RolesController::class,'showpermissions'])->name('showPermissions');
     Route::post('/roles/assignPermission',[App\Http\Controllers\RolesController::class,'assignPermission'])->name('assignPermission');
@@ -131,6 +126,10 @@ Route::group(['prefix'=>'admin/settings','as'=>'admin.','middleware' => ['auth',
     Route::post('/add-leavetype',[App\Http\Controllers\LeaveTypesController::class,'store'])->name('addLeaveType');
     Route::post('/edit-leavetype',[App\Http\Controllers\LeaveTypesController::class,'update'])->name('editLeaveType');
     Route::post('/delete-leavetype',[App\Http\Controllers\LeaveTypesController::class,'destroy'])->name('deleteLeaveType');
+    Route::get('/units',[App\Http\Controllers\UnitsController::class,'index'])->name('allUnits');
+    Route::post('/add-unit',[App\Http\Controllers\UnitsController::class,'store'])->name('addUnit');
+    Route::get('/companies',[App\Http\Controllers\CompanyController::class,'index'])->name('allCompanies');
+    Route::post('/add-company',[App\Http\Controllers\CompanyController::class,'store'])->name('addCompany');
 });
 
 
@@ -181,6 +180,11 @@ Route::group(['prefix'=>'leaves','as'=>'leaves.','middleware' => ['auth']], func
     Route::post('requestLeave', [App\Http\Controllers\LeavesController::class, 'store'])->name('requestLeave');
     Route::post('approveLeave', [App\Http\Controllers\LeavesController::class, 'approve'])->name('approveLeave');
     Route::post('rejectLeave', [App\Http\Controllers\LeavesController::class, 'reject'])->name('rejectLeave');
+    Route::get('logs', [App\Http\Controllers\LeavesController::class, 'activitylogs'])->name('logs');
 });
 
 
+Route::group(['prefix'=>'finance','as'=>'finance.','middleware' => ['auth']], function(){
+    Route::get('expenses/{month}/{year}', [App\Http\Controllers\FinanceController::class, 'index'])->name('expenses');
+    Route::post('addExpense', [App\Http\Controllers\FinanceController::class, 'store'])->name('addExpense');
+});

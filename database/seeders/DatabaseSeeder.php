@@ -25,5 +25,9 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSeeder::class);
         $this->call(TeamsSeeder::class);
         $this->call(ShiftSeeder::class);
+        $this->call(CompanySeeder::class);
+        $this->call(UnitsSeeder::class);
+        $this->call(LeaveTypesSeeder::class);
+        
     }
 }

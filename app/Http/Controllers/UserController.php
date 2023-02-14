@@ -67,6 +67,7 @@ class UserController extends Controller
         $createuser = User::create(['name'=>$inputs['name'],'email'=>$inputs['email'],'password'=>$inputs['password'],'phone'=>$inputs['phone']]);
         $createuser->assignRole($inputs['role']);
         $createuser->setMeta('gender',$inputs['gender']);
+        $createuser->setMeta('salary',$inputs['salary']);
         
         $createuser->setMeta('shift',$inputs['shift']);
         $createuser->setMeta('shift_name', Shifts::where('id',$inputs['shift'])->pluck('name')->first()." (".Shifts::where('id',$inputs['shift'])->pluck('timing')->first().")");
@@ -87,14 +88,16 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'phone'=>'required|unique:users'
+            'phone'=>'required|unique:users',
+            'salary'=>'required'
         ], [
             'name.required' => 'Name field is required.',
             'email.required' => 'Email field is required.',
             'email.email' => 'Email field must contain the email address.',
             'email.unique' => 'Email already registered as a user!',
             'phone.unique' => 'Phone already registered as a user!',
-            'phone.required' => 'Phone field is required.'
+            'phone.required' => 'Phone field is required.',
+            'salary.required' => 'Salary field is required.'
         ]);
         $inputs = $request->all();
         $inputs['password']= Hash::make('123456789');
@@ -199,6 +202,7 @@ class UserController extends Controller
         $updateprofile->setMeta('shift', $request->shift);
         $updateprofile->setMeta('shift_name', Shifts::where('id',$request->shift)->pluck('name')->first()." (".Shifts::where('id',$request->shift)->pluck('timing')->first().")");
         $updateprofile->setMeta('gender', $request->gender);
+        $updateprofile->setMeta('salary', $request->salary);
         if(!isset($request->probation))
         {
             $employmentstatus = 'Permanent';

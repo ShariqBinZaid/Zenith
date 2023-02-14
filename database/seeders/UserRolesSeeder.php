@@ -16,6 +16,9 @@ class UserRolesSeeder extends Seeder
     public function run()
     {
         $userroles = [[
+            'name' => 'superadmin',
+            'guard_name' => 'api'
+        ],[
             'name' => 'admin',
             'guard_name' => 'api'
         ],
