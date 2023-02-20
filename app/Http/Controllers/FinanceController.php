@@ -5,7 +5,7 @@ use App\Models\Finance;
 use App\Models\Units;
 use App\Models\Currency;
 use Illuminate\Http\Request;
-
+use Auth;
 use Illuminate\Support\Facades\Redirect;
 class FinanceController extends Controller
 {
@@ -22,10 +22,17 @@ class FinanceController extends Controller
         }else{
             $conditions = ['year'=>$year,'month'=>$month,'unitid'=>$unit];
             $unitdetail = Units::find($unit);
+            if($unitdetail->company_id == Auth::user()->company_id){}else{
+                if(Auth::user()->roles->pluck('name')[0] == 'superadmin'){}else{
+                return abort( 404 );
+                }
+            }
         }
         $expenses = Finance::where($conditions)->with('getCurrency')->with('getUnit')->with('getCompany')->with('AddedBy')->get();
         $currencies = Currency::all();
-        $units = Units::where('company_id',auth()->user()->company_id)->get();
+        if(Auth::user()->roles->pluck('name')[0] == 'superadmin')
+        {$units = Units::all();}else{$units = Units::where('company_id',Auth::user()->company_id)->get();}
+        
         //sql query after launch
         $totalofexpenses = array();
         foreach($currencies as $thiscurrency)

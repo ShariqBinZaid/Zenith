@@ -168,7 +168,7 @@
                     <a href="#" data-bs-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-haspopup="true" aria-expanded="false">Units</a>
                     <div class="dropdown-menu dropdown-menu-end">
                     @foreach($units as $thisunit)
-                    <a href="{{route('finance.expenses',['month'=>$month,'year'=>$year,'unit'=>$thisunit->id])}}" class="dropdown-item">{{$thisunit->name}}</a>
+                    <a href="{{route('finance.expenses',['month'=>$month,'year'=>$year,'unit'=>$thisunit->id])}}" class="dropdown-item">{{$thisunit->name}}({{$thisunit->getCompany->name}})</a>
                     @endforeach
                     </div>
                 </div>
