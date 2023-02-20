@@ -14,20 +14,32 @@ class FinanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($month,$year)
+    public function index($month,$year,$unit=NULL)
     {
-        $expenses = Finance::where(['year'=>$year,'month'=>$month])->with('getCurrency')->with('getUnit')->with('getCompany')->with('AddedBy')->get();
+        if($unit == NULL){
+            $conditions = ['year'=>$year,'month'=>$month];
+            $unitdetail = NULL;
+        }else{
+            $conditions = ['year'=>$year,'month'=>$month,'unitid'=>$unit];
+            $unitdetail = Units::find($unit);
+        }
+        $expenses = Finance::where($conditions)->with('getCurrency')->with('getUnit')->with('getCompany')->with('AddedBy')->get();
         $currencies = Currency::all();
-        $units = Units::all();
+        $units = Units::where('company_id',auth()->user()->company_id)->get();
         //sql query after launch
         $totalofexpenses = array();
         foreach($currencies as $thiscurrency)
         {
-            $currencyexpense = Finance::where(['year'=>$year,'month'=>$month,'currencyid'=>$thiscurrency->id])->with('getCurrency')->sum('amount');
+            if($unit == NULL){
+                $singlecondition = ['year'=>$year,'month'=>$month,'currencyid'=>$thiscurrency->id];
+            }else{
+                $singlecondition = ['year'=>$year,'month'=>$month,'currencyid'=>$thiscurrency->id,'unitid'=>$unit];
+            }
+            $currencyexpense = Finance::where($singlecondition)->with('getCurrency')->sum('amount');
             $singleexpense = ['amount' => $currencyexpense,'symbol'=>$thiscurrency->symbol,'name'=>$thiscurrency->name];
             array_push($totalofexpenses,$singleexpense);
         }
-        return view('finance.index',compact(['expenses','month','year','currencies','units','totalofexpenses']));
+        return view('finance.index',compact(['expenses','month','year','currencies','units','totalofexpenses','unit','unitdetail']));
     }
 
     /**

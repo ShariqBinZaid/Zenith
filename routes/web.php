@@ -187,5 +187,6 @@ Route::group(['prefix'=>'leaves','as'=>'leaves.','middleware' => ['auth']], func
 
 Route::group(['prefix'=>'finance','as'=>'finance.','middleware' => ['auth']], function(){
     Route::get('expenses/{month}/{year}', [App\Http\Controllers\FinanceController::class, 'index'])->name('expenses');
+    Route::get('expenses/{month}/{year}/{unit?}', [App\Http\Controllers\FinanceController::class, 'index'])->name('expenses');
     Route::post('addExpense', [App\Http\Controllers\FinanceController::class, 'store'])->name('addExpense');
 });

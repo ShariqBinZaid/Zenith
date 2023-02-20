@@ -32,7 +32,12 @@ class CurrencySeeder extends Seeder
         ],[
             'name' => 'Canadian Dollar',
             'code' => 'CAD',
-            'symbol' => '$',
+            'symbol' => 'CAD',
+            'company_id'=>'1'
+        ],[
+            'name' => 'Ruppee',
+            'code' => 'RS',
+            'symbol' => 'RS',
             'company_id'=>'1'
         ]];
         Currency::insert($currencies);
