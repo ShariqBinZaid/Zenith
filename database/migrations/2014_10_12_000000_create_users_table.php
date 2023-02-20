@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('image')->default('user/man_avatar3.jpg');
+            $table->integer('company_id');
+            $table->integer('unit_id');
+            $table->integer('team_id')->nullable();
+            $table->tinyInteger('is_leader')->default('0');
             $table->integer('created_by')->nullable();
             $table->string('phone')->nullable();
             $table->softDeletes();

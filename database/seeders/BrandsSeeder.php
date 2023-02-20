@@ -19,19 +19,25 @@ class BrandsSeeder extends Seeder
             'url' => 'www.google.com',
             'image' => 'brands/default.jpg',
             'type'=>'Design',
-            'initials'=>'BR'
+            'initials'=>'BR',
+            'unit_id'=>'1',
+            'company_id'=>'1'
         ],[
             'name' => 'Brand 2',
             'url' => 'www.facebook.com',
             'image' => 'brands/default.jpg',
             'type'=>'EBook',
-            'initials'=>'BR2'
+            'initials'=>'BR2',
+            'unit_id'=>'2',
+            'company_id'=>'1'
         ],[
             'name' => 'Brand 3',
             'url' => 'www.logo.com',
             'image' => 'brands/default.jpg',
             'type'=>'Logo',
-            'initials'=>'BR3'
+            'initials'=>'BR3',
+            'unit_id'=>'1',
+            'company_id'=>'1'
         ]];
         Brands::insert($leads);
     }

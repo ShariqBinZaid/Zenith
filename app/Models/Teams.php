@@ -9,10 +9,10 @@ use Auth;
 class Teams extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $fillable = ['name','leader','unit_id'];
+    protected $fillable = ['name','leader','unit_id','company_id'];
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(User::class,'team_id','id');
     }
     public function brands()
     {
@@ -29,5 +29,9 @@ class Teams extends Model
     public function getUnit()
     {
         return $this->hasOne(Units::class,'id','unit_id');
+    }
+    public function getCompany()
+    {
+        return $this->hasOne(Company::class,'id','company_id');
     }
 }

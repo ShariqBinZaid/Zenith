@@ -11,6 +11,6 @@ class LeaveTypes extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillable = [
-        'name','days'
+        'name','days','company_id'
     ];
 }

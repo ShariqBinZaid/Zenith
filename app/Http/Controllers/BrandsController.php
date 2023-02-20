@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Brands;
+use App\Models\Units;
 use App\Models\Teams;
-Use Exception;
 use Illuminate\Support\Facades\Redirect;
-use App\Http\Resources\ImagesResource;
-use Image;
-use File;
+use DB;
 use Auth;
 class BrandsController extends Controller
 {
@@ -20,17 +18,25 @@ class BrandsController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->roles->pluck('name')[0] == 'admin')
+        if(Auth::user()->roles->pluck('name')[0] == 'superadmin')
         {
             $brands = Brands::latest()->paginate(10);
-        }else{
-            $teamid = Teams::isLeader(Auth::user()->id)->pluck('id')->first();
-            $brands =Brands::whereHas('teams', function ($query) use ($teamid) {
-                $query->where('brands_teams.teams_id', '=', $teamid);
-            })->latest()->paginate(10);
+        }
+        elseif(Auth::user()->roles->pluck('name')[0] == 'admin'){
+            $brands = Brands::whereHas('getCompany', function ($query)  {
+                $query->where('owner', '=', auth()->user()->id);
+            })->paginate(10);
+        }
+        else{
+            $brands = Brands::whereHas('getUnit', function ($query)  {
+                $query->where('unithead', '=', auth()->user()->id);
+            })->paginate(10);
         }
         $totalbrand = Brands::count();
-        return view('brands.index',compact(['brands','totalbrand']));
+        $units = Units::whereHas('getCompany', function ($query)  {
+            $query->where('owner', '=', auth()->user()->id);
+        })->get();
+        return view('brands.index',compact(['brands','totalbrand','units']));
     }
 
     /**
@@ -57,16 +63,18 @@ class BrandsController extends Controller
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'type' => 'required',
             'initials' => 'required',
+            'unit_id'=>'required'
         ], [
             'name.required' => 'Name field is required.',
             'url.required' => 'URL field is required.',
             'url.unique' => 'URL already registered!',
             'type.required' => 'Brand type is required.',
-            'initials.required' => 'Initials are required'
+            'initials.required' => 'Initials are required',
+            'unit_id.required' => 'Select Unit.'
         ]);
       
         $imageName = 'brands/'.time().'-'.$request->name.'.'.$request->image->extension();  
-       
+        $companyid = Units::where('id',$request->unit_id)->pluck('company_id')->first();
         $request->image->move(public_path('images/brands'), $imageName);
         $brandobj = new Brands();
         $brandobj->name = $request->name;
@@ -79,6 +87,8 @@ class BrandsController extends Controller
         
         $brandobj->initials = $request->initials;
 
+        $brandobj->unit_id = $request->unit_id;
+        $brandobj->company_id = $companyid;
         $brandobj->save();
         $successmessage = "Brand saved successfully!";
         return Redirect::back()->with('success',$successmessage);

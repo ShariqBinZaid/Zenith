@@ -45,4 +45,12 @@ class Opportunity extends Model
     {
         return $this->belongsToMany(User::class);
     }
+    public function getUnit()
+    {
+        return $this->hasOne(Units::class,'id','unit_id');
+    }
+    public function getCompany()
+    {
+        return $this->hasOne(Company::class,'id','company_id');
+    }
 }

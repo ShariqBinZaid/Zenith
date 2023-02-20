@@ -54,7 +54,10 @@
                             <select class="form-control" name="user_id">
                                 <option selected disabled>--Select the Brand--</option>
                                 @foreach($brands as $thisbrand)
+                                @if($team->brands->contains($thisbrand->id))
+                                @else
                                 <option value="{{$thisbrand->id}}">{{$thisbrand->name}}</option>
+                                @endif
                                 @endforeach
                             </select>
                         </div>

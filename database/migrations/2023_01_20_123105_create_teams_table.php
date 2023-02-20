@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('leader');
             $table->integer('unit_id');
+            $table->integer('company_id');
             $table->softDeletes();
             $table->timestamps();
         });

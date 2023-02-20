@@ -16,13 +16,16 @@ class ShiftSeeder extends Seeder
     {
         $shifts = [[
             'name' => 'Morning Shift',
-            'timing'=>'11AM-8PM'
+            'timing'=>'11AM-8PM',
+            'company_id'=>'1'
         ],[
             'name' => 'Evening Shift',
-            'timing'=>'3PM-12AM'
+            'timing'=>'3PM-12AM',
+            'company_id'=>'1'
         ],[
             'name' => 'Night Shift',
-            'timing'=>'9PM-6AM'
+            'timing'=>'9PM-6AM',
+            'company_id'=>'1'
         ]];
         Shifts::insert($shifts);
     }

@@ -7,6 +7,7 @@ use App\Models\Leads;
 use App\Models\User;
 use App\Models\Brands;
 use App\Models\Teams;
+use App\Models\Units;
 Use Exception;
 use Validator;
 use Auth;
@@ -24,10 +25,16 @@ class LeadsController extends Controller
         {
             $leads = Leads::latest()->with('getBrand')->paginate(10);
         }
-        else if(Auth::user()->roles->pluck('name')[0] == 'business_unit_head'){
-            $teamid = Teams::where('leader',Auth::user()->id)->with('brands')->first();
+        elseif( Auth::user()->roles->pluck('name')[0] == 'admin')
+        {
+            $leads =Leads::whereHas('getCompany', function ($query) {
+                $query->where('owner', '=', Auth::user()->id);
+            })->paginate(10);
+        }
+        elseif(Auth::user()->roles->pluck('name')[0] == 'business_unit_head'){
+            $unitid = Units::where('unithead',Auth::user()->id)->with('brands')->first();
             $brands = array();
-            foreach($teamid->brands as $thisbrand)
+            foreach($unitid->brands as $thisbrand)
             {
                 array_push($brands,$thisbrand->id);
             }
@@ -79,6 +86,8 @@ class LeadsController extends Controller
         $inputs = $request->all();
         $inputs['created_by'] = auth()->user()->id;
         $inputs['url']= "www.google.com";
+        $inputs['company_id'] = Brands::where('id',$inputs['brand_id'])->pluck('company_id')->first();
+        $inputs['unit_id'] = Brands::where('id',$inputs['brand_id'])->pluck('unit_id')->first();
         Leads::create($inputs);
         $successmessage = "Lead saved successfully!";
         return Redirect::back()->with('success',$successmessage);
@@ -124,7 +133,7 @@ class LeadsController extends Controller
                     $q->orWhere('name', 'front_sales_manager');
                     $q->orWhere('name', 'front_sales_executive');
                 }
-            )->get();
+            )->where('company_id',Auth::user()->company_id)->get();
         }
         else if(Auth::user()->roles->pluck('name')[0] == 'business_unit_head'){
             $users = User::whereHas(
@@ -132,22 +141,14 @@ class LeadsController extends Controller
                     $q->where('name', 'front_sales_manager');
                     $q->orWhere('name', 'front_sales_executive');
                 }
-            )->whereHas(
-                'teams', function($q){
-                    $q->where('leader', Auth::user()->id);
-                }
-            )->get();
+            )->where(['company_id'=>Auth::user()->company_id,'unit_id'=>Auth::user()->unit_id])->get();
         }
         else{
             $users = User::whereHas(
                 'roles', function($q){
                     $q->orWhere('name', 'front_sales_executive');
                 }
-            )->whereHas(
-                'teams', function($q){
-                    $q->where('leader', Auth::user()->id);
-                }
-            )->get();
+            )->where(['company_id'=>Auth::user()->company_id,'unit_id'=>Auth::user()->unit_id])->get();
         }
         return view('leads.assign_lead',compact(['lead','users']));
     }
@@ -169,7 +170,9 @@ class LeadsController extends Controller
             'brand_id.required' => 'Select Brand',
         ]);
         $leadsupdate = Leads::find($request->id);
-        $leadsupdate->update(['name' => $request->name , 'brand_id' => $request->brand_id]);
+        $companyid = Brands::where('id',$request->brand_id)->pluck('company_id')->first();
+        $unitid = Brands::where('id',$request->brand_id)->pluck('unit_id')->first();
+        $leadsupdate->update(['name'=>$request->name,'brand_id'=>$request->brand_id,'company_id'=>$companyid,'unit_id'=>$unitid]);
         $successmessage = "Lead updated successfully!";
         return 'success';
     }

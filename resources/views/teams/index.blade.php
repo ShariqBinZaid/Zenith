@@ -2,8 +2,33 @@
 
 @section('content')
 <div class="content ">
+    <div class="mb-4">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="javascript:;">
+                        <i class="bi bi-gear small me-2"></i> Settings
+                    </a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page"><a href="javascript:;">Teams</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{$teamdetails->name}}</li>
+            </ol>
+        </nav>
+    </div>
     <div class="row g-4">
-        <div class="col-lg-4 col-md-6 col-sm-12" style="margin:0px auto;">
+        <div class="col-lg-6 col-md-6 col-sm-12 ">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <h3>Team Name : {{$teamdetails->name}}</h3>
+                        <h6>Leader : {{$teamdetails->getLeader->name}}</h6>
+                        <h6>Unit : {{$teamdetails->getUnit->name}}</h6>
+                        <h6>Created At : {{$teamdetails->created_at}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="card">
                 <div class="card-body text-center">
                 <div class="card-badge">Team Leader</div>
@@ -19,6 +44,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
     <div class="row align-items-center mb-4 g-3 mt-4">
         <div class="col-md-9">
@@ -31,6 +57,8 @@
 
     <div class="row g-4">
         @foreach($teamdetails->users as $thisteammember)
+        @if($thisteammember->id == $teamdetails->leader)
+        @else
         <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="card">
                 <div class="card-body text-center">
@@ -45,6 +73,7 @@
                 </div>
             </div>
         </div>
+        @endif
         @endforeach
     </div>
     <div class="row align-items-center mb-4 g-3 mt-4">

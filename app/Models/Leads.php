@@ -17,6 +17,8 @@ class Leads extends Model
         'email',
         'phone',
         'brand_id',
+        'unit_id',
+        'company_id',
         'message',
         'ip_address','location'
     ];
@@ -35,5 +37,13 @@ class Leads extends Model
     public function users()
     {
         return $this->belongsToMany(User::class);
+    }
+    public function getUnit()
+    {
+        return $this->hasOne(Units::class,'id','unit_id');
+    }
+    public function getCompany()
+    {
+        return $this->hasOne(Company::class,'id','company_id');
     }
 }

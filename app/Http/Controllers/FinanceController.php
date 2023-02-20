@@ -16,10 +16,18 @@ class FinanceController extends Controller
      */
     public function index($month,$year)
     {
-        $expenses = Finance::where('year','=',$year)->get();
+        $expenses = Finance::where(['year'=>$year,'month'=>$month])->with('getCurrency')->with('getUnit')->with('getCompany')->with('AddedBy')->get();
         $currencies = Currency::all();
         $units = Units::all();
-        return view('finance.index',compact(['expenses','month','year','currencies','units']));
+        //sql query after launch
+        $totalofexpenses = array();
+        foreach($currencies as $thiscurrency)
+        {
+            $currencyexpense = Finance::where(['year'=>$year,'month'=>$month,'currencyid'=>$thiscurrency->id])->with('getCurrency')->sum('amount');
+            $singleexpense = ['amount' => $currencyexpense,'symbol'=>$thiscurrency->symbol,'name'=>$thiscurrency->name];
+            array_push($totalofexpenses,$singleexpense);
+        }
+        return view('finance.index',compact(['expenses','month','year','currencies','units','totalofexpenses']));
     }
 
     /**

@@ -95,6 +95,12 @@
                             <input type="salary" value="" name="salary" class="form-control" id="salary" placeholder="Salary" aria-label="Salary">        
                         </div>
                         <div class="col">
+                            <select class="form-select" name="unit_id">
+                                <option selected disabled>Choose the Unit...</option>
+                                @foreach($units as $thisunit)
+                                <option value="{{$thisunit->id}}">{{$thisunit->name}}( {{$thisunit->getCompany->name}} )</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>    
                     <div class="col-auto">
@@ -113,7 +119,6 @@
                     </div>
                     <div class="text-center">
                         <div class="display-6">{{$totalusers}}</div>
-                        
                     </div>
                     
                 </div>

@@ -44,18 +44,11 @@ class UserRolesSeeder extends Seeder
             'guard_name' => 'api'
         ],
         [
-            'name' => 'quality_assurance_manager',
+            'name' => 'quality_assurance_depart',
             'guard_name' => 'api'
         ],
         [
-            'name' => 'quality_assurance_executive',
-            'guard_name' => 'api'
-        ],
-        [
-            'name' => 'human_resource_manager',
-            'guard_name' => 'api'
-        ],[
-            'name' => 'human_resource_executive',
+            'name' => 'human_resource_depart',
             'guard_name' => 'api'
         ],
         [
@@ -82,7 +75,10 @@ class UserRolesSeeder extends Seeder
         ]];
         Role::insert($userroles);
         $permissions = Permission::pluck('id');
-        $admin = Role::find(1);
+        $superadmin = Role::find(1);
+        $superadmin->syncPermissions($permissions);
+        $permissions = Permission::pluck('id');
+        $admin = Role::find(2);
         $admin->syncPermissions($permissions);
     }
 }

@@ -126,6 +126,15 @@
                 </a>
             </li>
             <li>
+                <a  
+                    href="{{route('admin.teamChart',1)}}">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-people"></i>
+                    </span>
+                    <span>My Team</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{route('admin.allRoles')}}">
                     <span class="nav-link-icon">
                         <i class="bi bi-vinyl"></i>

@@ -18,18 +18,22 @@ class CurrencySeeder extends Seeder
             'name' => 'Dollars',
             'code' => 'USD',
             'symbol' => '$',
+            'company_id'=>'1'
         ],[
             'name' => 'Euro',
             'code' => 'EUR',
             'symbol' => '€',
+            'company_id'=>'1'
         ],[
             'name' => 'Pounds',
             'code' => 'GBP',
             'symbol' => '£',
+            'company_id'=>'1'
         ],[
             'name' => 'Canadian Dollar',
             'code' => 'CAD',
             'symbol' => '$',
+            'company_id'=>'1'
         ]];
         Currency::insert($currencies);
     }

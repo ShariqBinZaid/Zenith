@@ -21,7 +21,9 @@ class OpportunitySeeder extends Seeder
             'message'=>'This is test Opportunity',
             'brand_id'=>'2',
             'url'=>'www.google.com',
-            'package_id'=>'4'
+            'package_id'=>'4',
+            'unit_id'=>'2',
+            'company_id'=>'1'
         ],[
             'name' => 'Test Opportunity 1',
             'email' => 'testopportunity1@gmail.com',
@@ -29,7 +31,9 @@ class OpportunitySeeder extends Seeder
             'message'=>'This is test Opportunity 1',
             'brand_id'=>'2',
             'url'=>'www.google.com',
-            'package_id'=>'3'
+            'package_id'=>'3',
+            'unit_id'=>'2',
+            'company_id'=>'1'
         ],[
             'name' => 'Test Opportunity 2',
             'email' => 'testopportunity2@gmail.com',
@@ -37,7 +41,9 @@ class OpportunitySeeder extends Seeder
             'message'=>'This is test Opportunity 2',
             'brand_id'=>'1',
             'url'=>'www.google.com',
-            'package_id'=>'2'
+            'package_id'=>'2',
+            'unit_id'=>'1',
+            'company_id'=>'1'
         ],[
             'name' => 'Test Opportunity 3',
             'email' => 'testopportunity3@gmail.com',
@@ -45,7 +51,9 @@ class OpportunitySeeder extends Seeder
             'message'=>'This is test Opportunity 3',
             'brand_id'=>'1',
             'url'=>'www.google.com',
-            'package_id'=>'1'
+            'package_id'=>'1',
+            'unit_id'=>'1',
+            'company_id'=>'1'
         ]];
         Opportunity::insert($opportunity);
     }

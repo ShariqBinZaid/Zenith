@@ -11,7 +11,7 @@ class Brands extends Model
     use SoftDeletes;
     protected $primarykey = 'id';
     protected $fillable = [
-        'name','url','image','type','initials'
+        'name','url','image','type','initials','unit_id','company_id'
     ];
     protected static function boot()
     {
@@ -36,5 +36,13 @@ class Brands extends Model
     public function teams()
     {
         return $this->belongsToMany(Teams::class);
+    }
+    public function getUnit()
+    {
+        return $this->belongsTo(Units::class,'unit_id','id');
+    }
+    public function getCompany()
+    {
+        return $this->belongsTo(Company::class,'company_id','id');
     }
 }

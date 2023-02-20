@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Shifts extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','timing'];
+    protected $fillable = ['name','timing','company_id'];
 }

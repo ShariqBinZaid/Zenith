@@ -68,6 +68,14 @@
                         </div>
                     </div>
                     <div class="row mb-3">
+                    <div class="col">
+                        <select class="form-select" name="unit_id">
+                            <option selected disabled>Choose the Unit...</option>
+                            @foreach($units as $thisunit)
+                            <option value="{{$thisunit->id}}">{{$thisunit->name}} ({{$thisunit->getCompany->name}})</option>
+                            @endforeach
+                        </select>
+                        </div>
                         <div class="col">
                             <input type="file" value="{{ old('image') }}" class="form-control" name="image" placeholder="Logo" aria-label="Logo">
                         </div>
@@ -182,7 +190,7 @@
                 <th>Type</th>
                 <th>URL</th>
                 <th>Initials</th>
-                <!-- <th>Created At</th> -->
+                <th>Company</th>
                 <th class="text-end">Actions</th>
             </tr>
             </thead>
@@ -199,7 +207,7 @@
                     <span class="badge bg-success">{{$thisbrand->url}}</span>
                 </td>
                 <td>{{$thisbrand->initials}}</td>
-                <!-- <td>{{$thisbrand->created_at}}</td> -->
+                <td>{{$thisbrand->getUnit->name}}</td>
                 <td class="text-end">
                     <div class="d-flex">
                         <div class="dropdown ms-auto">

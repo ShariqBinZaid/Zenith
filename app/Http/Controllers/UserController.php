@@ -9,7 +9,9 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
 use App\Models\Shifts;
+use App\Models\Units;
 use DB;
+use Auth;
 use App\Models\Teams;
 class UserController extends Controller
 {
@@ -25,7 +27,17 @@ class UserController extends Controller
         $users = User::paginate(10);
         $charaterstic = 'Active';
         $allshifts = Shifts::latest()->get();
-        return view('users.index',compact(['allRoles','totalusers','users','charaterstic','allshifts']));
+        if( Auth::user()->roles->pluck('name')[0] == 'superadmin')
+        {
+            $units = Units::all();
+        }
+        else if(Auth::user()->roles->pluck('name')[0] == 'admin' || Auth::user()->roles->pluck('name')[0] == 'human_resource_depart')
+        {
+            $units = Units::where('company_id',Auth::user()->company_id)->get();
+        }else{
+            $units = Units::where('unithead',Auth::user()->id)->with('getCompany')->get();
+        }
+        return view('users.index',compact(['allRoles','totalusers','users','charaterstic','allshifts','units']));
     }
     public function inactiveusers()
     {
@@ -55,16 +67,19 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users'
+            'email' => 'required|email|unique:users',
+            'unit_id'=>'required'
         ], [
             'name.required' => 'Name field is required.',
             'email.required' => 'Email field is required.',
             'email.email' => 'Email field must contain the email address.',
-            'email.unique' => 'Email already registered as a user!'
+            'email.unique' => 'Email already registered as a user!',
+            'unit_id.required'=>"User's Unit is required"
         ]);
         $inputs = $request->all();
         $inputs['password']= Hash::make('123456789');
-        $createuser = User::create(['name'=>$inputs['name'],'email'=>$inputs['email'],'password'=>$inputs['password'],'phone'=>$inputs['phone']]);
+        $company_id = Units::where('id',$inputs['unit_id'])->pluck('company_id')->first();
+        $createuser = User::create(['name'=>$inputs['name'],'email'=>$inputs['email'],'password'=>$inputs['password'],'phone'=>$inputs['phone'],'unit_id'=>$inputs['unit_id'],'company_id'=>$company_id]);
         $createuser->assignRole($inputs['role']);
         $createuser->setMeta('gender',$inputs['gender']);
         $createuser->setMeta('salary',$inputs['salary']);
@@ -88,19 +103,19 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'phone'=>'required|unique:users',
-            'salary'=>'required'
+            'phone'=>'required|unique:users'
         ], [
             'name.required' => 'Name field is required.',
             'email.required' => 'Email field is required.',
             'email.email' => 'Email field must contain the email address.',
             'email.unique' => 'Email already registered as a user!',
             'phone.unique' => 'Phone already registered as a user!',
-            'phone.required' => 'Phone field is required.',
-            'salary.required' => 'Salary field is required.'
+            'phone.required' => 'Phone field is required.'
         ]);
         $inputs = $request->all();
         $inputs['password']= Hash::make('123456789');
+        $inputs['unit_id'] = Auth::user()->unit_id;
+        $inputs['company_id'] = Auth::user()->company_id;
         $createuser = User::create($inputs);
         $createuser->assignRole('client');
         $successmessage = "Client created successfully!";
@@ -125,29 +140,48 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $teams = DB::table('teams_user')->where('user_id',$id)->get();
-        $reportingauthority = array();
-        foreach($teams as $thisteam)
-        {
-            $leader = Teams::where('id','=',$thisteam->teams_id)->with('getLeader')->first();
-            $user = User::find($leader->getLeader->id);
-            array_push($reportingauthority,$user);
-        }
-        $admin = User::whereHas(
-            'roles', function($q){
-                $q->where('name', 'admin');
-            }
-        )->get();
-        if($reportingauthority == NULL)
-        {
-            foreach($admin as $thisadmin)
-            {
-                array_push($reportingauthority,$thisadmin);
-            }
-        }
+        $reportingauthority = 0;
         $userdata = User::where('id',$id)->first();
+        if($userdata->roles->pluck('name')[0] == 'admin')
+        {
+            $reportingauthority = NULL;
+        }
+        elseif($userdata->roles->pluck('name')[0] == 'superadmin')
+        {
+            $reportingauthority = NULL;
+        }
+        elseif($userdata->roles->pluck('name')[0] == 'business_unit_head')
+        {
+            $reportingauthority = User::find($userdata->getCompany->owner);;
+        }
+        else{
+            if($userdata->is_leader == 1)
+            {
+                $reportingauthority = User::find($userdata->getUnit->unithead);
+            }
+            else{
+                $reportingauthority = User::find($userdata->getTeam->leader);
+            }
+        }
+        
         $allshifts = Shifts::latest()->get();
-        return view('users.show',compact(['userdata','reportingauthority','allshifts']));
+        if( Auth::user()->roles->pluck('name')[0] == 'superadmin')
+        {
+            $units = Units::all();
+        }
+        else if(Auth::user()->roles->pluck('name')[0] == 'admin' || Auth::user()->roles->pluck('name')[0] == 'human_resource_depart')
+        {
+            $units = Units::where('company_id',Auth::user()->company_id)->get();
+        }else{
+            $units = Units::where('unithead',Auth::user()->id)->with('getCompany')->get();
+        }
+        if($userdata->roles->pluck('name')[0] == 'superadmin' || $userdata->roles->pluck('name')[0] == 'admin' || $userdata->roles->pluck('name')[0] == 'business_unit_head'){
+            $unithead = NULL;
+        }
+        else{
+            $unithead = User::find($userdata->getUnit->unithead);
+        }
+        return view('users.show',compact(['userdata','allshifts','units','reportingauthority','unithead']));
     }
     public function changepassword(Request $request)
     {
@@ -180,22 +214,25 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'unit_id'=>'required'
         ], [
-            'name.required' => 'Name field is required.'
+            'name.required' => 'Name field is required.',
+            'unit_id.required'=>'Select Unit!'
         ]);
         
         $updateprofile = User::find($request->id);
+        $company_id = Units::where('id',$request->unit_id)->pluck('company_id')->first();
         if($request->image == NULL)
         {   
-            $updateprofile->update(['name' => $request->name,'phone'=>$request->phone ]);  
+            $updateprofile->update(['name' => $request->name,'phone'=>$request->phone,'unit_id'=>$request->unit_id,'company_id'=>$company_id ]);  
         }
         else{
             
             $imageName = 'user/'.time().'-'.$request->name.'.'.$request->image->extension();
             $request->image->move(public_path('images/user'), $imageName);
             User::whereId($request->id)->update([
-                'name' => $request->name,'image' => $imageName,'phone'=>$request->phone
+                'name' => $request->name,'image' => $imageName,'phone'=>$request->phone,'unit_id'=>$request->unit_id,'company_id'=>$company_id
             ]);
         }
         $updateprofile->setMeta('joining', $request->joining);

@@ -126,12 +126,12 @@
                     <div class="text-center">
                     <div class="card mt-3">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><b>Name</b> : {{ Auth::user()->name }}</li>
-                            <li class="list-group-item"><b>Email</b> :  {{ Auth::user()->email }}</li>
-                            <li class="list-group-item"><b>Role</b> :  {{ucwords(strtolower(str_replace('_',' ',Auth::user()->roles->pluck('name')[0] ?? '')), '\',. ')}}</li>
-                            <li class="list-group-item"><b>Team</b> :  @foreach($teamdata as $thisteam)<a href="{{route('users.thisTeam',$thisteam->id)}}">{{$thisteam->name}}</a>@endforeach</li>
-                            <li class="list-group-item"><b>Reporting Authority</b> :  @foreach($reportingauthority as $thisreportingauth)<a href="{{route('users.editUser',$thisreportingauth->id)}}">{{$thisreportingauth->name}}</a>@endforeach</li>
-                            <li class="list-group-item"><b>Employment Status</b> :  {{ auth()->user()->getMeta('employment_status') }}</li>
+                            <li class="list-group-item"><b>Name</b> : {{$userdata->name}}</li>
+                            <li class="list-group-item"><b>Email</b> :  {{$userdata->email}}</li>
+                            <li class="list-group-item"><b>Role</b> :  {{ucwords(strtolower(str_replace('_',' ',$userdata->roles->pluck('name')[0] ?? '')), '\',. ')}}</li>
+                            @if($reportingauthority == NULL)@else<li class="list-group-item"><b>Reporting Authority</b> :  {{$reportingauthority->name}}</li>@endif
+                            @if($unithead == NULL)@else<li class="list-group-item"><b>Unit Head</b> :  {{$unithead->name}}</li>@endif
+                            
                         </ul>
                     </div>
                     </div>

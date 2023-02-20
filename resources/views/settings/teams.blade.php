@@ -112,10 +112,13 @@
                 <td><a href="{{route('users.editUser',$thisteam->getLeader->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisteam->getLeader->name}}"><img src="{{asset('images/'.$thisteam->getLeader->image)}}" class="rounded" alt="image"></a></td>
                 <td>{{$thisteam->getUnit->name}}</td>
                 <td><div class="avatar-group me-2">@foreach($thisteam->users as $thisuser)
+                    @if($thisuser->is_leader == 1)
+                    @else
                         <a href="{{route('users.editUser',$thisuser->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisuser->name}}">
                             <img src="{{asset('images/'.$thisuser->image)}}" class="rounded-circle" alt="image">
                         </a>
-                        @endforeach</div></td>
+                    @endif
+                    @endforeach</div></td>
 
                 <td class="text-end">
                     <div class="d-flex">

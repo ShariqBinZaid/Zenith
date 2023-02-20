@@ -11,6 +11,6 @@ class PackageTypes extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillable = [
-        'name'
+        'name','company_id'
     ];
 }

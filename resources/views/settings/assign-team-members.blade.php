@@ -87,6 +87,8 @@
                         <div class="card mt-3" style="width: 18rem;">
                             <ul class="list-group list-group-flush">
                             @foreach($teamdata->users as $thisuser)
+                            @if($thisuser->is_leader == 1)
+                            @else
                             <li class="list-group-item"><b>Name</b> : <a href="{{route('users.editUser',$thisuser->id)}}">{{$thisuser->name}}</a>
                             <form action="{{route('admin.unassignTeamMember')}}" method="POST">
                                 {{csrf_field()}}
@@ -94,6 +96,7 @@
                                 <input type="hidden" name="team_id" value="{{$teamdata->id}}"/>
                                 <input type="submit" name="Submit" value="Unassign" class="unassignleadbtn"/>
                             </form></li>
+                            @endif
                             @endforeach
                             </ul>
                         </div>

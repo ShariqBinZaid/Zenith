@@ -122,6 +122,8 @@
                             <h6>Type : {{$branddetails->type}}</h6>
                             <h6>Initials : {{$branddetails->initials}}</h6>
                             <h6>URL : {{$branddetails->url}}</h6>
+                            <h6>Unit : {{$branddetails->getUnit->name}}</h6>
+                            <h6>Company : {{$branddetails->getCompany->name}}</h6>
                         </div>
                         
                     </div>

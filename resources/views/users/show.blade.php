@@ -97,10 +97,19 @@
                                 <div class="col-md-6 mt-3">
                                     <input type="text" value="{{$userdata->getMeta('salary', '')}}" name="salary" class="form-control" placeholder="Salary" aria-label="Salary">
                                 </div>
+                                <div class="col-md-6 mt-3">
+                                <select class="form-select" name="unit_id">
+                                    <option selected disabled>Select the Unit..</option>
+                                    @foreach($units as $thisunit)
+                                    <option value="{{$thisunit->id}}" {{($userdata->unit_id == $thisunit->id)? "selected":""}}>{{$thisunit->name}}( {{$thisunit->getCompany->name}} )</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             </div>
                             <div class="col-auto">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
+                            
                         </form>
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -147,7 +156,9 @@
                             <li class="list-group-item"><b>Name</b> : {{$userdata->name}}</li>
                             <li class="list-group-item"><b>Email</b> :  {{$userdata->email}}</li>
                             <li class="list-group-item"><b>Role</b> :  {{ucwords(strtolower(str_replace('_',' ',$userdata->roles->pluck('name')[0] ?? '')), '\',. ')}}</li>
-                            <li class="list-group-item"><b>Reporting Authority</b> :  @foreach($reportingauthority as $thisreportingauth)<a href="{{route('users.editUser',$thisreportingauth->id)}}">{{$thisreportingauth->name}}</a>@endforeach</li>
+                            @if($reportingauthority == NULL)@else<li class="list-group-item"><b>Reporting Authority</b> :  {{$reportingauthority->name}}</li>@endif
+                            @if($unithead == NULL)@else<li class="list-group-item"><b>Unit Head</b> :  {{$unithead->name}}</li>@endif
+                            
                         </ul>
                     </div>
                     </div>

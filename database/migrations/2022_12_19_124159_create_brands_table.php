@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('image')->default('brands/default.jpg');
             $table->string('type');
             $table->string('initials');
+            $table->integer('unit_id');
+            $table->integer('company_id');
             $table->integer('created_by')->nullable();
             $table->softDeletes();
             $table->timestamps();

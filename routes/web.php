@@ -48,7 +48,7 @@ Route::group(['prefix'=>'salesforce/opportunities','as'=>'opportunity.','middlew
 
 
 
-Route::group(['prefix'=>'marketing/brands','as'=>'brands.','middleware' => ['auth','role:admin|business_unit_head']], function(){
+Route::group(['prefix'=>'marketing/brands','as'=>'brands.','middleware' => ['auth','role:superadmin|admin|business_unit_head']], function(){
     Route::get('/', [App\Http\Controllers\BrandsController::class, 'index'])->name('allBrands');
     Route::post('add-brand',[App\Http\Controllers\BrandsController::class, 'store'])->name('addBrand');
     Route::post('update-brand',[App\Http\Controllers\BrandsController::class, 'update'])->name('updateBrand');
@@ -60,7 +60,7 @@ Route::group(['prefix'=>'marketing/brands','as'=>'brands.','middleware' => ['aut
 
 
 
-Route::group(['prefix'=>'marketing/packages','as'=>'packages.','middleware' => ['auth','role:admin|business_unit_head']], function(){
+Route::group(['prefix'=>'marketing/packages','as'=>'packages.','middleware' => ['auth','role:superadmin|admin|business_unit_head']], function(){
     Route::get('/', [App\Http\Controllers\PackagesController::class, 'index'])->name('allPackages');
     Route::post('add-package',[App\Http\Controllers\PackagesController::class, 'store'])->name('addPackage');
     Route::get('edit-package/{id}', [App\Http\Controllers\PackagesController::class, 'edit'])->name('editPackage');
@@ -73,7 +73,7 @@ Route::group(['prefix'=>'marketing/packages','as'=>'packages.','middleware' => [
 
 
 // Packages Types
-Route::group(['prefix'=>'admin/settings','as'=>'packageTypes.','middleware' => ['auth','role:admin']], function(){
+Route::group(['prefix'=>'admin/settings','as'=>'packageTypes.','middleware' => ['auth','role:superadmin']], function(){
     Route::get('/package-types', [App\Http\Controllers\PackageTypesController::class, 'index'])->name('allPackageTypes');
     Route::post('add-packagetypes',[App\Http\Controllers\PackageTypesController::class, 'store'])->name('addPackageTypes');
     Route::get('edit-packagetypes/{id}', [App\Http\Controllers\PackageTypesController::class, 'edit'])->name('editPackageTypes');
@@ -118,6 +118,7 @@ Route::group(['prefix'=>'admin/settings','as'=>'admin.','middleware' => ['auth',
     Route::post('/unassign-member',[App\Http\Controllers\TeamsController::class,'unassignTeamMember'])->name('unassignTeamMember');
     Route::post('/assign-brand',[App\Http\Controllers\TeamsController::class,'assignBrandSubmit'])->name('assignBrandSubmit');
     Route::post('/unassign-brand',[App\Http\Controllers\TeamsController::class,'unassignBrandSubmit'])->name('unassignBrandSubmit');
+    Route::get('/team_chart/{id}',[App\Http\Controllers\TeamsController::class,'team_chart'])->name('teamChart');
     Route::get('/holidays',[App\Http\Controllers\HolidaysController::class,'index'])->name('allHolidays');
     Route::post('/add-holiday',[App\Http\Controllers\HolidaysController::class,'store'])->name('addHoliday');
     Route::post('/edit-holiday',[App\Http\Controllers\HolidaysController::class,'update'])->name('editHoliday');

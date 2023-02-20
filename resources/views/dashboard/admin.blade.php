@@ -603,7 +603,7 @@
                         <div class="card-header d-flex align-items-center justify-content-between icon-color">
                             <h5 class="card-title"><span class="nav-link-icon">
                         <i class="bi bi-telephone-inbound"></i>
-                    </span>Recent Leads :</h5>
+                    </span>Recent Leads </h5>
                             <div class="dropdown ms-auto">
                                 <!-- <a href="#" data-bs-toggle="dropdown" class="btn btn-sm btn-floating" aria-haspopup="true"
                                 aria-expanded="false">
@@ -656,7 +656,7 @@
                         <div class="card-header d-flex align-items-center justify-content-between icon-color">
                             <h5 class="card-title"><span class="nav-link-icon">
                         <i class="bi bi-briefcase"></i>
-                    </span>Recent Opportunities :</h5>
+                    </span>Recent Opportunities </h5>
                             <div class="dropdown ms-auto">
                                 <!-- <a href="#" data-bs-toggle="dropdown" class="btn btn-sm btn-floating" aria-haspopup="true"
                                 aria-expanded="false">

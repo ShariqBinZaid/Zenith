@@ -19,17 +19,39 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $teams = DB::table('teams_user')->where('user_id',Auth::user()->id)->get();
-        $reportingauthority = array();
-        $teamdata = array();
-        foreach($teams as $thisteam)
+        $reportingauthority = 0;
+        $id = Auth::user()->id;
+        $userdata = User::where('id',$id)->first();
+        if($userdata->roles->pluck('name')[0] == 'admin')
         {
-            $leader = Teams::where('id','=',$thisteam->teams_id)->with('getLeader')->first();
-            $user = User::find($leader->getLeader->id);
-            array_push($reportingauthority,$user);
-            array_push($teamdata,$leader);
+            $reportingauthority = NULL;
         }
-        return view('profile.index',compact('reportingauthority','teamdata'));
+        elseif($userdata->roles->pluck('name')[0] == 'superadmin')
+        {
+            $reportingauthority = NULL;
+        }
+        elseif($userdata->roles->pluck('name')[0] == 'business_unit_head')
+        {
+            $reportingauthority = User::find($userdata->getCompany->owner);;
+        }
+        else{
+            if($userdata->is_leader == 1)
+            {
+                $reportingauthority = User::find($userdata->getUnit->unithead);
+            }
+            else{
+                $reportingauthority = User::find($userdata->getTeam->leader);
+            }
+        }
+        if($userdata->roles->pluck('name')[0] == 'superadmin' || $userdata->roles->pluck('name')[0] == 'admin' || $userdata->roles->pluck('name')[0] == 'business_unit_head')
+        {
+            $unithead = NULL;
+        }
+        else{
+            
+            $unithead = User::find($userdata->getUnit->unithead);
+        }
+        return view('profile.index',compact('reportingauthority','unithead','userdata'));
     }
 
     /**

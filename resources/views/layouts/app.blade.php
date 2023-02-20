@@ -33,7 +33,7 @@
 
     <!-- content-footer -->
     <footer class="content-footer">
-        <div>© {{date('Y')}}  {{ config('app.name', 'Laravel') }}. All Rights Reserved</div>
+        <div>© {{date('Y')}}  {{ config('app.name', 'Laravel') }}. All Rights Reserved. Powered By Zenith Codes.</div>
     </footer>
     <!-- ./ content-footer -->
 

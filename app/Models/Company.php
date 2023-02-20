@@ -13,4 +13,7 @@ class Company extends Model
     {
         return $this->hasOne(User::class,'id','owner');
     }
+    public function units(){
+        return $this->hasMany(Units::class);
+    }
 }

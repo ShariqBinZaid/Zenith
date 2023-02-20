@@ -16,13 +16,16 @@ class LeaveTypesSeeder extends Seeder
     {
         $leavestype = [[
             'name' => 'Annual Leaves',
-            'days'=>'22'
+            'days'=>'22',
+            'company_id'=>'1'
         ],[
             'name' => 'Casual Leaves',
-            'days'=>'10'
+            'days'=>'10',
+            'company_id'=>'1'
         ],[
             'name' => 'Sick Leaves',
-            'days'=>'10'
+            'days'=>'10',
+            'company_id'=>'1'
         ]];
         LeaveTypes::insert($leavestype);
     }

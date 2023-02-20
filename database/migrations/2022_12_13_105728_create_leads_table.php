@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('phone');
             $table->longtext('message')->nullable();
             $table->integer('brand_id');
+            $table->integer('company_id');
+            $table->integer('unit_id');
+            $table->longtext('feedback')->nullable();
             $table->longtext('url');
             $table->string('ip_address')->nullable();
             $table->string('location')->nullable();

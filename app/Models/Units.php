@@ -17,4 +17,8 @@ class Units extends Model
     {
         return $this->hasOne(User::class,'id','unithead');
     }
+    public function brands()
+    {
+        return $this->hasMany(Brands::class,'unit_id','id');
+    }
 }

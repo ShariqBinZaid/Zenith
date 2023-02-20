@@ -22,6 +22,7 @@ return new class extends Migration
             $table->longText('reason')->nullable();
             $table->string('status')->default('pending');
             $table->integer('half_day')->default('0');
+            $table->integer('unit_id');
             $table->softDeletes();
             $table->timestamps();
         });

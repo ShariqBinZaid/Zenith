@@ -56,7 +56,9 @@ class TeamsController extends Controller
             'leader.required' => 'Team Leader is required.'
         ]);
         $input = $request->all();
-        Teams::create($input);
+        $input['company_id'] = Units::where('id',$request->unit_id)->pluck('company_id')->first();
+        $team = Teams::create($input);
+        User::where('id',$request->leader)->update(['is_leader'=>'1','team_id'=>$team->id]);
         $successmessage = "Team created successfully!";
         return Redirect::back()->with('success',$successmessage);
     }
@@ -87,7 +89,7 @@ class TeamsController extends Controller
                 $q->where('name', 'admin');
                 $q->orWhere('name', 'business_unit_head');
             }
-        )->get();
+        )->where(['unit_id'=>$teamdata->unit_id])->where('is_leader','0')->where('team_id',NULL)->get();
         return view('settings.assign-team-members',compact(['teamdata','allmembers']));
     }
 
@@ -105,11 +107,11 @@ class TeamsController extends Controller
     public function assignTeamMember(Request $request)
     {
         $team = Teams::find($request->team_id);
-        if($team->users->contains($request->user_id))
-        {
+        if(User::where(['id'=>$request->user_id,'team_id'=>$request->team_id])->count() > 0){
             $successmessage = "Team Member already present!";
-        }else{
-            $team->users()->attach($request->user_id);
+        }
+        else{
+            User::where('id',$request->user_id)->update(['team_id'=>$request->team_id]);
             $successmessage = "Team Member added successfully!";
         }
         return Redirect::back()->with('success',$successmessage);
@@ -124,7 +126,7 @@ class TeamsController extends Controller
     public function assignBrandtoTeam($id)
     {
         $team = Teams::find($id);
-        $brands = Brands::latest()->get();
+        $brands = Brands::where('unit_id',$team->unit_id)->latest()->get();
         return view('settings.assign-brand-team',compact(['team','brands']));
     }
     public function assignBrandSubmit(Request $request)
@@ -155,7 +157,17 @@ class TeamsController extends Controller
     public function destroy(Request $request)
     {
         $team=Teams::find($request->id);
+        foreach($team->users as $thisuser)
+        {
+            User::where('id',$thisuser->id)->update(['team_id'=>NULL]);
+        }
+        User::where('id',$team->leader)->update(['is_leader'=>'0','team_id'=>NULL]);
         $team->delete();
         return 'success';
+    }
+    public function team_chart($id)
+    {
+        $team = Teams::find($id);
+        return view('teams.team_chart',compact(['team']));
     }
 }

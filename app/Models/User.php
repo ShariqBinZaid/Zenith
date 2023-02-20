@@ -25,7 +25,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password','phone'
+        'password','phone','unit_id','company_id'
     ];
     public function getActivitylogOptions(): LogOptions
     {
@@ -66,5 +66,17 @@ class User extends Authenticatable
     public function latestattendance()
     {
         return $this->hasOne(Attendance::class,'userid','id')->latest();
+    }
+    public function getUnit()
+    {
+        return $this->hasOne(Units::class,'id','unit_id');
+    }
+    public function getTeam()
+    {
+        return $this->hasOne(Teams::class,'id','team_id');
+    }
+    public function getCompany()
+    {
+        return $this->hasOne(Company::class,'id','company_id');
     }
 }
