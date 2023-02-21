@@ -127,10 +127,17 @@ Route::group(['prefix'=>'admin/settings','as'=>'admin.','middleware' => ['auth',
     Route::post('/add-leavetype',[App\Http\Controllers\LeaveTypesController::class,'store'])->name('addLeaveType');
     Route::post('/edit-leavetype',[App\Http\Controllers\LeaveTypesController::class,'update'])->name('editLeaveType');
     Route::post('/delete-leavetype',[App\Http\Controllers\LeaveTypesController::class,'destroy'])->name('deleteLeaveType');
+    
     Route::get('/units',[App\Http\Controllers\UnitsController::class,'index'])->name('allUnits');
     Route::post('/add-unit',[App\Http\Controllers\UnitsController::class,'store'])->name('addUnit');
+    Route::post('update-unit', [App\Http\Controllers\UnitsController::class, 'update'])->name('updateUnit');
+    Route::post('delete-unit', [App\Http\Controllers\UnitsController::class, 'destroy'])->name('deleteUnit');
+
+    
     Route::get('/companies',[App\Http\Controllers\CompanyController::class,'index'])->name('allCompanies');
     Route::post('/add-company',[App\Http\Controllers\CompanyController::class,'store'])->name('addCompany');
+    Route::post('/update-company', [App\Http\Controllers\CompanyController::class, 'update'])->name('updateCompany');
+    Route::post('/delete-company', [App\Http\Controllers\CompanyController::class, 'destroy'])->name('deleteCompany');
 });
 
 

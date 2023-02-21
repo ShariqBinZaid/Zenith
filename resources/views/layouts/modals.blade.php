@@ -736,3 +736,62 @@
 </script>
 <!-- Edit Permissions Modal End -->
 
+
+<!-- ------------------------------------------UNIT------------------------------------- -->
+
+<!-- Show Unit Modal Start -->
+<div class="modal fade" id="ShowUnitModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ShowUnitModalLabel">Details of Units</h5>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body showbranddetails">
+        <div class="mb-3">
+          <label for="recipient-name" class="col-form-label">Name:</label><span class="unitname"></span>
+        </div>
+        <!-- <div class="mb-3">
+          <label for="message-text" class="col-form-label">Company:</label><span class="unitcompany_id"></span>
+        </div> -->
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Unit Head:</label><span class="unithead"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Description:</label><span class="unitdesc"></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var ShowUnitModal = document.getElementById('ShowUnitModal')
+  ShowUnitModal.addEventListener('show.bs.modal', function(event) {
+    // Button that triggered the modal
+    var button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    var unitnameval = button.getAttribute('data-bs-unitname')
+    var unitheadval = button.getAttribute('data-bs-unithead')
+    var unitdescval = button.getAttribute('data-bs-unitdesc')
+    var unitcreated_at = button.getAttribute('data-bs-created_at')
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+    //
+    // Update the modal's content.
+    var unitname = ShowUnitModal.querySelector('.unitname')
+    var unithead = ShowUnitModal.querySelector('.unithead')
+    var unitdesc = ShowUnitModal.querySelector('.unitdesc')
+    var created_at = ShowUnitModal.querySelector('.created_at')
+    unitname.textContent = unitnameval
+    unithead.textContent = unitheadval
+    unitdesc.textContent = unitdescval
+    created_at.textContent = unitcreated_at
+  })
+</script>
+
+
+<!-- Show Unit Modal End -->

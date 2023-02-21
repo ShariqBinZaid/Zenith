@@ -92,7 +92,21 @@ class UnitsController extends Controller
      */
     public function update(Request $request, Units $units)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'company_id' => 'required',
+            'unithead' => 'required',
+            'desc' => 'required',
+        ], [
+            'name.required' => 'Name field is required.',
+            'company_id.required' => 'Company field is required.',
+            'unithead.required' => 'Unit Head field is required.',
+            'desc.required' => 'Description already registered!',
+        ]);
+        $unitupdate = Units::find($request->id);
+        $unitupdate->update(['name' => $request->name, 'company_id' => $request->company_id, 'unithead' => $request->unithead, 'desc' => $request->desc]);
+        $successmessage = "Unit updated successfully!";
+        return 'success';
     }
 
     /**
@@ -103,6 +117,8 @@ class UnitsController extends Controller
      */
     public function destroy(Units $units)
     {
-        //
+        $unit = Units::find($request->id);
+        $unit->delete();
+        return 'success';
     }
 }
