@@ -115,7 +115,7 @@
                         </td>
                         <td>{{$thisunit->name}}</td>
                         <td><a href="javascript:;" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisunit->getCompany->name}}"><img src="{{asset('images/'.$thisunit->getCompany->logo)}}" class="imageintable" /></a></td>
-                        <td><a href="{{route('users.editUser',$thisunit->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisunit->getUnitHead->name}}">
+                        <td><a href="{{route('users.editUser',$thisunit->getUnitHead->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisunit->getUnitHead->name}}">
                                 <img src="{{asset('images/'.$thisunit->getUnitHead->image)}}" class="rounded-circle" alt="image">
                             </a></td>
 
@@ -129,7 +129,7 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ShowUnitModal" data-bs-unitname="{{$thisunit->name}}" data-bs-company_id="{{$thisunit->company_id}}" data-bs-unithead="{{$thisunit->getUnitHead->name}}" data-bs-unitdesc="{{$thisunit->desc}}">Show</a>
-                                        <a href="javascript:;" class="dropdown-item" rel="{{$thisunit->id}}" data-bs-toggle="modal" data-bs-target="#EditUnitModal" data-bs-unitname="{{$thisunit->unitname}}" data-bs-company_id="{{$thisunit->company_id}}" data-bs-unithead="{{$thisunit->unithead}}" data-bs-unitdesc="{{$thisunit->unitdesc}}">Edit</a>
+                                        <a href="javascript:;" class="dropdown-item" rel="{{$thisunit->id}}" data-bs-toggle="modal" data-bs-target="#EditUnitModal" data-bs-unitname="{{$thisunit->name}}" data-bs-company_id="{{$thisunit->company_id}}" data-bs-unithead="{{$thisunit->unithead}}" data-bs-id="{{$thisunit->id}}" data-bs-unitdesc="{{$thisunit->desc}}">Edit</a>
                                         <a href="javascript:;" class="dropdown-item deleteUnit" rel="{{$thisunit->id}}">Delete</a>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="message-text" class="col-form-label">Name:</label>
-                                <input type="text" class="form-control unitname" value="{{$thisunit->name}}" name="name" placeholder="Name" aria-label="Name">
+                                <input type="text" class="form-control unitname" name="name" >
                                 <input type="hidden" class="unitid" name="id" id="unitid" />
                             </div>
                         </div>
@@ -183,13 +183,13 @@
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label for="message-text" class="col-form-label">Description:</label>
-                                <textarea class="form-control unitdesc" value="{{$thisunit->desc}}" name="unitdesc"></textarea>
+                                <textarea class="form-control unitdesc" value="{{$thisunit->desc}}" name="desc"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary updateunitsubmit">Update</button>
+                        <input type="submit" class="btn btn-primary updateunitsubmit" value="Submit"/>
                     </div>
 
                 </form>
@@ -204,19 +204,18 @@
             // Extract info from data-bs-* attributes
             var unitidval = button.getAttribute('data-bs-id')
             var unitnameval = button.getAttribute('data-bs-unitname')
-            // var unitcompanyval = button.getAttribute('data-bs-company_id')
+            var unitcompanyval = button.getAttribute('data-bs-company_id')
             var unitheadval = button.getAttribute('data-bs-unithead')
             var unitdescval = button.getAttribute('data-bs-unitdesc')
             // If necessary, you could initiate an AJAX request here
             // and then do the updating in a callback.
             //
             // Update the modal's content.
-            var unitid = EditbrandModal.querySelector('.unitid')
-            var unitname = EditbrandModal.querySelector('.unitname')
-            // var company_id = EditbrandModal.querySelector('.company_id')
-            var unithead = EditbrandModal.querySelector('.unithead')
-            var unitdesc = EditbrandModal.querySelector('.unitdesc')
-
+            var unitid = EditUnitModal.querySelector('.unitid')
+            var unitname = EditUnitModal.querySelector('.unitname')
+            var unithead = EditUnitModal.querySelector('.unithead')
+            var unitdesc = EditUnitModal.querySelector('.unitdesc')
+            var unitcompany = EditUnitModal.querySelector('.company_id')
             unitid.value = unitidval
             unitname.value = unitnameval
             unitcompany.value = unitcompanyval
@@ -229,43 +228,38 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
-        $('#updateunitsubmit').submit(function(e) {
-            e.preventDefault();
-            var form = $('.updateunitform').serialize();
-            var formdata = 'updateunitform';
-            let formData = new FormData(this);
-
-            $.ajax({
-                url: "{{route('admin.updateUnit')}}",
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: (response) => {
-                    Swal.fire(
-                        'Thank You!',
-                        'Unit has been updated successfully!',
-                        'success'
+        $('.updateunitsubmit').on('click',function(e){
+        e.preventDefault();
+        var form = $('.updateunitform').serialize();
+        var formdata = 'updateunitform';
+        $.ajax({
+            url: "{{route('admin.updateUnit')}}",
+            type: 'POST',
+            data: form+"&type="+formdata,
+            success: function(res){
+                Swal.fire(
+                'Thank You!',
+                'Unit has been updated successfully!',
+                'success'
+                )
+                $('#allUnit').load(document.URL +  ' #allUnit');
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                var errors = XMLHttpRequest['responseJSON']['errors'];
+                var response = JSON.parse(XMLHttpRequest.responseText);
+                var errorString = '<ul>';
+                $.each( response.errors, function( key, value) {
+                    errorString += '<li>' + value + '</li>';
+                });
+                errorString += '</ul>';
+                //errorThrown.='\n'+
+                Swal.fire(
+                    'Request Failed!',
+                    errorString,
+                    'error'
                     )
-                    $('#allUnit').load(document.URL + ' #allUnit');
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    var errors = XMLHttpRequest['responseJSON']['errors'];
-                    var response = JSON.parse(XMLHttpRequest.responseText);
-                    var errorString = '<ul>';
-                    $.each(response.errors, function(key, value) {
-                        errorString += '<li>' + value + '</li>';
-                    });
-                    errorString += '</ul>';
-                    //errorThrown.='\n'+
-                    Swal.fire(
-                        'Request Failed!',
-                        errorString,
-                        'error'
-                    )
-                }
-            });
-        });
+            }   
+        })
+        })
     </script>
     @endpush

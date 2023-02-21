@@ -93,7 +93,7 @@ class UnitsController extends Controller
      * @param  \App\Models\Units  $units
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Units $units)
+    public function update(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required',
