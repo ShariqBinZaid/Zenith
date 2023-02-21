@@ -490,3 +490,123 @@ $(document).on('click','.timeout',function(e){
 
 </script>
 <!-- Checkout User End -->
+
+
+
+<!-- Delete Unit Ajax Start -->
+<script type="text/javascript">
+$(document).on('click','.deleteUnit',function(e){
+    e.preventDefault();
+    var id = $(this).attr('rel');
+    Swal.fire({
+  title: 'Are you sure you want to delete this unit?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    $.ajax({
+        url: "{{route('admin.deleteUnit')}}",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        data: {type:'deleteUnit',id:id},
+        success: function(res){
+           	Swal.fire(
+			  'Deleted!',
+			  'Unit has been deleted successfully!',
+			  'success'
+			)
+            $('#allUnit').load(document.URL +  ' #allUnit');
+        }
+    })
+  }})
+    })
+
+
+</script>
+<!-- Delete Lead Ajax End -->
+
+
+
+<!-- Delete Company Ajax Start -->
+<script type="text/javascript">
+$(document).on('click','.deleteCompany',function(e){
+    e.preventDefault();
+    var id = $(this).attr('rel');
+    Swal.fire({
+  title: 'Are you sure you want to delete this company?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    $.ajax({
+        url: "{{route('admin.deleteCompany')}}",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        data: {type:'deleteUnit',id:id},
+        success: function(res){
+           	Swal.fire(
+			  'Deleted!',
+			  'Company has been deleted successfully!',
+			  'success'
+			)
+            $('#allCompany').load(document.URL +  ' #allCompany');
+        }
+    })
+  }})
+    })
+
+
+</script>
+<!-- Delete Lead Ajax End -->
+
+
+
+<!-- Delete Holiday Ajax Start -->
+<script type="text/javascript">
+$(document).on('click','.deleteHoliday',function(e){
+    e.preventDefault();
+    var id = $(this).attr('rel');
+    Swal.fire({
+  title: 'Are you sure you want to delete this holiday?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    $.ajax({
+        url: "{{route('admin.deleteHoliday')}}",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        data: {type:'deleteHoliday',id:id},
+        success: function(res){
+           	Swal.fire(
+			  'Deleted!',
+			  'Holiday has been deleted successfully!',
+			  'success'
+			)
+            $('#allHoliday').load(document.URL +  ' #allHoliday');
+        }
+    })
+  }})
+    })
+
+
+</script>
+<!-- Delete Holiday Ajax End -->

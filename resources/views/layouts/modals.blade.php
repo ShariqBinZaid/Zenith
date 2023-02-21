@@ -791,3 +791,66 @@
 
 
 <!-- Show Unit Modal End -->
+
+
+
+
+
+<!-- ------------------------------------------COMPANY------------------------------------- -->
+
+<!-- Show Company Modal Start -->
+<div class="modal fade" id="ShowCompanyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ShowCompanyModalLabel">Details of Companies</h5>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body showbranddetails">
+        <div class="mb-3">
+          <label for="recipient-name" class="col-form-label">Name:</label><span class="companyname"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Company Owner:</label><span class="companyowner"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Description:</label><span class="companydesc"></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var ShowCompanyModal = document.getElementById('ShowCompanyModal')
+  ShowCompanyModal.addEventListener('show.bs.modal', function(event) {
+    // Button that triggered the modal
+    var button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    // var companyidval = button.getAttribute('data-bs-id')
+    var companynameval = button.getAttribute('data-bs-companyname')
+    var companyownerval = button.getAttribute('data-bs-companyowner')
+    var companydescval = button.getAttribute('data-bs-companydesc')
+    var companycreated_at = button.getAttribute('data-bs-created_at')
+
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+    //
+    // Update the modal's content.
+    // var companyid = ShowCompanyModal.querySelector('.companyid')
+    var companyname = ShowCompanyModal.querySelector('.companyname')
+    var companyowner = ShowCompanyModal.querySelector('.companyowner')
+    var companydesc = ShowCompanyModal.querySelector('.companydesc')
+    var created_at = ShowUnitModal.querySelector('.created_at')
+    // companyid.textContent = companyidval 
+    companyname.textContent = companynameval
+    companyowner.textContent = companyownerval
+    companydesc.textContent = companydescval
+  })
+</script>
+
+
+<!-- Show Company Modal End -->

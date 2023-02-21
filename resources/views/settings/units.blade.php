@@ -156,7 +156,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="message-text" class="col-form-label">Name:</label>
-                                <input type="text" class="form-control unitname" name="name" >
+                                <input type="text" class="form-control unitname" name="name">
                                 <input type="hidden" class="unitid" name="id" id="unitid" />
                             </div>
                         </div>
@@ -189,7 +189,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary updateunitsubmit" value="Submit"/>
+                        <input type="submit" class="btn btn-primary updateunitsubmit" value="Submit" />
                     </div>
 
                 </form>
@@ -228,38 +228,38 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $('.updateunitsubmit').on('click',function(e){
-        e.preventDefault();
-        var form = $('.updateunitform').serialize();
-        var formdata = 'updateunitform';
-        $.ajax({
-            url: "{{route('admin.updateUnit')}}",
-            type: 'POST',
-            data: form+"&type="+formdata,
-            success: function(res){
-                Swal.fire(
-                'Thank You!',
-                'Unit has been updated successfully!',
-                'success'
-                )
-                $('#allUnit').load(document.URL +  ' #allUnit');
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                var errors = XMLHttpRequest['responseJSON']['errors'];
-                var response = JSON.parse(XMLHttpRequest.responseText);
-                var errorString = '<ul>';
-                $.each( response.errors, function( key, value) {
-                    errorString += '<li>' + value + '</li>';
-                });
-                errorString += '</ul>';
-                //errorThrown.='\n'+
-                Swal.fire(
-                    'Request Failed!',
-                    errorString,
-                    'error'
+        $('.updateunitsubmit').on('click', function(e) {
+            e.preventDefault();
+            var form = $('.updateunitform').serialize();
+            var formdata = 'updateunitform';
+            $.ajax({
+                url: "{{route('admin.updateUnit')}}",
+                type: 'POST',
+                data: form + "&type=" + formdata,
+                success: function(res) {
+                    Swal.fire(
+                        'Thank You!',
+                        'Unit has been updated successfully!',
+                        'success'
                     )
-            }   
-        })
+                    $('#allUnit').load(document.URL + ' #allUnit');
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    var errors = XMLHttpRequest['responseJSON']['errors'];
+                    var response = JSON.parse(XMLHttpRequest.responseText);
+                    var errorString = '<ul>';
+                    $.each(response.errors, function(key, value) {
+                        errorString += '<li>' + value + '</li>';
+                    });
+                    errorString += '</ul>';
+                    //errorThrown.='\n'+
+                    Swal.fire(
+                        'Request Failed!',
+                        errorString,
+                        'error'
+                    )
+                }
+            })
         })
     </script>
     @endpush
