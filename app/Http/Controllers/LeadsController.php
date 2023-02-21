@@ -210,6 +210,9 @@ class LeadsController extends Controller
     }
     public function addLeadApi(Request $request){
         $input = $request->all();
+        $branddetail = Brands::where('id',$input['brand_id'])->first();
+        $input['company_id'] = $branddetail->company_id;
+        $input['unit_id'] = $branddetail->unit_id;
         $validator = Validator::make($input, [
         'name' => 'required',
         'email' => 'required',

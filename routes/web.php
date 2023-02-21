@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::group(['middleware' => ['auth']], function(){
-    Route::get('/home', [App\Http\Controllers\DashboardController::class, 'adminDashboard'])->name('adminDashboard');
+    Route::get('/home', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('adminDashboard');
 });
 
 

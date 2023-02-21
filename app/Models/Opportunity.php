@@ -5,10 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 class Opportunity extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use LogsActivity;
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+        // Chain fluent methods for configuration options
+    }
     protected $table = 'opportunity';
     protected $fillable = [
         'name',
@@ -18,6 +26,8 @@ class Opportunity extends Model
         'brand_id',
         'message',
         'package_id',
+        'unit_id',
+        'company_id',
         'ip_address',
         'location'
     ];

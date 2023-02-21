@@ -19,9 +19,15 @@ class OpportunityController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->roles->pluck('name')[0] == 'admin')
+        if( Auth::user()->roles->pluck('name')[0] == 'superadmin')
         {
             $opportunities = Opportunity::latest()->with('getBrand')->with('getPackage')->paginate(10);
+        }
+        elseif( Auth::user()->roles->pluck('name')[0] == 'admin')
+        {
+            $opportunities =Opportunity::whereHas('getCompany', function ($query) {
+                $query->where('owner', '=', Auth::user()->id);
+            })->paginate(10);
         }
         else if(Auth::user()->roles->pluck('name')[0] == 'business_unit_head'){
             $teamid = Teams::where('leader',Auth::user()->id)->with('brands')->first();
@@ -39,8 +45,7 @@ class OpportunityController extends Controller
             })->paginate(10);
         }
         $brandspackages = Brands::latest()->with('packages.getCurrency')->get();
-        $totalopportunities = Opportunity::count();
-        return view('opportunities.index',compact(['opportunities','brandspackages','totalopportunities']));
+        return view('opportunities.index',compact(['opportunities','brandspackages']));
     }
 
     /**
@@ -79,6 +84,8 @@ class OpportunityController extends Controller
         $inputs['url']= "www.google.com";
         $brand_id = Packages::where('id',$request->package_id)->pluck('brand_id')->first();
         $inputs['brand_id']= $brand_id;
+        $inputs['company_id'] = Brands::where('id',$brand_id)->pluck('company_id')->first();
+        $inputs['unit_id'] = Brands::where('id',$brand_id)->pluck('unit_id')->first();
         Opportunity::create($inputs);
         $successmessage = "Opportunity saved successfully!";
         return Redirect::back()->with('success',$successmessage);

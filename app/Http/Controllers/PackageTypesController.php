@@ -48,6 +48,7 @@ class PackageTypesController extends Controller
         ]);
         $packagetypesobj = new PackageTypes();
         $packagetypesobj->name = $request->name;
+        $packagetypesobj->company_id = auth()->user()->company_id;
         $packagetypesobj->save();
         $successmessage = "Package Types created successfully!";
         return Redirect::back()->with('success',$successmessage);

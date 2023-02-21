@@ -6,9 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 class Projects extends Model
 {
     use HasFactory,SoftDeletes;
+    use LogsActivity;
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+        // Chain fluent methods for configuration options
+    }
     protected $fillable = ['name','package_id','customer_id','brand_id','desc','priority','project_type','converted_by','created_from'];
     protected $hidden = ['customer_id','package_id','brand_id'];
     public function getBrand()

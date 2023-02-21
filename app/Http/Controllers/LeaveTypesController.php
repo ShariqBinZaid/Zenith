@@ -48,7 +48,8 @@ class LeaveTypesController extends Controller
         $input = $request->all();
         LeaveTypes::create([
             'name'=>$input['name'],
-            'days'=>$input['days']
+            'days'=>$input['days'],
+            'company_id'=>auth()->user()->company_id
         ]);
         $successmessage = "Leave Type saved successfully!";
         return Redirect::back()->with('success',$successmessage);

@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <div class="display-6">{{$totalopportunities}}</div>
+                        <div class="display-6">{{$opportunities->total()}}</div>
                         <!-- <div class="d-flex justify-content-center gap-3 my-3">
                             <i class="bi bi-star-fill icon-lg text-warning"></i>
                             <i class="bi bi-star-fill icon-lg text-warning"></i>
