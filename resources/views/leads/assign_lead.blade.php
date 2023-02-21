@@ -96,7 +96,7 @@
                         <ul class="list-group list-group-flush list-assign">
                         @foreach($lead->users as $thisuser)
                             <li class="list-group-item"><b>Name</b> : <a href="{{route('users.editUser',$thisuser->id)}}">{{$thisuser->name}}</a>
-                            @if( (auth()->user()->roles()->pluck('name')[0] == 'admin') || (auth()->user()->roles()->pluck('name')[0] == 'business_unit_head') )
+                            @if( (auth()->user()->roles()->pluck('name')[0] == 'superadmin') ||(auth()->user()->roles()->pluck('name')[0] == 'admin') || (auth()->user()->roles()->pluck('name')[0] == 'business_unit_head') )
                             <form action="{{route('lead.unassignLeadSubmit')}}" method="POST">
                                 {{csrf_field()}}
                                 <input type="hidden" name="user_id" value="{{$thisuser->id}}"/>

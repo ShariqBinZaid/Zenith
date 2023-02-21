@@ -8,6 +8,7 @@ use App\Models\Opportunity;
 use App\Models\Brands;
 use App\Models\Teams;
 use App\Models\User;
+use App\Models\Units;
 use App\Models\Packages;
 use Auth;
 class OpportunityController extends Controller
@@ -29,10 +30,11 @@ class OpportunityController extends Controller
                 $query->where('owner', '=', Auth::user()->id);
             })->paginate(10);
         }
-        else if(Auth::user()->roles->pluck('name')[0] == 'business_unit_head'){
-            $teamid = Teams::where('leader',Auth::user()->id)->with('brands')->first();
+        elseif(Auth::user()->roles->pluck('name')[0] == 'business_unit_head'){
+            
+            $unitid = Units::where('unithead',Auth::user()->id)->with('brands')->first();
             $brands = array();
-            foreach($teamid->brands as $thisbrand)
+            foreach($unitid->brands as $thisbrand)
             {
                 array_push($brands,$thisbrand->id);
             }
@@ -150,15 +152,45 @@ class OpportunityController extends Controller
     }
     public function assignOpportunity($id)
     {
+        
+
         $opportunity = Opportunity::find($id);
-        $users = User::whereHas(
-            'roles', function($q){
-                $q->where('name', 'business_unit_head');
-                $q->orWhere('name', 'front_sales_manager');
-                $q->orWhere('name', 'support_manager');
-                $q->orWhere('name', 'support_agent');
-            }
-        )->get();
+        if(Auth::user()->roles->pluck('name')[0] == 'superadmin')
+        {
+            $users = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'admin');
+                    $q->orWhere('name', 'business_unit_head');
+                    $q->orWhere('name', 'front_sales_manager');
+                    $q->orWhere('name', 'front_sales_executive');
+                }
+            )->where('company_id',$opportunity->company_id)->get();
+        }
+        elseif(Auth::user()->roles->pluck('name')[0] == 'admin')
+        {
+            $users = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'business_unit_head');
+                    $q->orWhere('name', 'front_sales_manager');
+                    $q->orWhere('name', 'front_sales_executive');
+                }
+            )->where('company_id',Auth::user()->company_id)->get();
+        }
+        else if(Auth::user()->roles->pluck('name')[0] == 'business_unit_head'){
+            $users = User::whereHas(
+                'roles', function($q){
+                    $q->where('name', 'front_sales_manager');
+                    $q->orWhere('name', 'front_sales_executive');
+                }
+            )->where(['company_id'=>Auth::user()->company_id,'unit_id'=>Auth::user()->unit_id])->get();
+        }
+        else{
+            $users = User::whereHas(
+                'roles', function($q){
+                    $q->orWhere('name', 'front_sales_executive');
+                }
+            )->where(['company_id'=>Auth::user()->company_id,'unit_id'=>Auth::user()->unit_id])->get();
+        }
         return view('opportunities.assign_opportunity',compact(['opportunity','users']));
     }
     public function assignOpportunitySubmit(Request $request)

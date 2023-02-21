@@ -54,7 +54,7 @@
                             <select class="form-control" name="user_id">
                                 <option selected disabled>--Select Sales Agent--</option>
                                 @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                <option value="{{$user->id}}">{{$user->name}}  ({{ucwords(strtolower(str_replace('_',' ',$user->roles->pluck('name')[0] ?? '')), '\',. ')}})</option>
                                 @endforeach
                             </select>
                             <input type="hidden" name="opportunity_id" value="{{request()->route('id');}}"/>
@@ -94,12 +94,15 @@
                         <ul class="list-group list-group-flush list-assign">
                         @foreach($opportunity->users as $thisuser)
                             <li class="list-group-item"><b>Name</b> : <a href="{{route('users.editUser',$thisuser->id)}}">{{$thisuser->name}}</a>
+                            @if( (auth()->user()->roles()->pluck('name')[0] == 'superadmin') || (auth()->user()->roles()->pluck('name')[0] == 'admin') || (auth()->user()->roles()->pluck('name')[0] == 'business_unit_head') )
                             <form action="{{route('opportunity.unassignOpportunitySubmit')}}" method="POST">
                                 {{csrf_field()}}
                                 <input type="hidden" name="user_id" value="{{$thisuser->id}}"/>
                                 <input type="hidden" name="opportunity_id" value="{{$opportunity->id}}"/>
                                 <input type="submit" name="Submit" value="Unassign" class="unassignleadbtn"/>
-                            </form></li>
+                            </form>
+                            @endif
+                        </li>
                         @endforeach
                         </ul>
                     </div>

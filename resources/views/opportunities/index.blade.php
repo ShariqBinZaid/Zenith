@@ -124,7 +124,7 @@
         </div>
     </div>
     @endcan
-    <div class="card">
+    <!-- <div class="card">
         <div class="card-body">
             <div class="d-md-flex">
                 <div class="d-md-flex gap-4 align-items-center">
@@ -169,7 +169,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="table-responsive">
         <table class="table table-custom table-lg mb-0" id="allOpportunity">

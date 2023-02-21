@@ -95,7 +95,7 @@
             </div>
         </div>
 
-        <div class="table-responsive" id="allTeams">
+        <div class="table-responsive" id="allUnit">
             <table class="table table-custom table-lg mb-0" id="customers">
                 <thead>
                     <tr>
@@ -151,7 +151,7 @@
                     <h5 class="modal-title" id="EditUnitModalLabel">Update Units</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="updateunitform">
+                <form class="updateunitform">
                     <div class="modal-body">
                         <div class="row mb-3">
                             <div class="col">
