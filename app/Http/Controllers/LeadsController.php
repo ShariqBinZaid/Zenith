@@ -12,6 +12,7 @@ Use Exception;
 use Validator;
 use Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Notifications\LeadAssignNotification;
 class LeadsController extends Controller
 {
     /**
@@ -199,6 +200,8 @@ class LeadsController extends Controller
             $lead->users()->attach($request->user_id);
             $successmessage = "Lead assigned successfully!";
         }
+        $assignedto = User::find($request->user_id);
+        $assignedto->notify(new LeadAssignNotification($lead));
         return Redirect::back()->with('success',$successmessage);
     }
     public function unassignLeadSubmit(Request $request)

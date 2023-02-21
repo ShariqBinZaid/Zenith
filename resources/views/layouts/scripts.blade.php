@@ -1,5 +1,16 @@
+<script src="{{asset('service-worker.js')}}"></script>
 <script src="{{asset('libs/bundle.js')}}"></script>
+<script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
+<script>
+  const beamsClient = new PusherPushNotifications.Client({
+    instanceId: '0110474a-8fbb-4ab9-b14e-7a95529754e3',
+  });
 
+  beamsClient.start()
+    .then(() => beamsClient.addDeviceInterest('hello'))
+    .then(() => console.log('Successfully registered and subscribed!'))
+    .catch(console.error);
+</script>
 <!-- Apex chart -->
 <script src="{{asset('libs/charts/apex/apexcharts.min.js')}}"></script>
 
@@ -11,6 +22,7 @@
 
 <!-- Main Javascript file -->
 <script src="{{asset('js/app.min.js')}}"></script>
+
 
     <!-- Examples -->
     <script src="{{asset('js/examples/customers.js')}}"></script>

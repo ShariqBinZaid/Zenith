@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -13,6 +14,7 @@ class Leads extends Model
     use HasFactory;
     use SoftDeletes;
     use LogsActivity;
+    use Notifiable;
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();
