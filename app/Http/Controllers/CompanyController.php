@@ -114,7 +114,7 @@ class CompanyController extends Controller
             'desc.required' => 'Description already registered!',
         ]);
         $companyupdate = Company::find($request->id);
-        $companyupdate->update(['name' => $request->name, 'logo' => $request->logo, 'owner' => $request->owner, 'desc' => $request->desc]);
+        $companyupdate->update(['name' => $request->name, 'owner' => $request->owner, 'desc' => $request->desc]);
         $successmessage = "Company updated successfully!";
         return 'success';
     }
