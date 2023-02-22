@@ -118,7 +118,7 @@ class UnitsController extends Controller
      * @param  \App\Models\Units  $units
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Units $units)
+    public function destroy(Request $request)
     {
         $unit = Units::find($request->id);
         $unit->delete();

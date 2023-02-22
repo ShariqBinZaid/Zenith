@@ -9,6 +9,7 @@ use App\Models\Teams;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 use Auth;
+
 class BrandsController extends Controller
 {
     /**
@@ -18,25 +19,22 @@ class BrandsController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->roles->pluck('name')[0] == 'superadmin')
-        {
+        if (Auth::user()->roles->pluck('name')[0] == 'superadmin') {
             $brands = Brands::latest()->paginate(10);
-        }
-        elseif(Auth::user()->roles->pluck('name')[0] == 'admin'){
-            $brands = Brands::whereHas('getCompany', function ($query)  {
+        } elseif (Auth::user()->roles->pluck('name')[0] == 'admin') {
+            $brands = Brands::whereHas('getCompany', function ($query) {
                 $query->where('owner', '=', auth()->user()->id);
             })->paginate(10);
-        }
-        else{
-            $brands = Brands::whereHas('getUnit', function ($query)  {
+        } else {
+            $brands = Brands::whereHas('getUnit', function ($query) {
                 $query->where('unithead', '=', auth()->user()->id);
             })->paginate(10);
         }
         $totalbrand = Brands::count();
-        $units = Units::whereHas('getCompany', function ($query)  {
+        $units = Units::whereHas('getCompany', function ($query) {
             $query->where('owner', '=', auth()->user()->id);
         })->get();
-        return view('brands.index',compact(['brands','totalbrand','units']));
+        return view('brands.index', compact(['brands', 'totalbrand', 'units']));
     }
 
     /**
@@ -46,7 +44,6 @@ class BrandsController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -63,7 +60,7 @@ class BrandsController extends Controller
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'type' => 'required',
             'initials' => 'required',
-            'unit_id'=>'required'
+            'unit_id' => 'required'
         ], [
             'name.required' => 'Name field is required.',
             'url.required' => 'URL field is required.',
@@ -72,26 +69,26 @@ class BrandsController extends Controller
             'initials.required' => 'Initials are required',
             'unit_id.required' => 'Select Unit.'
         ]);
-      
-        $imageName = 'brands/'.time().'-'.$request->name.'.'.$request->image->extension();  
-        $companyid = Units::where('id',$request->unit_id)->pluck('company_id')->first();
+
+        $imageName = 'brands/' . time() . '-' . $request->name . '.' . $request->image->extension();
+        $companyid = Units::where('id', $request->unit_id)->pluck('company_id')->first();
         $request->image->move(public_path('images/brands'), $imageName);
         $brandobj = new Brands();
         $brandobj->name = $request->name;
-        
+
         $brandobj->url = $request->url;
-        
+
         $brandobj->type = $request->type;
-        
+
         $brandobj->image = $imageName;
-        
+
         $brandobj->initials = $request->initials;
 
         $brandobj->unit_id = $request->unit_id;
         $brandobj->company_id = $companyid;
         $brandobj->save();
         $successmessage = "Brand saved successfully!";
-        return Redirect::back()->with('success',$successmessage);
+        return Redirect::back()->with('success', $successmessage);
     }
 
     /**
@@ -104,7 +101,6 @@ class BrandsController extends Controller
     {
         $branddetails = Brands::find($id);
         return view('brands.desc', compact(['branddetails']));
-        
     }
 
     /**
@@ -141,16 +137,14 @@ class BrandsController extends Controller
             'initials.required' => 'Initials are required'
         ]);
         $leadsupdate = Brands::find($request->id);
-        if($request->image == NULL)
-        {   
-            $leadsupdate->update(['name' => $request->name , 'url' => $request->url,'type'=>$request->type,'initials'=>$request->initials]);   
-        }
-        else{
-            $image_path = public_path().'/images/'.$request->oldlinkimage;
+        if ($request->image == NULL) {
+            $leadsupdate->update(['name' => $request->name, 'url' => $request->url, 'type' => $request->type, 'initials' => $request->initials]);
+        } else {
+            $image_path = public_path() . '/images/' . $request->oldlinkimage;
             unlink($image_path);
-            $imageName = 'brands/'.time().'-'.$request->name.'.'.$request->image->extension();  
+            $imageName = 'brands/' . time() . '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images/brands'), $imageName);
-            $leadsupdate->update(['name' => $request->name , 'url' => $request->url,'type'=>$request->type,'initials'=>$request->initials,'image'=>$imageName]);
+            $leadsupdate->update(['name' => $request->name, 'url' => $request->url, 'type' => $request->type, 'initials' => $request->initials, 'image' => $imageName]);
         }
         $successmessage = "Brand updated successfully!";
         return 'success';
@@ -164,7 +158,7 @@ class BrandsController extends Controller
      */
     public function destroy(Request $request)
     {
-        $brand=Brands::find($request->id);
+        $brand = Brands::find($request->id);
         $brand->leads()->delete();
         $brand->opportunities()->delete();
         $brand->packages()->delete();

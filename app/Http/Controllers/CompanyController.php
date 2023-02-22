@@ -102,7 +102,21 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            // 'logo' => 'required',
+            'owner' => 'required',
+            'desc' => 'required',
+        ], [
+            'name.required' => 'Name field is required.',
+            // 'logo.required' => 'Logo field is required.',
+            'owner.required' => 'Owner field is required.',
+            'desc.required' => 'Description already registered!',
+        ]);
+        $companyupdate = Company::find($request->id);
+        $companyupdate->update(['name' => $request->name, 'logo' => $request->logo, 'owner' => $request->owner, 'desc' => $request->desc]);
+        $successmessage = "Company updated successfully!";
+        return 'success';
     }
 
     /**
@@ -111,8 +125,10 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(Request $request)
     {
-        //
+        $unit = Company::find($request->id);
+        $unit->delete();
+        return 'success';
     }
 }

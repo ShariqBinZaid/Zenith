@@ -8,10 +8,11 @@ use App\Models\User;
 use App\Models\Brands;
 use App\Models\Teams;
 use App\Models\Units;
-Use Exception;
+use Exception;
 use Validator;
 use Auth;
 use Illuminate\Support\Facades\Redirect;
+
 class LeadsController extends Controller
 {
     /**
@@ -21,34 +22,28 @@ class LeadsController extends Controller
      */
     public function index()
     {
-        if( Auth::user()->roles->pluck('name')[0] == 'superadmin')
-        {
+        if (Auth::user()->roles->pluck('name')[0] == 'superadmin') {
             $leads = Leads::latest()->with('getBrand')->paginate(10);
-        }
-        elseif( Auth::user()->roles->pluck('name')[0] == 'admin')
-        {
-            $leads =Leads::whereHas('getCompany', function ($query) {
+        } elseif (Auth::user()->roles->pluck('name')[0] == 'admin') {
+            $leads = Leads::whereHas('getCompany', function ($query) {
                 $query->where('owner', '=', Auth::user()->id);
             })->paginate(10);
-        }
-        elseif(Auth::user()->roles->pluck('name')[0] == 'business_unit_head'){
-            $unitid = Units::where('unithead',Auth::user()->id)->with('brands')->first();
+        } elseif (Auth::user()->roles->pluck('name')[0] == 'business_unit_head') {
+            $unitid = Units::where('unithead', Auth::user()->id)->with('brands')->first();
             $brands = array();
-            foreach($unitid->brands as $thisbrand)
-            {
-                array_push($brands,$thisbrand->id);
+            foreach ($unitid->brands as $thisbrand) {
+                array_push($brands, $thisbrand->id);
             }
             $leads = Leads::whereIn('brand_id', $brands)->paginate(10);
-        }
-        else{
+        } else {
             $user = auth()->user();
-            $leads =Leads::whereHas('users', function ($query) use ($user) {
+            $leads = Leads::whereHas('users', function ($query) use ($user) {
                 $query->where('leads_user.user_id', '=', $user->id);
             })->paginate(10);
         }
         $allbrands = Brands::latest()->get();
         $totalleads = Leads::count();
-        return view('leads.index',compact(['leads','totalleads','allbrands']));
+        return view('leads.index', compact(['leads', 'totalleads', 'allbrands']));
     }
 
     /**
@@ -58,7 +53,6 @@ class LeadsController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -85,12 +79,12 @@ class LeadsController extends Controller
         ]);
         $inputs = $request->all();
         $inputs['created_by'] = auth()->user()->id;
-        $inputs['url']= "www.google.com";
-        $inputs['company_id'] = Brands::where('id',$inputs['brand_id'])->pluck('company_id')->first();
-        $inputs['unit_id'] = Brands::where('id',$inputs['brand_id'])->pluck('unit_id')->first();
+        $inputs['url'] = "www.google.com";
+        $inputs['company_id'] = Brands::where('id', $inputs['brand_id'])->pluck('company_id')->first();
+        $inputs['unit_id'] = Brands::where('id', $inputs['brand_id'])->pluck('unit_id')->first();
         Leads::create($inputs);
         $successmessage = "Lead saved successfully!";
-        return Redirect::back()->with('success',$successmessage);
+        return Redirect::back()->with('success', $successmessage);
         /*try {
             Leads::create($inputs);
             $successmessage = "Lead saved successfully!";
@@ -125,34 +119,34 @@ class LeadsController extends Controller
     public function assignLead($id)
     {
         $lead = Leads::find($id);
-        if(Auth::user()->roles->pluck('name')[0] == 'admin')
-        {
+        if (Auth::user()->roles->pluck('name')[0] == 'admin') {
             $users = User::whereHas(
-                'roles', function($q){
+                'roles',
+                function ($q) {
                     $q->where('name', 'business_unit_head');
                     $q->orWhere('name', 'front_sales_manager');
                     $q->orWhere('name', 'front_sales_executive');
                 }
-            )->where('company_id',Auth::user()->company_id)->get();
-        }
-        else if(Auth::user()->roles->pluck('name')[0] == 'business_unit_head'){
+            )->where('company_id', Auth::user()->company_id)->get();
+        } else if (Auth::user()->roles->pluck('name')[0] == 'business_unit_head') {
             $users = User::whereHas(
-                'roles', function($q){
+                'roles',
+                function ($q) {
                     $q->where('name', 'front_sales_manager');
                     $q->orWhere('name', 'front_sales_executive');
                 }
-            )->where(['company_id'=>Auth::user()->company_id,'unit_id'=>Auth::user()->unit_id])->get();
-        }
-        else{
+            )->where(['company_id' => Auth::user()->company_id, 'unit_id' => Auth::user()->unit_id])->get();
+        } else {
             $users = User::whereHas(
-                'roles', function($q){
+                'roles',
+                function ($q) {
                     $q->orWhere('name', 'front_sales_executive');
                 }
-            )->where(['company_id'=>Auth::user()->company_id,'unit_id'=>Auth::user()->unit_id])->get();
+            )->where(['company_id' => Auth::user()->company_id, 'unit_id' => Auth::user()->unit_id])->get();
         }
-        return view('leads.assign_lead',compact(['lead','users']));
+        return view('leads.assign_lead', compact(['lead', 'users']));
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -170,9 +164,9 @@ class LeadsController extends Controller
             'brand_id.required' => 'Select Brand',
         ]);
         $leadsupdate = Leads::find($request->id);
-        $companyid = Brands::where('id',$request->brand_id)->pluck('company_id')->first();
-        $unitid = Brands::where('id',$request->brand_id)->pluck('unit_id')->first();
-        $leadsupdate->update(['name'=>$request->name,'brand_id'=>$request->brand_id,'company_id'=>$companyid,'unit_id'=>$unitid]);
+        $companyid = Brands::where('id', $request->brand_id)->pluck('company_id')->first();
+        $unitid = Brands::where('id', $request->brand_id)->pluck('unit_id')->first();
+        $leadsupdate->update(['name' => $request->name, 'brand_id' => $request->brand_id, 'company_id' => $companyid, 'unit_id' => $unitid]);
         $successmessage = "Lead updated successfully!";
         return 'success';
     }
@@ -185,47 +179,47 @@ class LeadsController extends Controller
      */
     public function destroy(Request $request)
     {
-        $lead=Leads::find($request->id);
+        $lead = Leads::find($request->id);
         $lead->delete();
         return 'success';
     }
     public function assignLeadSubmit(Request $request)
     {
         $lead = Leads::find($request->leads_id);
-        if($lead->users->contains($request->user_id))
-        {
+        if ($lead->users->contains($request->user_id)) {
             $successmessage = "Lead already assigned to this user!";
-        }else{
+        } else {
             $lead->users()->attach($request->user_id);
             $successmessage = "Lead assigned successfully!";
         }
-        return Redirect::back()->with('success',$successmessage);
+        return Redirect::back()->with('success', $successmessage);
     }
     public function unassignLeadSubmit(Request $request)
     {
         $lead = Leads::find($request->leads_id);
         $lead->users()->detach($request->user_id);
         $successmessage = "Lead unassigned successfully!";
-        return Redirect::back()->with('success',$successmessage);
+        return Redirect::back()->with('success', $successmessage);
     }
-    public function addLeadApi(Request $request){
+    public function addLeadApi(Request $request)
+    {
         $input = $request->all();
-        $branddetail = Brands::where('id',$input['brand_id'])->first();
+        $branddetail = Brands::where('id', $input['brand_id'])->first();
         $input['company_id'] = $branddetail->company_id;
         $input['unit_id'] = $branddetail->unit_id;
         $validator = Validator::make($input, [
-        'name' => 'required',
-        'email' => 'required',
-        'phone'=>'required'
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required'
         ]);
-        if($validator->fails()){
-        return $this->sendError('Validation Error.', $validator->errors());       
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
         }
         $lead = Leads::create($input);
         return response()->json([
-        "success" => true,
-        "message" => "Lead created successfully.",
-        "data" => $lead
+            "success" => true,
+            "message" => "Lead created successfully.",
+            "data" => $lead
         ]);
     }
 }
