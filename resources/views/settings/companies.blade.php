@@ -160,7 +160,7 @@
                                 <select class="form-control companyowner" name="owner">
                                     <option selected disabled>--Select Company Owner--</option>
                                     @foreach($companies as $thiscompanies)
-                                    <option value="{{$thiscompanies->id}}">{{$thiscompanies->name}}</option>
+                                    <option value="{{$thiscompanies->id}}">{{$thiscompany->CompanyOwner->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -168,7 +168,7 @@
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label for="message-text" class="col-form-label">Description:</label>
-                                <textarea class="form-control companydesc" value="{{$thiscompany->desc}}" name="desc"></textarea>
+                                <textarea class="form-control companydesc" value="{{$thiscompanies->desc}}" name="desc"></textarea>
                             </div>
                         </div>
                     </div>
@@ -201,7 +201,7 @@
             companyid.value = companyidval
             companyname.value = companynameval
             companyowner.value = companyownerval
-            companydesc.value = companyownerval
+            companydesc.value = companydescval
         })
 
         $.ajaxSetup({
