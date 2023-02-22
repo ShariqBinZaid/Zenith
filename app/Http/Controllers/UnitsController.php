@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use App\Models\Units;
 use App\Models\Company;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Redirect;
+
 class UnitsController extends Controller
 {
     /**
@@ -18,13 +20,14 @@ class UnitsController extends Controller
     {
         $companies = Company::all();
         $unitheads = User::whereHas(
-            'roles', function($q){
+            'roles',
+            function ($q) {
                 $q->where('name', 'business_unit_head');
             }
         )->get();
         $totalunits = Units::count();
         $units = Units::all();
-        return view('settings.units',compact(['companies','unitheads','totalunits','units']));
+        return view('settings.units', compact(['companies', 'unitheads', 'totalunits', 'units']));
     }
 
     /**
@@ -58,7 +61,7 @@ class UnitsController extends Controller
         ]);
         Units::create($request->all());
         $successmessage = "Lead saved successfully!";
-        return Redirect::back()->with('success',$successmessage);
+        return Redirect::back()->with('success', $successmessage);
     }
 
     /**

@@ -128,7 +128,7 @@
                                         <i class="bi bi-three-dots"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
-                                        <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ShowUnitModal" data-bs-unitname="{{$thisunit->name}}" data-bs-company_id="{{$thisunit->company_id}}" data-bs-unithead="{{$thisunit->unithead}}" data-bs-unitdesc="{{$thisunit->desc}}">Show</a>
+                                        <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ShowUnitModal" data-bs-unitname="{{$thisunit->name}}" data-bs-company_id="{{$thisunit->company_id}}" data-bs-unithead="{{$thisunit->getUnitHead->name}}" data-bs-unitdesc="{{$thisunit->desc}}">Show</a>
                                         <a href="javascript:;" class="dropdown-item" rel="{{$thisunit->id}}" data-bs-toggle="modal" data-bs-target="#EditUnitModal" data-bs-unitname="{{$thisunit->unitname}}" data-bs-company_id="{{$thisunit->company_id}}" data-bs-unithead="{{$thisunit->unithead}}" data-bs-unitdesc="{{$thisunit->unitdesc}}">Edit</a>
                                         <a href="javascript:;" class="dropdown-item deleteUnit" rel="{{$thisunit->id}}">Delete</a>
                                     </div>
@@ -148,7 +148,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="EditUnitModalLabel">Update Unit</h5>
+                    <h5 class="modal-title" id="EditUnitModalLabel">Update Units</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="updateunitform">
@@ -156,7 +156,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="message-text" class="col-form-label">Name:</label>
-                                <input type="text" class="form-control unitname" name="name" placeholder="Name" aria-label="Name">
+                                <input type="text" class="form-control unitname" value="{{$thisunit->name}}" name="name" placeholder="Name" aria-label="Name">
                                 <input type="hidden" class="unitid" name="id" id="unitid" />
                             </div>
                         </div>
@@ -183,7 +183,7 @@
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label for="message-text" class="col-form-label">Description:</label>
-                                <textarea class="form-control unitdesc" name="unitdesc"></textarea>
+                                <textarea class="form-control unitdesc" value="{{$thisunit->desc}}" name="unitdesc"></textarea>
                             </div>
                         </div>
                     </div>

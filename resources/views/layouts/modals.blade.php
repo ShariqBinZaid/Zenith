@@ -12,35 +12,34 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body showleaddetails">
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Username:</label><span class="leadusername"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Email:</label><span class="leademail"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Phone:</label><span class="leadphone"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Brand:</label><span class="brand_id"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">URL:</label><span class="url"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Created at:</label><span class="created_at"></span>
-          </div>
+        <div class="mb-3">
+          <label for="recipient-name" class="col-form-label">Username:</label><span class="leadusername"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Email:</label><span class="leademail"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Phone:</label><span class="leadphone"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Brand:</label><span class="brand_id"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">URL:</label><span class="url"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Created at:</label><span class="created_at"></span>
+        </div>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 <script type="text/javascript">
-  
   var ShowLeadModal = document.getElementById('ShowLeadModal')
-  ShowLeadModal.addEventListener('show.bs.modal', function (event) {
+  ShowLeadModal.addEventListener('show.bs.modal', function(event) {
     // Button that triggered the modal
     var button = event.relatedTarget
     // Extract info from data-bs-* attributes
@@ -66,7 +65,7 @@
     leadphone.textContent = leadphoneval
     url.textContent = leadurl
     created_at.textContent = leadcreated_at
-    })
+  })
 </script>
 <!-- Show Lead Modal End -->
 
@@ -85,55 +84,55 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form id="updatebrandform" enctype="multipart/form-data" action="{{route('brands.updateBrand')}}" method="POST">
-      <div class="modal-body">
-      <img src="" class="brandimage">
-        <div class="row">
-          <div class="mb-3 col-md-6">
-            <label for="recipient-name" class="col-form-label">Brand Name:</label>
-            <input type="text" class="form-control brandname" id="brandname" name="name">
-            <input type="hidden" name="id" id="brandid" class="brandid"/>
-            <input type="hidden" name="oldlinkimage" id="oldlinkimage" class="oldlinkimage"/>
-            
-            {{@csrf_field()}}
-          </div>
-          
-          <div class="mb-3 col-md-6">
-            <label for="message-text" class="col-form-label">Brand Type:</label>
-            <select class="form-control brandtype" name="type" id="brandtype">
+        <div class="modal-body">
+          <img src="" class="brandimage">
+          <div class="row">
+            <div class="mb-3 col-md-6">
+              <label for="recipient-name" class="col-form-label">Brand Name:</label>
+              <input type="text" class="form-control brandname" id="brandname" name="name">
+              <input type="hidden" name="id" id="brandid" class="brandid" />
+              <input type="hidden" name="oldlinkimage" id="oldlinkimage" class="oldlinkimage" />
+
+              {{@csrf_field()}}
+            </div>
+
+            <div class="mb-3 col-md-6">
+              <label for="message-text" class="col-form-label">Brand Type:</label>
+              <select class="form-control brandtype" name="type" id="brandtype">
                 <option selected disabled>Choose the Brand Type...</option>
                 <option value="Design">Design</option>
                 <option value="E-Book">E-Book</option>
                 <option value="Mobile Apps">Mobile Apps</option>
-            </select>
+              </select>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="mb-3 col-md-6">
-            <label for="message-text" class="col-form-label">Brand URL:</label>
-            <input type="text" class="form-control brandurl" id="brandurl" name="url">
+          <div class="row">
+            <div class="mb-3 col-md-6">
+              <label for="message-text" class="col-form-label">Brand URL:</label>
+              <input type="text" class="form-control brandurl" id="brandurl" name="url">
+            </div>
+            <div class="mb-3 col-md-6">
+              <label for="message-text" class="col-form-label">Brand Initials:</label>
+              <input type="text" class="form-control brandinitials" id="brandinitials" name="initials">
+            </div>
           </div>
-          <div class="mb-3 col-md-6">
-            <label for="message-text" class="col-form-label">Brand Initials:</label>
-            <input type="text" class="form-control brandinitials" id="brandinitials" name="initials">
-          </div>
-        </div>
-        <div class="mb-3 ">
+          <div class="mb-3 ">
             <label for="message-text" class="col-form-label">Brand Image:</label>
-            <input type="file" class="form-control"  id="brandimage" name="image">
+            <input type="file" class="form-control" id="brandimage" name="image">
           </div>
-      </div>
-      <div class="modal-footer">
-      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary updatebrandsubmit">Update</button>
-      </div>
-      
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary updatebrandsubmit">Update</button>
+        </div>
+
       </form>
     </div>
   </div>
 </div>
 <script>
-    var EditbrandModal = document.getElementById('EditbrandModal')
-    EditbrandModal.addEventListener('show.bs.modal', function (event) {
+  var EditbrandModal = document.getElementById('EditbrandModal')
+  EditbrandModal.addEventListener('show.bs.modal', function(event) {
     // Button that triggered the modal
     var button = event.relatedTarget
     // Extract info from data-bs-* attributes
@@ -155,7 +154,7 @@
     var brandinitials = EditbrandModal.querySelector('.brandinitials')
     var brandtype = EditbrandModal.querySelector('.brandtype')
     var oldlinkimage = EditbrandModal.querySelector('.oldlinkimage')
-    
+
     brandid.value = brandidval
     brandname.value = brandnameval
     brandimage.src = brandimageval
@@ -163,52 +162,50 @@
     brandurl.value = brandurlval
     brandinitials.value = initialsval
     brandtype.value = brandtypeval
-    })
-    
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
+  })
+
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $('#updatebrandform').submit(function(e) {
+    e.preventDefault();
+    let formData = new FormData(this);
+
+
+    $.ajax({
+      type: 'POST',
+      url: "{{route('brands.updateBrand')}}",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: (response) => {
+        Swal.fire(
+          'Thank You!',
+          'Brand has been updated successfully!',
+          'success'
+        )
+        $('#allBrands').load(document.URL + ' #allBrands');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        var errors = XMLHttpRequest['responseJSON']['errors'];
+        var response = JSON.parse(XMLHttpRequest.responseText);
+        var errorString = '<ul>';
+        $.each(response.errors, function(key, value) {
+          errorString += '<li>' + value + '</li>';
+        });
+        errorString += '</ul>';
+        //errorThrown.='\n'+
+        Swal.fire(
+          'Request Failed!',
+          errorString,
+          'error'
+        )
+      }
     });
-  
-    $('#updatebrandform').submit(function(e) {
-        e.preventDefault();
-        let formData = new FormData(this);
-        
-
-        $.ajax({
-            type:'POST',
-            url: "{{route('brands.updateBrand')}}",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: (response) => {
-              Swal.fire(
-                'Thank You!',
-                'Brand has been updated successfully!',
-                'success'
-              )
-            $('#allBrands').load(document.URL +  ' #allBrands');
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown){
-              var errors = XMLHttpRequest['responseJSON']['errors'];
-              var response = JSON.parse(XMLHttpRequest.responseText);
-              var errorString = '<ul>';
-              $.each( response.errors, function( key, value) {
-                  errorString += '<li>' + value + '</li>';
-              });
-              errorString += '</ul>';
-              //errorThrown.='\n'+
-              Swal.fire(
-                  'Request Failed!',
-                  errorString,
-                  'error'
-                  )
-            }
-       });
-    });
-
-
+  });
 </script>
 <!-- Edit brand Modal End -->
 <!-- Show brand Modal Start -->
@@ -217,62 +214,63 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="ShowbrandModalLabel">Details of this Brand</h5>
-        
+
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body showbranddetails">
-      <div class="mb-3">
-      <image class="brandimage"/></div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Name:</label><span class="brandname"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">URL:</label><span class="brandurl"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Type:</label><span class="brandtype"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Initials:</label><span class="brandinitials"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Created at:</label><span class="created_at"></span>
-          </div>
+        <div class="mb-3">
+          <image class="brandimage" />
+        </div>
+        <div class="mb-3">
+          <label for="recipient-name" class="col-form-label">Name:</label><span class="brandname"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">URL:</label><span class="brandurl"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Type:</label><span class="brandtype"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Initials:</label><span class="brandinitials"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Created at:</label><span class="created_at"></span>
+        </div>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 <script type="text/javascript">
   var ShowbrandModal = document.getElementById('ShowbrandModal')
-  ShowbrandModal.addEventListener('show.bs.modal', function (event) {
+  ShowbrandModal.addEventListener('show.bs.modal', function(event) {
     // Button that triggered the modal
-  var button = event.relatedTarget
-  // Extract info from data-bs-* attributes
-  var brandnameval = button.getAttribute('data-bs-name')
-  var brandtypeval = button.getAttribute('data-bs-type')
-  var brandurlval = button.getAttribute('data-bs-url')
-  var brandinitialsval = button.getAttribute('data-bs-initials')
-  var brandimageval = button.getAttribute('data-bs-image')
-  var brandcreated_at = button.getAttribute('data-bs-created_at')
-  // If necessary, you could initiate an AJAX request here
-  // and then do the updating in a callback.
-  //
-  // Update the modal's content.
-  var brandname = ShowbrandModal.querySelector('.brandname')
-  var brandurl = ShowbrandModal.querySelector('.brandurl')
-  var brandimage = ShowbrandModal.querySelector('.brandimage')
-  var brandinitials = ShowbrandModal.querySelector('.brandinitials')
-  var brandtype = ShowbrandModal.querySelector('.brandtype')
-  var created_at = ShowbrandModal.querySelector('.created_at')
-  brandname.textContent = brandnameval
-  brandtype.textContent = brandtypeval
-  brandurl.textContent = brandurlval
-  brandinitials.textContent = brandinitialsval
-  brandimage.src = brandimageval
-  created_at.textContent = brandcreated_at
+    var button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    var brandnameval = button.getAttribute('data-bs-name')
+    var brandtypeval = button.getAttribute('data-bs-type')
+    var brandurlval = button.getAttribute('data-bs-url')
+    var brandinitialsval = button.getAttribute('data-bs-initials')
+    var brandimageval = button.getAttribute('data-bs-image')
+    var brandcreated_at = button.getAttribute('data-bs-created_at')
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+    //
+    // Update the modal's content.
+    var brandname = ShowbrandModal.querySelector('.brandname')
+    var brandurl = ShowbrandModal.querySelector('.brandurl')
+    var brandimage = ShowbrandModal.querySelector('.brandimage')
+    var brandinitials = ShowbrandModal.querySelector('.brandinitials')
+    var brandtype = ShowbrandModal.querySelector('.brandtype')
+    var created_at = ShowbrandModal.querySelector('.created_at')
+    brandname.textContent = brandnameval
+    brandtype.textContent = brandtypeval
+    brandurl.textContent = brandurlval
+    brandinitials.textContent = brandinitialsval
+    brandimage.src = brandimageval
+    created_at.textContent = brandcreated_at
   })
 </script>
 <!-- Show Brands Modal End -->
@@ -419,84 +417,85 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="ShowPackageModalLabel">Details of this Package</h5>
-        
+
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body showbranddetails">
-      <div class="mb-3">
-      <image class="brandimage"/></div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Name:</label><span class="pkgname"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Brand:</label><span class="pkgbrand"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Package Type:</label><span class="pkgtype"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Price:</label><span class="price"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Cut Price:</label><span class="cutprice"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Currency:</label><span class="currency"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Discount:</label><span class="discount"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Description:</label><span class="desc"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Created at:</label><span class="created_at"></span>
-          </div>
+        <div class="mb-3">
+          <image class="brandimage" />
+        </div>
+        <div class="mb-3">
+          <label for="recipient-name" class="col-form-label">Name:</label><span class="pkgname"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Brand:</label><span class="pkgbrand"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Package Type:</label><span class="pkgtype"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Price:</label><span class="price"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Cut Price:</label><span class="cutprice"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Currency:</label><span class="currency"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Discount:</label><span class="discount"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Description:</label><span class="desc"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Created at:</label><span class="created_at"></span>
+        </div>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 <script type="text/javascript">
   var ShowPackageModal = document.getElementById('ShowPackageModal')
-  ShowPackageModal.addEventListener('show.bs.modal', function (event) {
+  ShowPackageModal.addEventListener('show.bs.modal', function(event) {
     // Button that triggered the modal
-  var button = event.relatedTarget
-  // Extract info from data-bs-* attributes
-  var nameval = button.getAttribute('data-bs-name')
-  var priceval = button.getAttribute('data-bs-price')
-  var cutpriceval = button.getAttribute('data-bs-cut_price')
-  var descval = button.getAttribute('data-bs-description')
-  var currencyval = button.getAttribute('data-bs-currency')
-  var brandidval = button.getAttribute('data-bs-brand_id')
-  var pkgtypeval = button.getAttribute('data-bs-package_type')
-  var pkgcreated_at = button.getAttribute('data-bs-created_at')
-  var pkgdiscount = button.getAttribute('data-bs-discount')
-  // If necessary, you could initiate an AJAX request here
-  // and then do the updating in a callback.
-  //
-  // Update the modal's content.
-  var pkgname = ShowPackageModal.querySelector('.pkgname')
-  var pkgbrand = ShowPackageModal.querySelector('.pkgbrand')
-  var pkgtype = ShowPackageModal.querySelector('.pkgtype')
-  var price = ShowPackageModal.querySelector('.price')
-  var cutprice = ShowPackageModal.querySelector('.cutprice')
-  var currency = ShowPackageModal.querySelector('.currency')
-  var desc = ShowPackageModal.querySelector('.desc')
-  var created_at = ShowPackageModal.querySelector('.created_at')
-  var discount = ShowPackageModal.querySelector('.discount')
-  
-  pkgname.textContent = nameval
-  pkgbrand.textContent = brandidval
-  pkgtype.textContent = pkgtypeval
-  price.textContent = priceval
-  cutprice.textContent = cutpriceval
-  currency.textContent = currencyval
-  desc.textContent = descval
-  discount.textContent = pkgdiscount
-  created_at.textContent = pkgcreated_at
+    var button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    var nameval = button.getAttribute('data-bs-name')
+    var priceval = button.getAttribute('data-bs-price')
+    var cutpriceval = button.getAttribute('data-bs-cut_price')
+    var descval = button.getAttribute('data-bs-description')
+    var currencyval = button.getAttribute('data-bs-currency')
+    var brandidval = button.getAttribute('data-bs-brand_id')
+    var pkgtypeval = button.getAttribute('data-bs-package_type')
+    var pkgcreated_at = button.getAttribute('data-bs-created_at')
+    var pkgdiscount = button.getAttribute('data-bs-discount')
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+    //
+    // Update the modal's content.
+    var pkgname = ShowPackageModal.querySelector('.pkgname')
+    var pkgbrand = ShowPackageModal.querySelector('.pkgbrand')
+    var pkgtype = ShowPackageModal.querySelector('.pkgtype')
+    var price = ShowPackageModal.querySelector('.price')
+    var cutprice = ShowPackageModal.querySelector('.cutprice')
+    var currency = ShowPackageModal.querySelector('.currency')
+    var desc = ShowPackageModal.querySelector('.desc')
+    var created_at = ShowPackageModal.querySelector('.created_at')
+    var discount = ShowPackageModal.querySelector('.discount')
+
+    pkgname.textContent = nameval
+    pkgbrand.textContent = brandidval
+    pkgtype.textContent = pkgtypeval
+    price.textContent = priceval
+    cutprice.textContent = cutpriceval
+    currency.textContent = currencyval
+    desc.textContent = descval
+    discount.textContent = pkgdiscount
+    created_at.textContent = pkgcreated_at
   })
 </script>
 <!-- Show Packages Modal End -->
@@ -510,42 +509,43 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="ShowPackageTypesModalLabel">Details of this Package Types</h5>
-        
+
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body showbranddetails">
-      <div class="mb-3">
-      <image class="brandimage"/></div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Name:</label><span class="pkgname"></span>
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Created at:</label><span class="created_at"></span>
-          </div>
+        <div class="mb-3">
+          <image class="brandimage" />
+        </div>
+        <div class="mb-3">
+          <label for="recipient-name" class="col-form-label">Name:</label><span class="pkgname"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Created at:</label><span class="created_at"></span>
+        </div>
       </div>
       <div class="modal-footer">
-      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 <script type="text/javascript">
   var ShowPackageModal = document.getElementById('ShowPackageTypesModal')
-  ShowPackageModal.addEventListener('show.bs.modal', function (event) {
+  ShowPackageModal.addEventListener('show.bs.modal', function(event) {
     // Button that triggered the modal
-  var button = event.relatedTarget
-  // Extract info from data-bs-* attributes
-  var nameval = button.getAttribute('data-bs-name')
-  var pkgcreated_at = button.getAttribute('data-bs-created_at')
-  // If necessary, you could initiate an AJAX request here
-  // and then do the updating in a callback.
-  //
-  // Update the modal's content.
-  var pkgname = ShowPackageModal.querySelector('.pkgname')
-  var created_at = ShowPackageModal.querySelector('.created_at')
-  
-  pkgname.textContent = nameval
-  created_at.textContent = pkgcreated_at
+    var button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    var nameval = button.getAttribute('data-bs-name')
+    var pkgcreated_at = button.getAttribute('data-bs-created_at')
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+    //
+    // Update the modal's content.
+    var pkgname = ShowPackageModal.querySelector('.pkgname')
+    var created_at = ShowPackageModal.querySelector('.created_at')
+
+    pkgname.textContent = nameval
+    created_at.textContent = pkgcreated_at
   })
 </script>
 
@@ -562,27 +562,27 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form id="updateroleform">
-      <div class="modal-body">
-        <div class="row">
-          <div class="mb-3 col-md-6">
-            <label for="recipient-name" class="col-form-label">Role Name:</label>
-            <input type="text" class="form-control rolename" id="rolename" name="name">
-            <input type="hidden" name="id" id="roleid" class="roleid"/>
-            {{@csrf_field()}}
+        <div class="modal-body">
+          <div class="row">
+            <div class="mb-3 col-md-6">
+              <label for="recipient-name" class="col-form-label">Role Name:</label>
+              <input type="text" class="form-control rolename" id="rolename" name="name">
+              <input type="hidden" name="id" id="roleid" class="roleid" />
+              {{@csrf_field()}}
+            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary updaterolesubmit">Update</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary updaterolesubmit">Update</button>
+        </div>
       </form>
     </div>
   </div>
 </div>
 <script>
-    var EditRolesModal = document.getElementById('EditRolesModal')
-    EditRolesModal.addEventListener('show.bs.modal', function (event) {
+  var EditRolesModal = document.getElementById('EditRolesModal')
+  EditRolesModal.addEventListener('show.bs.modal', function(event) {
     // Button that triggered the modal
     var button = event.relatedTarget
     // Extract info from data-bs-* attributes
@@ -594,53 +594,51 @@
     // Update the modal's content.
     var roleid = EditRolesModal.querySelector('.roleid')
     var rolename = EditRolesModal.querySelector('.rolename')
-    
+
     roleid.value = roleidval
     rolename.value = rolenameval
-    })
-    
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-  
-    $('#updateroleform').submit(function(e) {
-        e.preventDefault();
-        let formData = new FormData(this);
-        $.ajax({
-            type:'POST',
-            url: "{{route('admin.updateRole')}}",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: (response) => {
-              Swal.fire(
-                'Thank You!',
-                'Role has been updated successfully!',
-                'success'
-              )
-            $('#allRoles').load(document.URL +  ' #allRoles');
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown){
-              var errors = XMLHttpRequest['responseJSON']['errors'];
-              var response = JSON.parse(XMLHttpRequest.responseText);
-              var errorString = '<ul>';
-              $.each( response.errors, function( key, value) {
-                  errorString += '<li>' + value + '</li>';
-              });
-              errorString += '</ul>';
-              //errorThrown.='\n'+
-              Swal.fire(
-                  'Request Failed!',
-                  errorString,
-                  'error'
-                  )
-            }
-       });
-    });
+  })
 
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
 
+  $('#updateroleform').submit(function(e) {
+    e.preventDefault();
+    let formData = new FormData(this);
+    $.ajax({
+      type: 'POST',
+      url: "{{route('admin.updateRole')}}",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: (response) => {
+        Swal.fire(
+          'Thank You!',
+          'Role has been updated successfully!',
+          'success'
+        )
+        $('#allRoles').load(document.URL + ' #allRoles');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        var errors = XMLHttpRequest['responseJSON']['errors'];
+        var response = JSON.parse(XMLHttpRequest.responseText);
+        var errorString = '<ul>';
+        $.each(response.errors, function(key, value) {
+          errorString += '<li>' + value + '</li>';
+        });
+        errorString += '</ul>';
+        //errorThrown.='\n'+
+        Swal.fire(
+          'Request Failed!',
+          errorString,
+          'error'
+        )
+      }
+    });
+  });
 </script>
 <!-- Edit Roles Modal End -->
 
@@ -654,27 +652,27 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form id="updatepermissionsform">
-      <div class="modal-body">
-        <div class="row">
-          <div class="mb-3 col-md-6">
-            <label for="recipient-name" class="col-form-label">Role Name:</label>
-            <input type="text" class="form-control permissionname" id="permissionname" name="name">
-            <input type="hidden" name="id" id="permissionid" class="permissionid"/>
-            {{@csrf_field()}}
+        <div class="modal-body">
+          <div class="row">
+            <div class="mb-3 col-md-6">
+              <label for="recipient-name" class="col-form-label">Role Name:</label>
+              <input type="text" class="form-control permissionname" id="permissionname" name="name">
+              <input type="hidden" name="id" id="permissionid" class="permissionid" />
+              {{@csrf_field()}}
+            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary updatepermissionsubmit">Update</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary updatepermissionsubmit">Update</button>
+        </div>
       </form>
     </div>
   </div>
 </div>
 <script>
-    var EditPermissionModal = document.getElementById('EditPermissionModal')
-    EditPermissionModal.addEventListener('show.bs.modal', function (event) {
+  var EditPermissionModal = document.getElementById('EditPermissionModal')
+  EditPermissionModal.addEventListener('show.bs.modal', function(event) {
     // Button that triggered the modal
     var button = event.relatedTarget
     // Extract info from data-bs-* attributes
@@ -686,53 +684,51 @@
     // Update the modal's content.
     var permissionid = EditPermissionModal.querySelector('.permissionid')
     var permissionname = EditPermissionModal.querySelector('.permissionname')
-    
+
     permissionid.value = permissionidval
     permissionname.value = permissionnameval
-    })
-    
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-  
-    $('#updatepermissionsform').submit(function(e) {
-        e.preventDefault();
-        let formData = new FormData(this);
-        $.ajax({
-            type:'POST',
-            url: "{{route('admin.updatePermission')}}",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: (response) => {
-              Swal.fire(
-                'Thank You!',
-                'Permission has been updated successfully!',
-                'success'
-              )
-            $('#allPermissions').load(document.URL +  ' #allPermissions');
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown){
-              var errors = XMLHttpRequest['responseJSON']['errors'];
-              var response = JSON.parse(XMLHttpRequest.responseText);
-              var errorString = '<ul>';
-              $.each( response.errors, function( key, value) {
-                  errorString += '<li>' + value + '</li>';
-              });
-              errorString += '</ul>';
-              //errorThrown.='\n'+
-              Swal.fire(
-                  'Request Failed!',
-                  errorString,
-                  'error'
-                  )
-            }
-       });
-    });
+  })
 
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
 
+  $('#updatepermissionsform').submit(function(e) {
+    e.preventDefault();
+    let formData = new FormData(this);
+    $.ajax({
+      type: 'POST',
+      url: "{{route('admin.updatePermission')}}",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: (response) => {
+        Swal.fire(
+          'Thank You!',
+          'Permission has been updated successfully!',
+          'success'
+        )
+        $('#allPermissions').load(document.URL + ' #allPermissions');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        var errors = XMLHttpRequest['responseJSON']['errors'];
+        var response = JSON.parse(XMLHttpRequest.responseText);
+        var errorString = '<ul>';
+        $.each(response.errors, function(key, value) {
+          errorString += '<li>' + value + '</li>';
+        });
+        errorString += '</ul>';
+        //errorThrown.='\n'+
+        Swal.fire(
+          'Request Failed!',
+          errorString,
+          'error'
+        )
+      }
+    });
+  });
 </script>
 <!-- Edit Permissions Modal End -->
 
