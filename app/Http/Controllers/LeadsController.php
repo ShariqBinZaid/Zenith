@@ -209,8 +209,9 @@ class LeadsController extends Controller
         $assignedto = User::find($request->user_id);
         $assignedto->notify(new LeadAssignNotification($lead));
         $lead->notifyalert()->create(['for'=>$request->user_id,'message'=>Auth::user()->name.' assigned you the Lead!','data'=>serialize(['assigneeId'=>Auth::user()->id,'assignedAt'=>time()])]);
-        $notify = Notify::where('for',$request->user_id)->latest()->first();
-        event(new LeadAssign($notify));
+        $notify = Notify::where('for',$request->user_id)->where('notifiable_type',Leads::class)->latest()->first();
+        $notificationfor = $request->user_id;
+        event(new LeadAssign($notify,$notificationfor));
         return Redirect::back()->with('success',$successmessage);
     }
     public function unassignLeadSubmit(Request $request)

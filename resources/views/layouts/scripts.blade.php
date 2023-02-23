@@ -25,15 +25,13 @@
 <!-- Examples -->
 
 <link rel="stylesheet" href="{{asset('libs/dropzone/dropzone.css')}}" type="text/css">
-
+<input type="hidden" class="userid" value="{{auth()->user()->id?? null}}"/>
 <!-- Javascript -->
 <script src="{{asset('libs/dropzone/dropzone.js')}}"></script>
 <script type="text/javascript">
-      var notificationsWrapper   = $('.dropdown-notifications');
-      var notificationsToggle    = notificationsWrapper.find('a[data-toggle]');
-      var notificationsCountElem = notificationsToggle.find('i[data-count]');
-      var notificationsCount     = parseInt(notificationsCountElem.data('count'));
-      var notifications          = $('ul.leadassignnotify');
+      
+      
+      var userId = $('.userid').val();
       // if (notificationsCount <= 0) {
       //   notificationsWrapper.hide();
       // }
@@ -46,10 +44,10 @@
       });
 
       // Subscribe to the channel we specified in our Laravel Event
-      var channel = pusher.subscribe('lead-assign');
+      var leadAssignChannel = pusher.subscribe('lead-assign-'+userId);
       // Bind a function to a Event (the full Laravel class)
-      channel.bind('App\\Events\\LeadAssign', function(data) {
-        var existingNotifications = $('.leadassignnotify').html();
+      leadAssignChannel.bind('App\\Events\\LeadAssign', function(data) {
+        var existingNotifications = $('ul.leadassignnotify').html();
         var notificationsCount = $('.nav-link-notify').attr('data-count');
         var newNotificationHtml = `
         <li class="px-0 list-group-item">
@@ -72,8 +70,41 @@
                             </a>
                         </li>
         `;
-        notifications.html(newNotificationHtml + existingNotifications);
-        console.log(notificationsCount);
+        $('ul.leadassignnotify').html(newNotificationHtml + existingNotifications);
+        $('.leadassignnotifytab').addClass('nav-link-notify');
+        notificationsCount+=1;
+        $('.nav-link-notify').attr('data-count',notificationsCount);
+        const audio = new Audio("{{ asset('sound/notialert2.wav') }}");
+        audio.play();
+      });
+      var opportunityAssignChannel = pusher.subscribe('opportunity-assign-' + userId);
+      // Bind a function to a Event (the full Laravel class)
+      opportunityAssignChannel.bind('App\\Events\\OpportunityAssign', function(data) {
+        var existingNotifications = $('.opportunityassignnotify').html();
+        var notificationsCount = $('.nav-link-notify').attr('data-count');
+        var newNotificationHtml = `
+        <li class="px-0 list-group-item">
+                            <a href="{{route('opportunity.allOpportunities')}}" class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <figure class="avatar avatar-info me-3">
+                                            <span class="avatar-text rounded-circle">
+                                                <i class="bi bi-briefcase"></i>
+                                            </span>
+                                    </figure>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <p class="mb-0 fw-bold d-flex justify-content-between">
+                                        `+data.notify.message+`
+                                    </p>
+                                    <span class="text-muted small">
+                                        <i class="bi bi-clock me-1"></i> Just Now
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+        `;
+        $('.opportunityassignnotify').html(newNotificationHtml + existingNotifications);
+        $('.opportunityassignnotifytab').addClass('nav-link-notify');
         notificationsCount += 1;
         $('.nav-link-notify').attr('data-count',notificationsCount);
         const audio = new Audio("{{ asset('sound/notialert2.wav') }}");

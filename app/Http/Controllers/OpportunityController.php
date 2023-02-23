@@ -10,6 +10,8 @@ use App\Models\Teams;
 use App\Models\User;
 use App\Models\Units;
 use App\Models\Packages;
+use App\Models\Notify;
+use App\Events\OpportunityAssign;
 use Auth;
 use App\Notifications\OpportunityAssignNotification;
 class OpportunityController extends Controller
@@ -207,6 +209,9 @@ class OpportunityController extends Controller
         $assignedto = User::find($request->user_id);
         $assignedto->notify(new OpportunityAssignNotification($opportunity));
         $opportunity->notifyalert()->create(['for'=>$request->user_id,'message'=>Auth::user()->name.' assigned you the Opportunity!','data'=>serialize(['assigneeId'=>Auth::user()->id,'assignedAt'=>time()])]);
+        $notify = Notify::where('notifiable_type',Opportunity::class)->latest()->first();
+        $notificationfor = $request->user_id;
+        event(new OpportunityAssign($notify,$notificationfor));
         return Redirect::back()->with('success',$successmessage);
     }
     public function unassignOpportunitySubmit(Request $request)

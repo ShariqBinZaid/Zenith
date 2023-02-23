@@ -6,7 +6,8 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-class LeadAssign implements ShouldBroadcast
+use Illuminate\Broadcasting\PrivateChannel;
+class OpportunityAssign implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -17,14 +18,11 @@ class LeadAssign implements ShouldBroadcast
      */
     public $notify;
     protected $notificationfor;
-   
     public function __construct($notify,$notificationfor)
     {
-        
         $this->notify = $notify;
         $this->notificationfor = $notificationfor;
     }
-
     /**
      * Get the channels the event should broadcast on.
      *
@@ -32,6 +30,6 @@ class LeadAssign implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['lead-assign-'.$this->notificationfor];
+        return ['opportunity-assign-'.$this->notificationfor];
     }
 }
