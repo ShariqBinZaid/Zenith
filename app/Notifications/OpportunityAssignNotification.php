@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-
+use Auth;
 class OpportunityAssignNotification extends Notification
 {
     use Queueable;
@@ -16,9 +16,10 @@ class OpportunityAssignNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public $opportunity;
+    public function __construct($opportunity)
     {
-        //
+        $this->opportunity = $opportunity;
     }
 
     /**
@@ -29,7 +30,7 @@ class OpportunityAssignNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -38,13 +39,13 @@ class OpportunityAssignNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-    }
+    // public function toMail($notifiable)
+    // {
+    //     return (new MailMessage)
+    //                 ->line('The introduction to the notification.')
+    //                 ->action('Notification Action', url('/'))
+    //                 ->line('Thank you for using our application!');
+    // }
 
     /**
      * Get the array representation of the notification.
@@ -55,7 +56,9 @@ class OpportunityAssignNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'opportunity_id'=>$this->opportunity['id'],
+            'assignee_name'=>Auth::user()->name,
+            'assignee_id'=>Auth::user()->id
         ];
     }
 }

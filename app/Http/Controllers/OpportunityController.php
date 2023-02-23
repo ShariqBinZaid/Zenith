@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Units;
 use App\Models\Packages;
 use Auth;
+use App\Notifications\OpportunityAssignNotification;
 class OpportunityController extends Controller
 {
     /**
@@ -203,6 +204,9 @@ class OpportunityController extends Controller
             $opportunity->users()->attach($request->user_id);
             $successmessage = "Opportunity assigned successfully!";
         }
+        $assignedto = User::find($request->user_id);
+        $assignedto->notify(new OpportunityAssignNotification($opportunity));
+        $opportunity->notifyalert()->create(['for'=>$request->user_id,'message'=>Auth::user()->name.' assigned you the Opportunity!','data'=>serialize(['assigneeId'=>Auth::user()->id,'assignedAt'=>time()])]);
         return Redirect::back()->with('success',$successmessage);
     }
     public function unassignOpportunitySubmit(Request $request)

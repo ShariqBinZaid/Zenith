@@ -56,4 +56,8 @@ class Leads extends Model
     {
         return $this->hasOne(Company::class,'id','company_id');
     }
+    public function notifyalert()
+    {
+        return $this->morphMany(Notify::class,'notifiable');
+    }
 }

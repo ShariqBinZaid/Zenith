@@ -75,4 +75,8 @@ class DashboardController extends Controller
             return view('dashboard.sales', compact(['totalleads','totalopportunities','timedin', 'timedout', 'attendance', 'totalleaves', 'myleaves','date','users']));
         }
     }
+    public function welcome()
+    {
+        return view('welcome');
+    }
 }

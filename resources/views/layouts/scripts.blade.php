@@ -1,16 +1,7 @@
 <script src="{{asset('service-worker.js')}}"></script>
 <script src="{{asset('libs/bundle.js')}}"></script>
-<script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
-<script>
-  const beamsClient = new PusherPushNotifications.Client({
-    instanceId: '0110474a-8fbb-4ab9-b14e-7a95529754e3',
-  });
+<script src="//js.pusher.com/3.1/pusher.min.js"></script>
 
-  beamsClient.start()
-    .then(() => beamsClient.addDeviceInterest('hello'))
-    .then(() => console.log('Successfully registered and subscribed!'))
-    .catch(console.error);
-</script>
 <!-- Apex chart -->
 <script src="{{asset('libs/charts/apex/apexcharts.min.js')}}"></script>
 
@@ -37,6 +28,84 @@
 
 <!-- Javascript -->
 <script src="{{asset('libs/dropzone/dropzone.js')}}"></script>
+<script type="text/javascript">
+      var notificationsWrapper   = $('.dropdown-notifications');
+      var notificationsToggle    = notificationsWrapper.find('a[data-toggle]');
+      var notificationsCountElem = notificationsToggle.find('i[data-count]');
+      var notificationsCount     = parseInt(notificationsCountElem.data('count'));
+      var notifications          = $('ul.leadassignnotify');
+      // if (notificationsCount <= 0) {
+      //   notificationsWrapper.hide();
+      // }
+
+      // Enable pusher logging - don't include this in production
+      // Pusher.logToConsole = true;
+
+      var pusher = new Pusher('1ffe0e82aee820f60bbe', {
+        encrypted: true
+      });
+
+      // Subscribe to the channel we specified in our Laravel Event
+      var channel = pusher.subscribe('lead-assign');
+      // Bind a function to a Event (the full Laravel class)
+      channel.bind('App\\Events\\LeadAssign', function(data) {
+        var existingNotifications = $('.leadassignnotify').html();
+        var notificationsCount = $('.nav-link-notify').attr('data-count');
+        var newNotificationHtml = `
+        <li class="px-0 list-group-item">
+                            <a href="{{route('lead.allLeads')}}" class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <figure class="avatar avatar-info me-3">
+                                            <span class="avatar-text rounded-circle">
+                                                <i class="bi bi-person"></i>
+                                            </span>
+                                    </figure>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <p class="mb-0 fw-bold d-flex justify-content-between">
+                                        `+data.notify.message+`
+                                    </p>
+                                    <span class="text-muted small">
+                                        <i class="bi bi-clock me-1"></i> Just Now
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+        `;
+        notifications.html(newNotificationHtml + existingNotifications);
+        console.log(notificationsCount);
+        notificationsCount += 1;
+        $('.nav-link-notify').attr('data-count',notificationsCount);
+        const audio = new Audio("{{ asset('sound/notialert2.wav') }}");
+        audio.play();
+      });
+      function get_time_diff( datetime )
+      {
+          var datetime = typeof datetime !== 'undefined' ? datetime : "2014-01-01 01:02:03.123456";
+
+          var datetime = new Date( datetime ).getTime();
+          var now = new Date().getTime();
+
+          if( isNaN(datetime) )
+          {
+              return "";
+          }
+
+          console.log( datetime + " " + now);
+
+          if (datetime < now) {
+              var milisec_diff = now - datetime;
+          }else{
+              var milisec_diff = datetime - now;
+          }
+
+          var days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
+
+          var date_diff = new Date( milisec_diff );
+
+          return days + " Days "+ date_diff.getHours() + " Hours " + date_diff.getMinutes() + " Minutes " + date_diff.getSeconds() + " Seconds";
+      }
+    </script>
 @include('layouts.modals')
 @include('layouts.custom_scripts')
 @stack('scripts')

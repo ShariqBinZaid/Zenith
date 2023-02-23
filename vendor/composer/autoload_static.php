@@ -34,14 +34,16 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
         '3bd81c9b8fcc150b69d8b63b4d2ccf23' => __DIR__ . '/..' . '/spatie/flare-client-php/src/helpers.php',
         '3074abeef0bacf5811f59e9dee6311d1' => __DIR__ . '/..' . '/spatie/ray/src/helpers.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'eb46fcca3fbadc07be542e9e42c8b07c' => __DIR__ . '/..' . '/orchestra/testbench-core/src/helpers.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
+        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '72b1e3f4a2af9b30b3f137b3ec2057fc' => __DIR__ . '/..' . '/spatie/laravel-activitylog/src/helpers.php',
         '320163ac6b93aebe3dc25b60a0533d56' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/helpers.php',
         '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
+        'd21d43db5f6e840ee7b10744ec7fdf66' => __DIR__ . '/../..' . '/app/Helpers/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -127,6 +129,7 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
         ),
         'P' => 
         array (
+            'Pusher\\' => 7,
             'Psy\\' => 4,
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
@@ -476,6 +479,10 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
         ),
+        'Pusher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pusher/pusher-php-server/src',
+        ),
         'Psy\\' => 
         array (
             0 => __DIR__ . '/..' . '/psy/psysh/src',
@@ -735,6 +742,7 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Events\\LeadAssign' => __DIR__ . '/../..' . '/app/Events/LeadAssign.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AttendanceController' => __DIR__ . '/../..' . '/app/Http/Controllers/AttendanceController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -753,6 +761,7 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
         'App\\Http\\Controllers\\LeadsController' => __DIR__ . '/../..' . '/app/Http/Controllers/LeadsController.php',
         'App\\Http\\Controllers\\LeaveTypesController' => __DIR__ . '/../..' . '/app/Http/Controllers/LeaveTypesController.php',
         'App\\Http\\Controllers\\LeavesController' => __DIR__ . '/../..' . '/app/Http/Controllers/LeavesController.php',
+        'App\\Http\\Controllers\\NotifyController' => __DIR__ . '/../..' . '/app/Http/Controllers/NotifyController.php',
         'App\\Http\\Controllers\\OpportunityController' => __DIR__ . '/../..' . '/app/Http/Controllers/OpportunityController.php',
         'App\\Http\\Controllers\\PackageTypesController' => __DIR__ . '/../..' . '/app/Http/Controllers/PackageTypesController.php',
         'App\\Http\\Controllers\\PackagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/PackagesController.php',
@@ -775,6 +784,7 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
         'App\\Http\\Middleware\\ValidateSignature' => __DIR__ . '/../..' . '/app/Http/Middleware/ValidateSignature.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Resources\\ImagesResource' => __DIR__ . '/../..' . '/app/Http/Resources/ImagesResource.php',
+        'App\\Listeners\\SendLeadAssignNotification' => __DIR__ . '/../..' . '/app/Listeners/SendLeadAssignNotification.php',
         'App\\Models\\Attendance' => __DIR__ . '/../..' . '/app/Models/Attendance.php',
         'App\\Models\\Brands' => __DIR__ . '/../..' . '/app/Models/Brands.php',
         'App\\Models\\Company' => __DIR__ . '/../..' . '/app/Models/Company.php',
@@ -784,6 +794,7 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
         'App\\Models\\Leads' => __DIR__ . '/../..' . '/app/Models/Leads.php',
         'App\\Models\\LeaveTypes' => __DIR__ . '/../..' . '/app/Models/LeaveTypes.php',
         'App\\Models\\Leaves' => __DIR__ . '/../..' . '/app/Models/Leaves.php',
+        'App\\Models\\Notify' => __DIR__ . '/../..' . '/app/Models/Notify.php',
         'App\\Models\\Opportunity' => __DIR__ . '/../..' . '/app/Models/Opportunity.php',
         'App\\Models\\PackageTypes' => __DIR__ . '/../..' . '/app/Models/PackageTypes.php',
         'App\\Models\\Packages' => __DIR__ . '/../..' . '/app/Models/Packages.php',
@@ -795,6 +806,8 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
         'App\\Models\\Transactions' => __DIR__ . '/../..' . '/app/Models/Transactions.php',
         'App\\Models\\Units' => __DIR__ . '/../..' . '/app/Models/Units.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Notifications\\LeadAssignNotification' => __DIR__ . '/../..' . '/app/Notifications/LeadAssignNotification.php',
+        'App\\Notifications\\OpportunityAssignNotification' => __DIR__ . '/../..' . '/app/Notifications/OpportunityAssignNotification.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -5257,6 +5270,13 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
         'Psy\\VersionUpdater\\IntervalChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/IntervalChecker.php',
         'Psy\\VersionUpdater\\NoopChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/NoopChecker.php',
         'Psy\\VersionUpdater\\SelfUpdate' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/SelfUpdate.php',
+        'Pusher\\ApiErrorException' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/ApiErrorException.php',
+        'Pusher\\Pusher' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Pusher.php',
+        'Pusher\\PusherCrypto' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherCrypto.php',
+        'Pusher\\PusherException' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherException.php',
+        'Pusher\\PusherInstance' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherInstance.php',
+        'Pusher\\PusherInterface' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherInterface.php',
+        'Pusher\\Webhook' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Webhook.php',
         'Ramsey\\Collection\\AbstractArray' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractArray.php',
         'Ramsey\\Collection\\AbstractCollection' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractCollection.php',
         'Ramsey\\Collection\\AbstractSet' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractSet.php',

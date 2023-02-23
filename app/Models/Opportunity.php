@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 class Opportunity extends Model
@@ -12,6 +13,7 @@ class Opportunity extends Model
     use HasFactory;
     use SoftDeletes;
     use LogsActivity;
+    use Notifiable;
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();
@@ -62,5 +64,9 @@ class Opportunity extends Model
     public function getCompany()
     {
         return $this->hasOne(Company::class,'id','company_id');
+    }
+    public function notifyalert()
+    {
+        return $this->morphMany(Notify::class,'notifiable');
     }
 }

@@ -8,11 +8,14 @@ use App\Models\User;
 use App\Models\Brands;
 use App\Models\Teams;
 use App\Models\Units;
+use App\Models\Notify;
+
 use Exception;
 use Validator;
 use Auth;
 use Illuminate\Support\Facades\Redirect;
 use App\Notifications\LeadAssignNotification;
+use App\Events\LeadAssign;
 class LeadsController extends Controller
 {
     /**
@@ -119,7 +122,18 @@ class LeadsController extends Controller
     public function assignLead($id)
     {
         $lead = Leads::find($id);
-        if (Auth::user()->roles->pluck('name')[0] == 'admin') {
+        if (Auth::user()->roles->pluck('name')[0] == 'superadmin') {
+            $users = User::whereHas(
+                'roles',
+                function ($q) {
+                    $q->where('name', 'business_unit_head');
+                    $q->orWhere('name', 'admin');
+                    $q->orWhere('name', 'front_sales_manager');
+                    $q->orWhere('name', 'front_sales_executive');
+                }
+            )->get();
+        }
+        elseif (Auth::user()->roles->pluck('name')[0] == 'admin') {
             $users = User::whereHas(
                 'roles',
                 function ($q) {
@@ -128,7 +142,7 @@ class LeadsController extends Controller
                     $q->orWhere('name', 'front_sales_executive');
                 }
             )->where('company_id', Auth::user()->company_id)->get();
-        } else if (Auth::user()->roles->pluck('name')[0] == 'business_unit_head') {
+        }elseif (Auth::user()->roles->pluck('name')[0] == 'business_unit_head') {
             $users = User::whereHas(
                 'roles',
                 function ($q) {
@@ -194,6 +208,9 @@ class LeadsController extends Controller
         }
         $assignedto = User::find($request->user_id);
         $assignedto->notify(new LeadAssignNotification($lead));
+        $lead->notifyalert()->create(['for'=>$request->user_id,'message'=>Auth::user()->name.' assigned you the Lead!','data'=>serialize(['assigneeId'=>Auth::user()->id,'assignedAt'=>time()])]);
+        $notify = Notify::where('for',$request->user_id)->latest()->first();
+        event(new LeadAssign($notify));
         return Redirect::back()->with('success',$successmessage);
     }
     public function unassignLeadSubmit(Request $request)

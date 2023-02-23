@@ -8,13 +8,13 @@
         </div>
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link active nav-link-notify" data-bs-toggle="tab" href="#activities">Activities</a>
+                <a class="nav-link active nav-link-notify" data-bs-toggle="tab" href="#activities">Leads</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#notes">Notes</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#notes">Opportunities</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#alerts">Alerts</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#alerts">Projects</a>
             </li>
         </ul>
     </div>
@@ -22,9 +22,10 @@
         <div class="tab-content">
             <div class="tab-pane active" id="activities">
                 <div class="tab-pane-body">
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush leadassignnotify">
+                        @foreach(auth()->user()->getNotifications as $thisnotification)
                         <li class="px-0 list-group-item">
-                            <a href="#" class="d-flex">
+                            <a href="{{route('lead.allLeads')}}" class="d-flex">
                                 <div class="flex-shrink-0">
                                     <figure class="avatar avatar-info me-3">
                                             <span class="avatar-text rounded-circle">
@@ -34,91 +35,15 @@
                                 </div>
                                 <div class="flex-grow-1">
                                     <p class="mb-0 fw-bold d-flex justify-content-between">
-                                        You joined a group
+                                        {{$thisnotification->message}}
                                     </p>
                                     <span class="text-muted small">
-                                        <i class="bi bi-clock me-1"></i> Today
+                                        <i class="bi bi-clock me-1"></i> {{time_elapsed_string($thisnotification->created_at)}}
                                     </span>
                                 </div>
                             </a>
                         </li>
-                        <li class="px-0 list-group-item">
-                            <a href="#" class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <figure class="avatar avatar-warning me-3">
-                                            <span class="avatar-text rounded-circle">
-                                                <i class="bi bi-hdd"></i>
-                                            </span>
-                                    </figure>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <p class="mb-0 fw-bold d-flex justify-content-between">
-                                        Storage is running low!
-                                    </p>
-                                    <span class="text-muted small">
-                                        <i class="bi bi-clock me-1"></i> Today
-                                    </span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="px-0 list-group-item">
-                            <a href="#" class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <figure class="avatar avatar-secondary me-3">
-                                            <span
-                                                class="avatar-text rounded-circle">
-                                                <i class="bi bi-file-text"></i>
-                                            </span>
-                                    </figure>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <p class="mb-0 d-flex justify-content-between">
-                                        1 person sent a file
-                                    </p>
-                                    <span class="text-muted small">
-                                        <i class="bi bi-clock me-1"></i> Yesterday
-                                    </span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="px-0 list-group-item">
-                            <a href="#" class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <figure class="avatar avatar-success me-3">
-                                            <span class="avatar-text rounded-circle">
-                                                <i class="bi bi-download"></i>
-                                            </span>
-                                    </figure>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <p class="mb-0 d-flex justify-content-between">
-                                        Reports ready to download
-                                    </p>
-                                    <span class="text-muted small">
-                                        <i class="bi bi-clock me-1"></i> Yesterday
-                                    </span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="px-0 list-group-item">
-                            <a href="#" class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <figure class="avatar avatar-info me-3">
-                                            <span class="avatar-text rounded-circle">
-                                                <i class="bi bi-lock"></i>
-                                            </span>
-                                    </figure>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <p class="mb-0 d-flex justify-content-between">
-                                        2 steps verification
-                                    </p>
-                                    <span class="text-muted small">
-                                        <i class="bi bi-clock me-1"></i> 20 min ago
-                                    </span>
-                                </div>
-                            </a>
-                        </li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="tab-pane-footer">
@@ -132,7 +57,7 @@
             </div>
             <div class="tab-pane" id="notes">
                 <div class="tab-pane-body">
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush ">
                         <li class="px-0 list-group-item">
                             <p class="mb-0 fw-bold text-success d-flex justify-content-between">
                                 This month's report will be prepared.
@@ -550,7 +475,7 @@
     <div class="header-bar ms-auto">
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item">
-                <a href="#" class="nav-link nav-link-notify" data-count="2" data-sidebar-target="#notifications">
+                <a href="#" class="nav-link nav-link-notify" data-count="0" data-sidebar-target="#notifications">
                     <i class="bi bi-bell icon-lg"></i>
                 </a>
             </li>

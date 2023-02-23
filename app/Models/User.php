@@ -79,4 +79,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Company::class,'id','company_id');
     }
+    public function getNotifications()
+    {
+        return $this->hasMany(Notify::class,'for','id')->latest()->take(10);
+    }
 }
