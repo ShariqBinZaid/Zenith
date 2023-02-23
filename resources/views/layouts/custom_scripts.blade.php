@@ -24,6 +24,7 @@ $('.image-popup').magnificPopup({
 </script>
 
 <!--CK EDITOR SCRIPT END-->
+
 <!-- Delete Lead Ajax Start -->
 <script type="text/javascript">
 $(document).on('click','.deleteLead',function(e){
@@ -137,6 +138,7 @@ $(document).on('click','.deleteBrand',function(e){
 
 </script>
 <!-- Delete Brand Ajax End -->
+
 
 <!-- Delete Package Ajax Start -->
 
@@ -256,6 +258,8 @@ $(document).on('click','.deleteRole',function(e){
 </script>
 
 <!-- Delete Roles Ajax End -->
+
+
 <!-- Delete Permissions Ajax Start -->
 <script type="text/javascript">
 $(document).on('click','.deletePermission',function(e){
@@ -294,6 +298,8 @@ $(document).on('click','.deletePermission',function(e){
 </script>
 
 <!-- Delete Permissions Ajax End -->
+
+
 <!-- Inactive User Ajax Start -->
 <script type="text/javascript">
 $(document).on('click','.deleteUser',function(e){
@@ -332,6 +338,8 @@ $(document).on('click','.deleteUser',function(e){
 </script>
 
 <!-- Inactive User Ajax End -->
+
+
 <!-- Active User Ajax Start -->
 <script type="text/javascript">
 $(document).on('click','.activeUser',function(e){
@@ -370,6 +378,8 @@ $(document).on('click','.activeUser',function(e){
 </script>
 
 <!-- Active User Ajax End -->
+
+
 <!-- Archieve Project Start -->
 <script type="text/javascript">
 $(document).on('click','.deleteProject',function(e){
@@ -408,6 +418,8 @@ $(document).on('click','.deleteProject',function(e){
 </script>
 
 <!-- Archieve Project End -->
+
+
 <!-- Delete Team Start -->
 <script type="text/javascript">
 $(document).on('click','.deleteTeam',function(e){
@@ -446,6 +458,8 @@ $(document).on('click','.deleteTeam',function(e){
 </script>
 
 <!-- Delete Team End -->
+
+
 <!-- Checkout User Start -->
 <script type="text/javascript">
 $(document).on('click','.timeout',function(e){
@@ -529,7 +543,7 @@ $(document).on('click','.deleteUnit',function(e){
 
 
 </script>
-<!-- Delete Lead Ajax End -->
+<!-- Delete Unit Ajax End -->
 
 
 
@@ -554,14 +568,14 @@ $(document).on('click','.deleteCompany',function(e){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: 'POST',
-        data: {type:'deleteUnit',id:id},
+        data: {type:'deleteCompany',id:id},
         success: function(res){
            	Swal.fire(
 			  'Deleted!',
 			  'Company has been deleted successfully!',
 			  'success'
 			)
-            $('#allCompany').load(document.URL +  ' #allCompany');
+            $('#allCompanies').load(document.URL +  ' #allCompanies');
         }
     })
   }})
@@ -569,7 +583,7 @@ $(document).on('click','.deleteCompany',function(e){
 
 
 </script>
-<!-- Delete Lead Ajax End -->
+<!-- Delete Company Ajax End -->
 
 
 

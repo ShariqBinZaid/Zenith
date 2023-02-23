@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Holidays;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
+use Auth;
+
 class HolidaysController extends Controller
 {
     /**
@@ -16,7 +18,7 @@ class HolidaysController extends Controller
     {
         $holidays = Holidays::all();
         $totalholidays = Holidays::count();
-        return view('settings.holidays',compact(['holidays','totalholidays']));
+        return view('settings.holidays', compact(['holidays', 'totalholidays']));
     }
 
     /**
@@ -46,11 +48,12 @@ class HolidaysController extends Controller
         ]);
         $input = $request->all();
         Holidays::create([
-            'name'=>$input['name'],
-            'holiday_date'=>strtotime($input['holiday_date'])
+            'name' => $input['name'],
+            'holiday_date' => strtotime($input['holiday_date']),
+            'company_id' => Auth::user()->company_id
         ]);
         $successmessage = "Holiday saved successfully!";
-        return Redirect::back()->with('success',$successmessage);
+        return Redirect::back()->with('success', $successmessage);
     }
 
     /**
@@ -61,7 +64,6 @@ class HolidaysController extends Controller
      */
     public function show(Holidays $holidays)
     {
-        
     }
 
     /**
@@ -94,8 +96,8 @@ class HolidaysController extends Controller
         $input = $request->all();
         $holiday = Holidays::find($input['id']);
         $holiday->update([
-            'name'=>$input['name'],
-            'holiday_date'=>strtotime($input['holiday_date'])
+            'name' => $input['name'],
+            'holiday_date' => strtotime($input['holiday_date'])
         ]);
         $successmessage = "success";
         return $successmessage;
@@ -109,7 +111,7 @@ class HolidaysController extends Controller
      */
     public function destroy(Request $request)
     {
-        $holiday=Holidays::find($request->id);
+        $holiday = Holidays::find($request->id);
         $holiday->delete();
         return 'success';
     }
