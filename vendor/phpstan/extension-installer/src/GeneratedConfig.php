@@ -12,7 +12,7 @@ final class GeneratedConfig
 	public const EXTENSIONS = array (
   'composer/composer' => 
   array (
-    'install_path' => 'C:\\xampp\\htdocs\\zenith\\vendor/composer/composer',
+    'install_path' => 'C:\\laragon\\www\\zenith\\vendor/composer/composer',
     'relative_install_path' => '../../../composer/composer',
     'extra' => 
     array (
@@ -25,7 +25,7 @@ final class GeneratedConfig
   ),
   'nesbot/carbon' => 
   array (
-    'install_path' => 'C:\\xampp\\htdocs\\zenith\\vendor/nesbot/carbon',
+    'install_path' => 'C:\\laragon\\www\\zenith\\vendor/nesbot/carbon',
     'relative_install_path' => '../../../nesbot/carbon',
     'extra' => 
     array (
@@ -38,7 +38,7 @@ final class GeneratedConfig
   ),
   'nunomaduro/larastan' => 
   array (
-    'install_path' => 'C:\\xampp\\htdocs\\zenith\\vendor/nunomaduro/larastan',
+    'install_path' => 'C:\\laragon\\www\\zenith\\vendor/nunomaduro/larastan',
     'relative_install_path' => '../../../nunomaduro/larastan',
     'extra' => 
     array (
