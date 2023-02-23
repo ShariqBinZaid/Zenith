@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\User;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-
 class CompanyController extends Controller
 {
     /**
@@ -19,12 +17,11 @@ class CompanyController extends Controller
         $companies = Company::all();
         $totalcompanies = Company::count();
         $admins = User::whereHas(
-            'roles',
-            function ($q) {
+            'roles', function($q){
                 $q->where('name', 'admin');
             }
         )->get();
-        return view('settings.companies', compact(['companies', 'totalcompanies', 'admins']));
+        return view('settings.companies',compact(['companies','totalcompanies','admins']));
     }
 
     /**
@@ -56,22 +53,22 @@ class CompanyController extends Controller
             'logo.required' => 'Company Logo required!',
             'desc.required' => 'Company Description is required'
         ]);
-
-        $companyimage = 'company/' . time() . '-' . $request->name . '.' . $request->logo->extension();
-
+      
+        $companyimage = 'company/'.time().'-'.$request->name.'.'.$request->logo->extension();  
+       
         $request->logo->move(public_path('images/company'), $companyimage);
         $companyobj = new Company();
         $companyobj->name = $request->name;
-
+        
         $companyobj->logo = $companyimage;
-
+        
         $companyobj->desc = $request->desc;
-
+        
         $companyobj->owner = $request->owner;
 
         $companyobj->save();
         $successmessage = "Company saved successfully!";
-        return Redirect::back()->with('success', $successmessage);
+        return Redirect::back()->with('success',$successmessage);
     }
 
     /**
@@ -117,7 +114,7 @@ class CompanyController extends Controller
             'desc.required' => 'Description already registered!',
         ]);
         $companyupdate = Company::find($request->id);
-        $companyupdate->update(['name' => $request->name, 'owner' => $request->owner, 'desc' => $request->desc]);
+        $companyupdate->update(['name' => $request->name, 'logo' => $request->logo, 'owner' => $request->owner, 'desc' => $request->desc]);
         $successmessage = "Company updated successfully!";
         return 'success';
     }

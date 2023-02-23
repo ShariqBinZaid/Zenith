@@ -1,3 +1,78 @@
+<!-- ________________________________________________LEADS________________________________________________________ -->
+
+<!-- Edit Lead Modal Start -->
+
+<!-- Edit Lead Modal End -->
+<!-- Show Lead Modal Start -->
+<div class="modal fade" id="ShowLeadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ShowLeadModalLabel">Details of this Lead</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body showleaddetails">
+        <div class="mb-3">
+          <label for="recipient-name" class="col-form-label">Username:</label><span class="leadusername"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Email:</label><span class="leademail"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Phone:</label><span class="leadphone"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Brand:</label><span class="brand_id"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">URL:</label><span class="url"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Created at:</label><span class="created_at"></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var ShowLeadModal = document.getElementById('ShowLeadModal')
+  ShowLeadModal.addEventListener('show.bs.modal', function(event) {
+    // Button that triggered the modal
+    var button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    var leademailval = button.getAttribute('data-bs-email')
+    var leadusernameval = button.getAttribute('data-bs-leadusername')
+    var brand_idval = button.getAttribute('data-bs-brand_id')
+    var leadphoneval = button.getAttribute('data-bs-leadphone')
+    var leadurl = button.getAttribute('data-bs-url')
+    var leadcreated_at = button.getAttribute('data-bs-created_at')
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+    //
+    // Update the modal's content.
+    var leademail = ShowLeadModal.querySelector('.leademail')
+    var leadusername = ShowLeadModal.querySelector('.leadusername')
+    var brand_id = ShowLeadModal.querySelector('.brand_id')
+    var leadphone = ShowLeadModal.querySelector('.leadphone')
+    var url = ShowLeadModal.querySelector('.url')
+    var created_at = ShowLeadModal.querySelector('.created_at')
+    leademail.textContent = leademailval
+    leadusername.textContent = leadusernameval
+    brand_id.textContent = brand_idval
+    leadphone.textContent = leadphoneval
+    url.textContent = leadurl
+    created_at.textContent = leadcreated_at
+  })
+</script>
+<!-- Show Lead Modal End -->
+
+<!-- ________________________________________________OPPORTUNITIES________________________________________________________ -->
+
+
+
 <!-- ________________________________________________BRANDS________________________________________________________ -->
 
 <!-- Edit Brands Modal Start -->
@@ -133,8 +208,6 @@
   });
 </script>
 <!-- Edit brand Modal End -->
-
-
 <!-- Show brand Modal Start -->
 <div class="modal fade" id="ShowbrandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -338,14 +411,13 @@
 
 </script> -->
 <!-- Edit Packages Modal End -->
-
 <!-- Show Packages Modal Start -->
-
-<!-- <div class="modal fade" id="ShowPackageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ShowPackageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="ShowPackageModalLabel">Details of Package</h5>
+        <h5 class="modal-title" id="ShowPackageModalLabel">Details of this Package</h5>
+
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body showbranddetails">
@@ -425,8 +497,7 @@
     discount.textContent = pkgdiscount
     created_at.textContent = pkgcreated_at
   })
-</script> -->
-
+</script>
 <!-- Show Packages Modal End -->
 
 <!-- ------------------------------------------Packages Types--------------------------------------->
@@ -448,9 +519,9 @@
         <div class="mb-3">
           <label for="recipient-name" class="col-form-label">Name:</label><span class="pkgname"></span>
         </div>
-        <!-- <div class="mb-3">
+        <div class="mb-3">
           <label for="message-text" class="col-form-label">Created at:</label><span class="created_at"></span>
-        </div> -->
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -465,13 +536,13 @@
     var button = event.relatedTarget
     // Extract info from data-bs-* attributes
     var nameval = button.getAttribute('data-bs-name')
-    // var pkgcreated_at = button.getAttribute('data-bs-created_at')
+    var pkgcreated_at = button.getAttribute('data-bs-created_at')
     // If necessary, you could initiate an AJAX request here
     // and then do the updating in a callback.
     //
     // Update the modal's content.
     var pkgname = ShowPackageModal.querySelector('.pkgname')
-    // var created_at = ShowPackageModal.querySelector('.created_at')
+    var created_at = ShowPackageModal.querySelector('.created_at')
 
     pkgname.textContent = nameval
     created_at.textContent = pkgcreated_at
@@ -660,3 +731,126 @@
   });
 </script>
 <!-- Edit Permissions Modal End -->
+
+
+<!-- ------------------------------------------UNIT------------------------------------- -->
+
+<!-- Show Unit Modal Start -->
+<div class="modal fade" id="ShowUnitModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ShowUnitModalLabel">Details of Units</h5>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body showbranddetails">
+        <div class="mb-3">
+          <label for="recipient-name" class="col-form-label">Name:</label><span class="unitname"></span>
+        </div>
+        <!-- <div class="mb-3">
+          <label for="message-text" class="col-form-label">Company:</label><span class="unitcompany_id"></span>
+        </div> -->
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Unit Head:</label><span class="unithead"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Description:</label><span class="unitdesc"></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var ShowUnitModal = document.getElementById('ShowUnitModal')
+  ShowUnitModal.addEventListener('show.bs.modal', function(event) {
+    // Button that triggered the modal
+    var button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    var unitnameval = button.getAttribute('data-bs-unitname')
+    var unitheadval = button.getAttribute('data-bs-unithead')
+    var unitdescval = button.getAttribute('data-bs-unitdesc')
+    var unitcreated_at = button.getAttribute('data-bs-created_at')
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+    //
+    // Update the modal's content.
+    var unitname = ShowUnitModal.querySelector('.unitname')
+    var unithead = ShowUnitModal.querySelector('.unithead')
+    var unitdesc = ShowUnitModal.querySelector('.unitdesc')
+    var created_at = ShowUnitModal.querySelector('.created_at')
+    unitname.textContent = unitnameval
+    unithead.textContent = unitheadval
+    unitdesc.textContent = unitdescval
+    created_at.textContent = unitcreated_at
+  })
+</script>
+
+
+<!-- Show Unit Modal End -->
+
+
+
+
+
+<!-- ------------------------------------------COMPANY------------------------------------- -->
+
+<!-- Show Company Modal Start -->
+<div class="modal fade" id="ShowCompanyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ShowCompanyModalLabel">Details of Companies</h5>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body showbranddetails">
+        <div class="mb-3">
+          <label for="recipient-name" class="col-form-label">Name:</label><span class="companyname"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Company Owner:</label><span class="companyowner"></span>
+        </div>
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Description:</label><span class="companydesc"></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var ShowCompanyModal = document.getElementById('ShowCompanyModal')
+  ShowCompanyModal.addEventListener('show.bs.modal', function(event) {
+    // Button that triggered the modal
+    var button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    // var companyidval = button.getAttribute('data-bs-id')
+    var companynameval = button.getAttribute('data-bs-companyname')
+    var companyownerval = button.getAttribute('data-bs-companyowner')
+    var companydescval = button.getAttribute('data-bs-companydesc')
+    var companycreated_at = button.getAttribute('data-bs-created_at')
+
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+    //
+    // Update the modal's content.
+    // var companyid = ShowCompanyModal.querySelector('.companyid')
+    var companyname = ShowCompanyModal.querySelector('.companyname')
+    var companyowner = ShowCompanyModal.querySelector('.companyowner')
+    var companydesc = ShowCompanyModal.querySelector('.companydesc')
+    var created_at = ShowUnitModal.querySelector('.created_at')
+    // companyid.textContent = companyidval 
+    companyname.textContent = companynameval
+    companyowner.textContent = companyownerval
+    companydesc.textContent = companydescval
+  })
+</script>
+
+
+<!-- Show Company Modal End -->

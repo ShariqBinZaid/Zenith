@@ -100,7 +100,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Unit</th>
+                        <th>Name</th>
                         <th>Company</th>
                         <th>Unit Head</th>
                         <th>Description</th>
@@ -128,8 +128,8 @@
                                         <i class="bi bi-three-dots"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
-                                        <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ShowUnitModal" data-bs-unitname="{{$thisunit->name}}" data-bs-company_id="{{$thisunit->company_id}}" data-bs-unithead="{{$thisunit->getUnitHead->name}}" data-bs-unitcompany_id="{{$thisunit->getCompany->name}}" data-bs-unitdesc="{{$thisunit->desc}}">Show</a>
-                                        <a href="javascript:;" class="dropdown-item" rel="{{$thisunit->id}}" data-bs-toggle="modal" data-bs-target="#EditUnitModal" data-bs-unitname="{{$thisunit->name}}" data-bs-company_id="{{$thisunit->company_id}}" data-bs-unithead="{{$thisunit->unithead}}" data-bs-id="{{$thisunit->id}}" data-bs-unitcompany_id="{{$thisunit->getCompany->name}}" data-bs-unitdesc="{{$thisunit->desc}}">Edit</a>
+                                        <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ShowUnitModal" data-bs-unitname="{{$thisunit->name}}" data-bs-company_id="{{$thisunit->company_id}}" data-bs-unithead="{{$thisunit->getUnitHead->name}}" data-bs-unitdesc="{{$thisunit->desc}}">Show</a>
+                                        <a href="javascript:;" class="dropdown-item" rel="{{$thisunit->id}}" data-bs-toggle="modal" data-bs-target="#EditUnitModal" data-bs-unitname="{{$thisunit->name}}" data-bs-company_id="{{$thisunit->company_id}}" data-bs-unithead="{{$thisunit->unithead}}" data-bs-id="{{$thisunit->id}}" data-bs-unitdesc="{{$thisunit->desc}}">Edit</a>
                                         <a href="javascript:;" class="dropdown-item deleteUnit" rel="{{$thisunit->id}}">Delete</a>
                                     </div>
                                 </div>
@@ -144,8 +144,6 @@
     @endsection
 
     @push('scripts')
-
-    <!-- Edit -->
     <div class="modal fade" id="EditUnitModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -218,7 +216,6 @@
             var unithead = EditUnitModal.querySelector('.unithead')
             var unitdesc = EditUnitModal.querySelector('.unitdesc')
             var unitcompany = EditUnitModal.querySelector('.company_id')
-            
             unitid.value = unitidval
             unitname.value = unitnameval
             unitcompany.value = unitcompanyval
@@ -263,57 +260,6 @@
                     )
                 }
             })
-        })
-    </script>
-
-    <!-- Show -->
-    <div class="modal fade" id="ShowUnitModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ShowUnitModalLabel">Details of Units</h5>
-
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body showbranddetails">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Name:</label><span class="unitname"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Unit Head:</label><span class="unithead"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Description:</label><span class="unitdesc"></span>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script type="text/javascript">
-        var ShowUnitModal = document.getElementById('ShowUnitModal')
-        ShowUnitModal.addEventListener('show.bs.modal', function(event) {
-            // Button that triggered the modal
-            var button = event.relatedTarget
-            // Extract info from data-bs-* attributes
-            var unitnameval = button.getAttribute('data-bs-unitname')
-            var unitheadval = button.getAttribute('data-bs-unithead')
-            var unitdescval = button.getAttribute('data-bs-unitdesc')
-            // If necessary, you could initiate an AJAX request here
-            // and then do the updating in a callback.
-            //
-            // Update the modal's content.
-
-            var unitname = ShowUnitModal.querySelector('.unitname')
-            var unithead = ShowUnitModal.querySelector('.unithead')
-            var unitcompany_id = ShowUnitModal.querySelector('.unitcompany_id')
-            var unitdesc = ShowUnitModal.querySelector('.unitdesc')
-            unitname.textContent = unitnameval
-            unithead.textContent = unitheadval
-            unitdesc.textContent = unitdescval
-            console.log(unitcompany_idval);
         })
     </script>
     @endpush

@@ -18,6 +18,6 @@ class Holidays extends Model
         // Chain fluent methods for configuration options
     }
     protected $fillable = [
-        'name','holiday_date','company_id'
+        'name','holiday_date'
     ];
 }

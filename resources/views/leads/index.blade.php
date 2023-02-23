@@ -244,10 +244,7 @@
 
 </div>
 @endsection
-
 @push('scripts')
-
-<!-- Edit -->
 <div class="modal fade" id="EditLeadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -350,71 +347,4 @@
         })
     })
 </script>
-<!-- Edit -->
-
-<!-- Show -->
-<div class="modal fade" id="ShowLeadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="ShowLeadModalLabel">Details of this Lead</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body showleaddetails">
-        <div class="mb-3">
-          <label for="recipient-name" class="col-form-label">Username:</label><span class="leadusername"></span>
-        </div>
-        <div class="mb-3">
-          <label for="message-text" class="col-form-label">Email:</label><span class="leademail"></span>
-        </div>
-        <div class="mb-3">
-          <label for="message-text" class="col-form-label">Phone:</label><span class="leadphone"></span>
-        </div>
-        <div class="mb-3">
-          <label for="message-text" class="col-form-label">Brand:</label><span class="brand_id"></span>
-        </div>
-        <div class="mb-3">
-          <label for="message-text" class="col-form-label">URL:</label><span class="url"></span>
-        </div>
-        <!-- <div class="mb-3">
-          <label for="message-text" class="col-form-label">Created at:</label><span class="created_at"></span>
-        </div> -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<script type="text/javascript">
-  var ShowLeadModal = document.getElementById('ShowLeadModal')
-  ShowLeadModal.addEventListener('show.bs.modal', function(event) {
-    // Button that triggered the modal
-    var button = event.relatedTarget
-    // Extract info from data-bs-* attributes
-    var leademailval = button.getAttribute('data-bs-email')
-    var leadusernameval = button.getAttribute('data-bs-leadusername')
-    var brand_idval = button.getAttribute('data-bs-brand_id')
-    var leadphoneval = button.getAttribute('data-bs-leadphone')
-    var leadurl = button.getAttribute('data-bs-url')
-    var leadcreated_at = button.getAttribute('data-bs-created_at')
-    // If necessary, you could initiate an AJAX request here
-    // and then do the updating in a callback.
-    //
-    // Update the modal's content.
-    var leademail = ShowLeadModal.querySelector('.leademail')
-    var leadusername = ShowLeadModal.querySelector('.leadusername')
-    var brand_id = ShowLeadModal.querySelector('.brand_id')
-    var leadphone = ShowLeadModal.querySelector('.leadphone')
-    var url = ShowLeadModal.querySelector('.url')
-    var created_at = ShowLeadModal.querySelector('.created_at')
-    leademail.textContent = leademailval
-    leadusername.textContent = leadusernameval
-    brand_id.textContent = brand_idval
-    leadphone.textContent = leadphoneval
-    url.textContent = leadurl
-    created_at.textContent = leadcreated_at
-  })
-</script>
-<!-- Show -->
 @endpush

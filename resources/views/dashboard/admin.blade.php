@@ -508,7 +508,7 @@
                         <a href="{{route('users.allUsers')}}">View All</a>
                     </div>
                     <div class="card-body">
-                        <div class="list-group list-group-flush pe-md-4" style="overflow-y: scroll;height: 300px;">
+                        <div class="list-group list-group-flush" style="overflow-y: scroll;height: 300px;">
                             @foreach($users as $thisuser)
                             <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <div class="d-flex flex-grow-1 align-items-center">
@@ -520,7 +520,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <span class="fw-bold">{{$thisuser->name}}</span>
+                                <span>{{$thisuser->name}}</span>
                             </div>
                             @endforeach
                         </div>
