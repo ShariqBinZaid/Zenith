@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Holidays;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
+use Auth;
 class HolidaysController extends Controller
 {
     /**
@@ -47,7 +48,8 @@ class HolidaysController extends Controller
         $input = $request->all();
         Holidays::create([
             'name'=>$input['name'],
-            'holiday_date'=>strtotime($input['holiday_date'])
+            'holiday_date'=>strtotime($input['holiday_date']),
+            'company_id'=>Auth::user()->company_id
         ]);
         $successmessage = "Holiday saved successfully!";
         return Redirect::back()->with('success',$successmessage);
