@@ -95,7 +95,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
+                        <th>Companies</th>
                         <th>Logo</th>
                         <th>Company Owner</th>
                         <th>Description</th>
@@ -142,14 +142,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="EditCompanyModalLabel">Update Companies</h5>
+                    <h5 class="modal-title" id="EditCompanyModalLabel">Update Company</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form class="updatecompanyform">
                     <div class="modal-body">
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="message-text" class="col-form-label">Name:</label>
+                                <label for="message-text" class="col-form-label">Company Name:</label>
                                 <input type="text" class="form-control companyname" name="name">
                                 <input type="hidden" class="companyid" name="id" id="companyid" />
                             </div>
@@ -168,7 +168,7 @@
                         <div class="row">
                             <div class="mb-3 col-md-12">
                                 <label for="message-text" class="col-form-label">Description:</label>
-                                <textarea class="form-control companydesc" value="{{$thiscompanies->desc}}" name="desc"></textarea>
+                                <textarea class="form-control companydesc" value="{{$thiscompany->desc}}" name="desc"></textarea>
                             </div>
                         </div>
                     </div>
@@ -243,4 +243,56 @@
             })
         })
     </script>
+
+    <!-- Show -->
+    <div class="modal fade" id="ShowCompanyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ShowCompanyModalLabel">Detail of Companies</h5>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body showbranddetails">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Company Name:</label><span class="companyname"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Company Owner:</label><span class="companyowner"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Description:</label><span class="companydesc"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var ShowCompanyModal = document.getElementById('ShowCompanyModal')
+        ShowCompanyModal.addEventListener('show.bs.modal', function(event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            // var companyidval = button.getAttribute('data-bs-id')
+            var companynameval = button.getAttribute('data-bs-companyname')
+            var companyownerval = button.getAttribute('data-bs-companyowner')
+            var companydescval = button.getAttribute('data-bs-companydesc')
+
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+            // Update the modal's content.
+            var companyname = ShowCompanyModal.querySelector('.companyname')
+            var companyowner = ShowCompanyModal.querySelector('.companyowner')
+            var companydesc = ShowCompanyModal.querySelector('.companydesc')
+            companyname.textContent = companynameval
+            companyowner.textContent = companyownerval
+            companydesc.textContent = companydescval
+        })
+    </script>
+
+
     @endpush
