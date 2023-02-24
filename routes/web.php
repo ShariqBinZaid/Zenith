@@ -18,7 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('adminDashboard');
-    
 });
 
 
@@ -158,6 +157,10 @@ Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => ['auth']], 
     Route::post('unassign-user-perm', [App\Http\Controllers\UserController::class, 'unassignPermtoUser'])->name('unassignPermtoUser');
     Route::get('team/{id}', [App\Http\Controllers\TeamsController::class, 'show'])->name('thisTeam');
 });
+
+
+
+
 Route::group(['prefix' => 'projects', 'as' => 'projects.', 'middleware' => ['auth']], function () {
     Route::get('opportunity_to_project/{id}', [App\Http\Controllers\ProjectsController::class, 'convert_opportunity_to_project'])->name('opportunity_to_project')->permission('convert opportunity to project');
     Route::get('/', [App\Http\Controllers\ProjectsController::class, 'index'])->name('allProjects')->permission('view projects');
@@ -167,6 +170,8 @@ Route::group(['prefix' => 'projects', 'as' => 'projects.', 'middleware' => ['aut
 });
 
 //Route::get('send', [App\Http\Controllers\HomeController::class,'sendNotification']);
+
+
 
 // Attendance
 Route::group(['prefix' => 'attendance', 'as' => 'attendance.', 'middleware' => ['auth']], function () {
@@ -188,8 +193,11 @@ Route::group(['prefix' => 'leaves', 'as' => 'leaves.', 'middleware' => ['auth']]
 });
 
 
+
+
 Route::group(['prefix' => 'finance', 'as' => 'finance.', 'middleware' => ['auth']], function () {
     Route::get('expenses/{month}/{year}', [App\Http\Controllers\FinanceController::class, 'index'])->name('expenses');
     Route::get('expenses/{month}/{year}/{unit?}', [App\Http\Controllers\FinanceController::class, 'index'])->name('expenses');
     Route::post('addExpense', [App\Http\Controllers\FinanceController::class, 'store'])->name('addExpense');
+    Route::post('searchExpense', [App\Http\Controllers\FinanceController::class, 'searhfinance'])->name('searchExpense');
 });

@@ -24,7 +24,7 @@ class FinanceController extends Controller
             $unitdetail = Units::find($unit);
             if($unitdetail->company_id == Auth::user()->company_id){}else{
                 if(Auth::user()->roles->pluck('name')[0] == 'superadmin'){}else{
-                return abort( 403 );
+                    return abort( 403 );
                 }
             }
         }
