@@ -16,6 +16,7 @@ use Auth;
 use Illuminate\Support\Facades\Redirect;
 use App\Notifications\LeadAssignNotification;
 use App\Events\LeadAssign;
+
 class LeadsController extends Controller
 {
     /**
@@ -23,27 +24,80 @@ class LeadsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        ////////////////
+
+
+        $search = $request->input('search');
+
         if (Auth::user()->roles->pluck('name')[0] == 'superadmin') {
-            $leads = Leads::latest()->with('getBrand')->paginate(10);
+            $leads = Leads::latest()
+                ->with('getBrand')
+                ->when($search, function ($query, $search) {
+                    $query->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%');
+                })
+                ->paginate(10);
         } elseif (Auth::user()->roles->pluck('name')[0] == 'admin') {
-            $leads = Leads::whereHas('getCompany', function ($query) {
+            $opportunities = Leads::whereHas('getLeads', function ($query) {
                 $query->where('owner', '=', Auth::user()->id);
-            })->paginate(10);
+            })
+                ->when($search, function ($query, $search) {
+                    $query->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%');
+                })
+                ->paginate(10);
         } elseif (Auth::user()->roles->pluck('name')[0] == 'business_unit_head') {
             $unitid = Units::where('unithead', Auth::user()->id)->with('brands')->first();
             $brands = array();
             foreach ($unitid->brands as $thisbrand) {
                 array_push($brands, $thisbrand->id);
             }
-            $leads = Leads::whereIn('brand_id', $brands)->paginate(10);
+            $leads = Leads::whereIn('brand_id', $brands)
+                ->when($search, function ($query, $search) {
+                    $query->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%');
+                })
+                ->paginate(10);
         } else {
-            $user = auth()->user();
-            $leads = Leads::whereHas('users', function ($query) use ($user) {
+            $user = Auth::user();
+            $opportunities = Leads::whereHas('users', function ($query) use ($user) {
                 $query->where('leads_user.user_id', '=', $user->id);
-            })->paginate(10);
+            })
+                ->when($search, function ($query, $search) {
+                    $query->where('name', 'like', '%' . $search . '%')->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%');
+                })
+                ->paginate(10);
         }
+
+
+        ///////////////////
+
+        // if (Auth::user()->roles->pluck('name')[0] == 'superadmin') {
+        //     $leads = Leads::latest()->with('getBrand')->paginate(10);
+        // } elseif (Auth::user()->roles->pluck('name')[0] == 'admin') {
+        //     $leads = Leads::whereHas('getCompany', function ($query) {
+        //         $query->where('owner', '=', Auth::user()->id);
+        //     })->paginate(10);
+        // } elseif (Auth::user()->roles->pluck('name')[0] == 'business_unit_head') {
+        //     $unitid = Units::where('unithead', Auth::user()->id)->with('brands')->first();
+        //     $brands = array();
+        //     foreach ($unitid->brands as $thisbrand) {
+        //         array_push($brands, $thisbrand->id);
+        //     }
+        //     $leads = Leads::whereIn('brand_id', $brands)->paginate(10);
+        // } else {
+        //     $user = auth()->user();
+        //     $leads = Leads::whereHas('users', function ($query) use ($user) {
+        //         $query->where('leads_user.user_id', '=', $user->id);
+        //     })->paginate(10);
+        // }
+
         $allbrands = Brands::latest()->get();
         $totalleads = Leads::count();
         return view('leads.index', compact(['leads', 'totalleads', 'allbrands']));
@@ -132,8 +186,7 @@ class LeadsController extends Controller
                     $q->orWhere('name', 'front_sales_executive');
                 }
             )->get();
-        }
-        elseif (Auth::user()->roles->pluck('name')[0] == 'admin') {
+        } elseif (Auth::user()->roles->pluck('name')[0] == 'admin') {
             $users = User::whereHas(
                 'roles',
                 function ($q) {
@@ -142,7 +195,7 @@ class LeadsController extends Controller
                     $q->orWhere('name', 'front_sales_executive');
                 }
             )->where('company_id', Auth::user()->company_id)->get();
-        }elseif (Auth::user()->roles->pluck('name')[0] == 'business_unit_head') {
+        } elseif (Auth::user()->roles->pluck('name')[0] == 'business_unit_head') {
             $users = User::whereHas(
                 'roles',
                 function ($q) {
@@ -208,11 +261,11 @@ class LeadsController extends Controller
         }
         $assignedto = User::find($request->user_id);
         $assignedto->notify(new LeadAssignNotification($lead));
-        $lead->notifyalert()->create(['for'=>$request->user_id,'message'=>Auth::user()->name.' assigned you the Lead!','data'=>serialize(['assigneeId'=>Auth::user()->id,'assignedAt'=>time()])]);
-        $notify = Notify::where('for',$request->user_id)->where('notifiable_type',Leads::class)->latest()->first();
+        $lead->notifyalert()->create(['for' => $request->user_id, 'message' => Auth::user()->name . ' assigned you the Lead!', 'data' => serialize(['assigneeId' => Auth::user()->id, 'assignedAt' => time()])]);
+        $notify = Notify::where('for', $request->user_id)->where('notifiable_type', Leads::class)->latest()->first();
         $notificationfor = $request->user_id;
-        event(new LeadAssign($notify,$notificationfor));
-        return Redirect::back()->with('success',$successmessage);
+        event(new LeadAssign($notify, $notificationfor));
+        return Redirect::back()->with('success', $successmessage);
     }
     public function unassignLeadSubmit(Request $request)
     {
