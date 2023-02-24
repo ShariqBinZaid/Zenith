@@ -21,36 +21,57 @@ class OpportunityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        if( Auth::user()->roles->pluck('name')[0] == 'superadmin')
-        {
-            $opportunities = Opportunity::latest()->with('getBrand')->with('getPackage')->paginate(10);
-        }
-        elseif( Auth::user()->roles->pluck('name')[0] == 'admin')
-        {
-            $opportunities =Opportunity::whereHas('getCompany', function ($query) {
+        $search = $request->input('search');
+
+        if (Auth::user()->roles->pluck('name')[0] == 'superadmin') {
+            $opportunities = Opportunity::latest()
+                ->with('getBrand')
+                ->with('getPackage')
+                ->when($search, function ($query, $search) {
+                    $query->where('name', 'like', '%'.$search.'%')
+                    ->orWhere('email', 'like', '%'.$search.'%')
+                    ->orWhere('phone', 'like', '%'.$search.'%');
+                })
+                ->paginate(10);
+        } elseif (Auth::user()->roles->pluck('name')[0] == 'admin') {
+            $opportunities = Opportunity::whereHas('getCompany', function ($query) {
                 $query->where('owner', '=', Auth::user()->id);
-            })->paginate(10);
-        }
-        elseif(Auth::user()->roles->pluck('name')[0] == 'business_unit_head'){
-            
-            $unitid = Units::where('unithead',Auth::user()->id)->with('brands')->first();
+            })
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', '%'.$search.'%')
+                ->orWhere('email', 'like', '%'.$search.'%')
+                ->orWhere('phone', 'like', '%'.$search.'%');
+            })
+            ->paginate(10);
+        } elseif (Auth::user()->roles->pluck('name')[0] == 'business_unit_head') {
+            $unitid = Units::where('unithead', Auth::user()->id)->with('brands')->first();
             $brands = array();
-            foreach($unitid->brands as $thisbrand)
-            {
-                array_push($brands,$thisbrand->id);
+            foreach ($unitid->brands as $thisbrand) {
+                array_push($brands, $thisbrand->id);
             }
-            $opportunities = Opportunity::whereIn('brand_id', $brands)->paginate(10);
-        }
-        else{
+            $opportunities = Opportunity::whereIn('brand_id', $brands)
+                ->when($search, function ($query, $search) {
+                    $query->where('name', 'like', '%'.$search.'%')
+                    ->orWhere('email', 'like', '%'.$search.'%')
+                    ->orWhere('phone', 'like', '%'.$search.'%');
+                })
+                ->paginate(10);
+        } else {
             $user = Auth::user();
-            $opportunities =Opportunity::whereHas('users', function ($query) use ($user) {
-                        $query->where('opportunity_user.user_id', '=', $user->id);
-            })->paginate(10);
+            $opportunities = Opportunity::whereHas('users', function ($query) use ($user) {
+                $query->where('opportunity_user.user_id', '=', $user->id);
+            })
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', '%'.$search.'%')->orWhere('email', 'like', '%'.$search.'%')
+                ->orWhere('phone', 'like', '%'.$search.'%');
+            })
+            ->paginate(10);
         }
+
         $brandspackages = Brands::latest()->with('packages.getCurrency')->get();
-        return view('opportunities.index',compact(['opportunities','brandspackages']));
+        return view('opportunities.index', compact(['opportunities', 'brandspackages', 'search']));
     }
 
     /**

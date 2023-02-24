@@ -12,28 +12,6 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('/pusher/auth', function() {
-    $pusher = new Pusher\Pusher(
-        env('PUSHER_APP_KEY'),
-        env('PUSHER_APP_SECRET'),
-        env('PUSHER_APP_ID'),
-        [
-            'cluster' => env('PUSHER_APP_CLUSTER'),
-            'useTLS' => true
-        ]
-    );
-
-    $socket_id = request()->socket_id;
-    $channel_name = request()->channel_name;
-
-    $user = Auth::user();
-
-    $presence_data = ['name' => $user->name];
-
-    $auth = $pusher->presence_auth($channel_name, $socket_id, $user->id, $presence_data);
-
-    return response($auth);
-});
 Route::get('/', function () {
     return Redirect::route('login');
 });

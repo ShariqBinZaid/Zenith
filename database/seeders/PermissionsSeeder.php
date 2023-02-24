@@ -114,6 +114,7 @@ class PermissionsSeeder extends Seeder
             'name' => 'add teams member',
             'guard_name' => 'api',
         ]
+
     ];
         Permission::insert($permission);
     }

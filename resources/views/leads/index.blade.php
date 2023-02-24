@@ -124,12 +124,12 @@
         </div>
     </div>
     @endcan
-    <!-- <div class="card">
+    <div class="card">
         <div class="card-body">
             <div class="d-md-flex">
                 <div class="d-md-flex gap-4 align-items-center">
                     <form class="mb-3 mb-md-0">
-                         <div class="row g-3">
+                         <!-- <div class="row g-3">
                             <div class="col-md-3">
                                 <select class="form-select">
                                     <option>Sort by</option>
@@ -145,8 +145,8 @@
                                     <option value="40">40</option>
                                     <option value="50">50</option>
                                 </select>
-                            </div>
-                            <div class="col-md-6">
+                            </div> -->
+                            <div class="col-md-12">
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search">
                                     <button class="btn btn-outline-light" type="button">
@@ -157,7 +157,7 @@
                         </div> 
                     </form>
                 </div>
-                <div class="dropdown ms-auto">
+                <!-- <div class="dropdown ms-auto">
                     <a href="#" data-bs-toggle="dropdown"
                        class="btn btn-primary dropdown-toggle"
                        aria-haspopup="true" aria-expanded="false">Actions</a>
@@ -166,10 +166,10 @@
                         <a href="#" class="dropdown-item">Another action</a>
                         <a href="#" class="dropdown-item">Something else here</a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
-    </div> -->
+    </div> 
     <div class="table-responsive" id="allleads">
         <table class="table table-custom table-lg mb-0" id="customers">
             <thead>

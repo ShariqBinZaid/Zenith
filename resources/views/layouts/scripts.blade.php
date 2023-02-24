@@ -48,7 +48,7 @@
       // Bind a function to a Event (the full Laravel class)
       leadAssignChannel.bind('App\\Events\\LeadAssign', function(data) {
         var existingNotifications = $('ul.leadassignnotify').html();
-        var notificationsCount = $('.nav-link-notify').attr('data-count');
+        var notificationsCount = parseInt($('.nav-link-notify').attr('data-count'));
         var newNotificationHtml = `
         <li class="px-0 list-group-item">
                             <a href="{{route('lead.allLeads')}}" class="d-flex">
@@ -81,7 +81,7 @@
       // Bind a function to a Event (the full Laravel class)
       opportunityAssignChannel.bind('App\\Events\\OpportunityAssign', function(data) {
         var existingNotifications = $('.opportunityassignnotify').html();
-        var notificationsCount = $('.nav-link-notify').attr('data-count');
+        var notificationsCount = parseInt($('.nav-link-notify').attr('data-count'));
         var newNotificationHtml = `
         <li class="px-0 list-group-item">
                             <a href="{{route('opportunity.allOpportunities')}}" class="d-flex">
@@ -105,7 +105,7 @@
         `;
         $('.opportunityassignnotify').html(newNotificationHtml + existingNotifications);
         $('.opportunityassignnotifytab').addClass('nav-link-notify');
-        notificationsCount += 1;
+        notificationsCount+=1;
         $('.nav-link-notify').attr('data-count',notificationsCount);
         const audio = new Audio("{{ asset('sound/notialert2.wav') }}");
         audio.play();
