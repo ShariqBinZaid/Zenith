@@ -100,56 +100,22 @@
             <li class="menu-divider">Settings</li>
             <li>
                 <a  
-                    href="{{route('admin.allCompanies')}}">
+                    href="{{route('setting.allCompanies')}}">
                     <span class="nav-link-icon">
                         <i class="bi bi-people"></i>
                     </span>
                     <span>Companies</span>
                 </a>
             </li>
+            @endrole
+            @role('business_unit_head')
             <li>
                 <a  
-                    href="{{route('admin.allUnits')}}">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-people"></i>
-                    </span>
-                    <span>Units</span>
-                </a>
-            </li>
-            <li>
-                <a  
-                    href="{{route('admin.allTeams')}}">
+                    href="{{route('setting.allTeams')}}">
                     <span class="nav-link-icon">
                         <i class="bi bi-people"></i>
                     </span>
                     <span>Teams</span>
-                </a>
-            </li>
-            <li>
-                <a  
-                    href="{{route('admin.teamChart',1)}}">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-people"></i>
-                    </span>
-                    <span>My Team</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{route('admin.allRoles')}}">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-vinyl"></i>
-                    </span>
-                    <span>Roles</span>
-                </a>
-            </li>
-            
-            <li>
-                <a  
-                    href="{{route('admin.allPermissions')}}">
-                    <span class="nav-link-icon">
-                        <i class="bi bi-gear-wide-connected"></i>
-                    </span>
-                    <span>Permissions</span>
                 </a>
             </li>
             <li>
@@ -161,9 +127,48 @@
                     <span>Package Types</span>
                 </a>
             </li>
+            @endrole
+            @role(['superadmin','admin'])
             <li>
                 <a  
-                    href="{{route('admin.allHolidays')}}">
+                    href="{{route('setting.allUnits')}}">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-people"></i>
+                    </span>
+                    <span>Units</span>
+                </a>
+            </li>
+            
+            <!-- <li>
+                <a  
+                    href="{{route('setting.teamChart',1)}}">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-people"></i>
+                    </span>
+                    <span>My Team</span>
+                </a>
+            </li> -->
+            <li>
+                <a href="{{route('setting.allRoles')}}">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-vinyl"></i>
+                    </span>
+                    <span>Roles</span>
+                </a>
+            </li>
+            <li>
+                <a  
+                    href="{{route('setting.allPermissions')}}">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-gear-wide-connected"></i>
+                    </span>
+                    <span>Permissions</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  
+                    href="{{route('setting.allHolidays')}}">
                     <span class="nav-link-icon">
                         <i class="bi bi-calendar3"></i>
                     </span>
@@ -172,7 +177,7 @@
             </li>
             <li>
                 <a  
-                    href="{{route('admin.allLeaveTypes')}}">
+                    href="{{route('setting.allLeaveTypes')}}">
                     <span class="nav-link-icon">
                         <i class="bi bi-calendar-event"></i>
                     </span>

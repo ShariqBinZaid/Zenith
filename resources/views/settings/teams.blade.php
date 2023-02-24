@@ -44,7 +44,7 @@
                             
                         </div>
                     @endif
-                <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('admin.addTeam')}}">
+                <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('setting.addTeam')}}">
                     {{csrf_field()}}
                     <div class="row mb-3">
                         <div class="col">
@@ -129,8 +129,8 @@
                                 <i class="bi bi-three-dots"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="{{route('admin.showMembers',$thisteam->id)}}" class="dropdown-item" rel="">Edit / Add Team Member</a>
-                                <a href="{{route('admin.assignBrandToTeam',$thisteam->id)}}" class="dropdown-item" rel="">Assign Brand to Team</a>
+                                <a href="{{route('setting.showMembers',$thisteam->id)}}" class="dropdown-item" rel="">Edit / Add Team Member</a>
+                                <a href="{{route('setting.assignBrandToTeam',$thisteam->id)}}" class="dropdown-item" rel="">Assign Brand to Team</a>
                                 <a href="javascript:;" class="dropdown-item deleteTeam" rel="{{$thisteam->id}}">Delete</a>
                             </div>
                         </div>

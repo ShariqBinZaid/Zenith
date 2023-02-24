@@ -743,6 +743,7 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Events\\LeadAssign' => __DIR__ . '/../..' . '/app/Events/LeadAssign.php',
+        'App\\Events\\OpportunityAssign' => __DIR__ . '/../..' . '/app/Events/OpportunityAssign.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AttendanceController' => __DIR__ . '/../..' . '/app/Http/Controllers/AttendanceController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -784,7 +785,7 @@ class ComposerStaticInitda68cc3eefc16bfda6f810252f945075
         'App\\Http\\Middleware\\ValidateSignature' => __DIR__ . '/../..' . '/app/Http/Middleware/ValidateSignature.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Resources\\ImagesResource' => __DIR__ . '/../..' . '/app/Http/Resources/ImagesResource.php',
-        'App\\Listeners\\SendLeadAssignNotification' => __DIR__ . '/../..' . '/app/Listeners/SendLeadAssignNotification.php',
+        'App\\Models\\Announcements' => __DIR__ . '/../..' . '/app/Models/Announcements.php',
         'App\\Models\\Attendance' => __DIR__ . '/../..' . '/app/Models/Attendance.php',
         'App\\Models\\Brands' => __DIR__ . '/../..' . '/app/Models/Brands.php',
         'App\\Models\\Company' => __DIR__ . '/../..' . '/app/Models/Company.php',

@@ -12,7 +12,7 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item " aria-current="page">
-                    <a href="{{route('admin.allRoles')}}">Roles</a>
+                    <a href="{{route('setting.allRoles')}}">Roles</a>
                 </li>
                 <li class="breadcrumb-item " aria-current="page">
                     <a href="">Assign Permission</a>
@@ -51,7 +51,7 @@
                             
                         </div>
                     @endif
-                <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('admin.assignPermission')}}">
+                <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('setting.assignPermission')}}">
                     {{csrf_field()}}
                     <div class="row mb-3">
                         <div class="col">
@@ -82,7 +82,7 @@
                             <ul class="list-group list-group-flush">
                                 @if($roledata->permissions)
                                 @foreach($roledata->permissions as $thispermission)
-                                <li class="list-group-item">{{ $thispermission->name}}<form class="mb-2 mt-2" action="{{route('admin.unassignPermission')}}" method="POST">{{csrf_field()}}<input type="hidden" name="id" value="{{request()->route('id')}}"><input type="hidden" name="permission" value="{{ $thispermission->id}}"><input type="submit" name="submit" value="Unassign" class="btn btn-danger "></form></li>
+                                <li class="list-group-item">{{ $thispermission->name}}<form class="mb-2 mt-2" action="{{route('setting.unassignPermission')}}" method="POST">{{csrf_field()}}<input type="hidden" name="id" value="{{request()->route('id')}}"><input type="hidden" name="permission" value="{{ $thispermission->id}}"><input type="submit" name="submit" value="Unassign" class="btn btn-danger "></form></li>
                                 @endforeach
                                 @else
                                 <li class="list-group-item">No Permission found!</li>

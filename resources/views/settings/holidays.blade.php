@@ -44,7 +44,7 @@
                             
                         </div>
                     @endif
-                <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('admin.addHoliday')}}">
+                <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('setting.addHoliday')}}">
                     {{csrf_field()}}
                     <div class="row mb-3">
                         <div class="col">
@@ -180,7 +180,7 @@
         let formData = new FormData(this);
         $.ajax({
             type:'POST',
-            url: "{{route('admin.editHoliday')}}",
+            url: "{{route('setting.editHoliday')}}",
             data: formData,
             contentType: false,
             processData: false,
@@ -227,7 +227,7 @@ $(document).on('click','.deleteHoliday',function(e){
 }).then((result) => {
   if (result.isConfirmed) {
     $.ajax({
-        url: "{{route('admin.deleteHoliday')}}",
+        url: "{{route('setting.deleteHoliday')}}",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },

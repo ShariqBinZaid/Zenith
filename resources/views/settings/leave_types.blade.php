@@ -44,7 +44,7 @@
                             
                         </div>
                     @endif
-                <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('admin.addLeaveType')}}">
+                <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('setting.addLeaveType')}}">
                     {{csrf_field()}}
                     <div class="row mb-3">
                         <div class="col">
@@ -179,7 +179,7 @@
         let formData = new FormData(this);
         $.ajax({
             type:'POST',
-            url: "{{route('admin.editLeaveType')}}",
+            url: "{{route('setting.editLeaveType')}}",
             data: formData,
             contentType: false,
             processData: false,
@@ -226,7 +226,7 @@ $(document).on('click','.deleteLeaveType',function(e){
 }).then((result) => {
   if (result.isConfirmed) {
     $.ajax({
-        url: "{{route('admin.deleteLeaveType')}}",
+        url: "{{route('setting.deleteLeaveType')}}",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },

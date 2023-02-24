@@ -44,7 +44,7 @@
 
                     </div>
                     @endif
-                    <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('admin.addUnit')}}">
+                    <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('setting.addUnit')}}">
                         {{csrf_field()}}
                         <div class="row mb-3">
                             <div class="col">
@@ -233,7 +233,7 @@
             var form = $('.updateunitform').serialize();
             var formdata = 'updateunitform';
             $.ajax({
-                url: "{{route('admin.updateUnit')}}",
+                url: "{{route('setting.updateUnit')}}",
                 type: 'POST',
                 data: form + "&type=" + formdata,
                 success: function(res) {

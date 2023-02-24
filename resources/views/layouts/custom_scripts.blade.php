@@ -234,7 +234,7 @@ $(document).on('click','.deleteRole',function(e){
 }).then((result) => {
   if (result.isConfirmed) {
     $.ajax({
-        url: "{{route('admin.deleteRole')}}",
+        url: "{{route('setting.deleteRole')}}",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -272,7 +272,7 @@ $(document).on('click','.deletePermission',function(e){
 }).then((result) => {
   if (result.isConfirmed) {
     $.ajax({
-        url: "{{route('admin.deletePermission')}}",
+        url: "{{route('setting.deletePermission')}}",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -424,7 +424,7 @@ $(document).on('click','.deleteTeam',function(e){
 }).then((result) => {
   if (result.isConfirmed) {
     $.ajax({
-        url: "{{route('admin.deleteTeam')}}",
+        url: "{{route('setting.deleteTeam')}}",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -509,7 +509,7 @@ $(document).on('click','.deleteUnit',function(e){
 }).then((result) => {
   if (result.isConfirmed) {
     $.ajax({
-        url: "{{route('admin.deleteUnit')}}",
+        url: "{{route('setting.deleteUnit')}}",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -549,7 +549,7 @@ $(document).on('click','.deleteCompany',function(e){
 }).then((result) => {
   if (result.isConfirmed) {
     $.ajax({
-        url: "{{route('admin.deleteCompany')}}",
+        url: "{{route('setting.deleteCompany')}}",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -589,7 +589,7 @@ $(document).on('click','.deleteHoliday',function(e){
 }).then((result) => {
   if (result.isConfirmed) {
     $.ajax({
-        url: "{{route('admin.deleteHoliday')}}",
+        url: "{{route('setting.deleteHoliday')}}",
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },

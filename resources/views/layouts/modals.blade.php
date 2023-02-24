@@ -610,7 +610,7 @@
     let formData = new FormData(this);
     $.ajax({
       type: 'POST',
-      url: "{{route('admin.updateRole')}}",
+      url: "{{route('setting.updateRole')}}",
       data: formData,
       contentType: false,
       processData: false,
@@ -700,7 +700,7 @@
     let formData = new FormData(this);
     $.ajax({
       type: 'POST',
-      url: "{{route('admin.updatePermission')}}",
+      url: "{{route('setting.updatePermission')}}",
       data: formData,
       contentType: false,
       processData: false,

@@ -70,7 +70,7 @@ Route::group(['prefix' => 'marketing/packages', 'as' => 'packages.', 'middleware
 
 
 // Packages Types
-Route::group(['prefix' => 'admin/settings', 'as' => 'packageTypes.', 'middleware' => ['auth', 'role:superadmin']], function () {
+Route::group(['prefix' => 'settings', 'as' => 'packageTypes.', 'middleware' => ['auth', 'role:superadmin|admin|business_unit_head']], function () {
     Route::get('/package-types', [App\Http\Controllers\PackageTypesController::class, 'index'])->name('allPackageTypes');
     Route::post('add-packagetypes', [App\Http\Controllers\PackageTypesController::class, 'store'])->name('addPackageTypes');
     Route::get('edit-packagetypes/{id}', [App\Http\Controllers\PackageTypesController::class, 'edit'])->name('editPackageTypes');
@@ -90,7 +90,7 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth'
 
 
 
-Route::group(['prefix' => 'admin/settings', 'as' => 'admin.', 'middleware' => ['auth', 'role:superadmin']], function () {
+Route::group(['prefix' => 'settings', 'as' => 'setting.', 'middleware' => ['auth', 'role:superadmin|admin']], function () {
     Route::get('/roles', [App\Http\Controllers\RolesController::class, 'index'])->name('allRoles');
     Route::get('/roles/assign-permission/{id}', [App\Http\Controllers\RolesController::class, 'showpermissions'])->name('showPermissions');
     Route::post('/roles/assignPermission', [App\Http\Controllers\RolesController::class, 'assignPermission'])->name('assignPermission');

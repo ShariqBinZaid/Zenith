@@ -10,7 +10,7 @@
                         <i class="bi bi-gear small me-2"></i> Settings
                 </li>
                 <li class="breadcrumb-item " aria-current="page">
-                    <a href="{{route('admin.allTeams')}}">Teams</a>
+                    <a href="{{route('setting.allTeams')}}">Teams</a>
                 </li>    
                 <li class="breadcrumb-item active" aria-current="page">{{ucwords(strtolower(str_replace('_',' ',$team->name)), '\',. ')}}</li>
                 
@@ -46,7 +46,7 @@
                             
                         </div>
                     @endif
-                <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('admin.assignBrandSubmit')}}">
+                <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('setting.assignBrandSubmit')}}">
                     {{csrf_field()}}
                     <div class="row mb-3">
                         <div class="col">
@@ -91,7 +91,7 @@
                             <ul class="list-group list-group-flush">
                             @foreach($team->brands as $thisbrand)
                             <li class="list-group-item"><b>Brand Name</b> : {{$thisbrand->name}}
-                            <form action="{{route('admin.unassignBrandSubmit')}}" method="POST">
+                            <form action="{{route('setting.unassignBrandSubmit')}}" method="POST">
                                 {{csrf_field()}}
                                 <input type="hidden" name="brand_id" value="{{$thisbrand->id}}"/>
                                 <input type="hidden" name="team_id" value="{{$team->id}}"/>

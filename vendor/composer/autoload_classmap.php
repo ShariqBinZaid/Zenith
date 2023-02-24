@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Events\\LeadAssign' => $baseDir . '/app/Events/LeadAssign.php',
+    'App\\Events\\OpportunityAssign' => $baseDir . '/app/Events/OpportunityAssign.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\AttendanceController' => $baseDir . '/app/Http/Controllers/AttendanceController.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -49,7 +50,7 @@ return array(
     'App\\Http\\Middleware\\ValidateSignature' => $baseDir . '/app/Http/Middleware/ValidateSignature.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Http\\Resources\\ImagesResource' => $baseDir . '/app/Http/Resources/ImagesResource.php',
-    'App\\Listeners\\SendLeadAssignNotification' => $baseDir . '/app/Listeners/SendLeadAssignNotification.php',
+    'App\\Models\\Announcements' => $baseDir . '/app/Models/Announcements.php',
     'App\\Models\\Attendance' => $baseDir . '/app/Models/Attendance.php',
     'App\\Models\\Brands' => $baseDir . '/app/Models/Brands.php',
     'App\\Models\\Company' => $baseDir . '/app/Models/Company.php',

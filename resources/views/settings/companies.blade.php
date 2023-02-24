@@ -44,7 +44,7 @@
 
                     </div>
                     @endif
-                    <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('admin.addCompany')}}" enctype="multipart/form-data">
+                    <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('setting.addCompany')}}" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="row mb-3">
                             <div class="col">
@@ -214,7 +214,7 @@
             var form = $('.updatecompanyform').serialize();
             var formdata = 'updatecompanyform';
             $.ajax({
-                url: "{{route('admin.updateCompany')}}",
+                url: "{{route('setting.updateCompany')}}",
                 type: 'POST',
                 data: form + "&type=" + formdata,
                 success: function(res) {

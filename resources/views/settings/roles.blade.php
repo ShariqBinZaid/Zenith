@@ -44,7 +44,7 @@
                             
                         </div>
                     @endif
-                <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('admin.addRole')}}">
+                <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('setting.addRole')}}">
                     {{csrf_field()}}
                     <div class="row mb-3">
                         <div class="col">
@@ -98,7 +98,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditRolesModal" data-bs-id="{{$thisrole->id}}" data-bs-name="{{$thisrole->name}}">Edit</a>
-                                <a href="{{route('admin.showPermissions',$thisrole->id)}}" class="dropdown-item" rel="">Assign Permission</a>
+                                <a href="{{route('setting.showPermissions',$thisrole->id)}}" class="dropdown-item" rel="">Assign Permission</a>
                                 <a href="javascript:;" class="dropdown-item deleteRole" rel="{{$thisrole->id}}">Delete</a>
                             </div>
                         </div>

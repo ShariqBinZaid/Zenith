@@ -10,7 +10,7 @@
                         <i class="bi bi-gear small me-2"></i> Settings
                 </li>
                 <li class="breadcrumb-item " aria-current="page">
-                    <a href="{{route('admin.allTeams')}}">Teams</a>
+                    <a href="{{route('setting.allTeams')}}">Teams</a>
                 </li>    
                 <li class="breadcrumb-item active" aria-current="page">{{ucwords(strtolower(str_replace('_',' ',$teamdata->name)), '\',. ')}}</li>
                 
@@ -46,7 +46,7 @@
                             
                         </div>
                     @endif
-                <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('admin.assignTeamMember')}}">
+                <form class="row gx-3 gy-2 align-items-center" method="POST" action="{{route('setting.assignTeamMember')}}">
                     {{csrf_field()}}
                     <div class="row mb-3">
                         <div class="col">
@@ -90,7 +90,7 @@
                             @if($thisuser->is_leader == 1)
                             @else
                             <li class="list-group-item"><b>Name</b> : <a href="{{route('users.editUser',$thisuser->id)}}">{{$thisuser->name}}</a>
-                            <form action="{{route('admin.unassignTeamMember')}}" method="POST">
+                            <form action="{{route('setting.unassignTeamMember')}}" method="POST">
                                 {{csrf_field()}}
                                 <input type="hidden" name="user_id" value="{{$thisuser->id}}"/>
                                 <input type="hidden" name="team_id" value="{{$teamdata->id}}"/>
