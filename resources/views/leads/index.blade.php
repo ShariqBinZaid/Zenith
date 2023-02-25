@@ -129,7 +129,7 @@
             <div class="d-md-flex">
                 <div class="d-md-flex gap-4 align-items-center">
                     <form class="mb-3 mb-md-0">
-                         <!-- <div class="row g-3">
+                        <!-- <div class="row g-3">
                             <div class="col-md-3">
                                 <select class="form-select">
                                     <option>Sort by</option>
@@ -146,18 +146,20 @@
                                     <option value="50">50</option>
                                 </select>
                             </div> -->
-                            <div class="col-md-12">
+                        <div class="col-md-12">
+                            <form action="{{ route('lead.allLeads') }}" method="GET">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
-                                    <button class="btn btn-outline-light" type="button">
+                                    <input type="text" class="form-control" placeholder="Search" name="search" value="{{ $search ?? '' }}">
+                                    <button class="btn btn-outline-light" type="submit">
                                         <i class="bi bi-search"></i>
                                     </button>
                                 </div>
-                            </div>
-                        </div> 
+                            </form>
+                        </div>
                     </form>
                 </div>
-                <!-- <div class="dropdown ms-auto">
+            </div>
+            <!-- <div class="dropdown ms-auto">
                     <a href="#" data-bs-toggle="dropdown"
                        class="btn btn-primary dropdown-toggle"
                        aria-haspopup="true" aria-expanded="false">Actions</a>
@@ -167,80 +169,80 @@
                         <a href="#" class="dropdown-item">Something else here</a>
                     </div>
                 </div> -->
-            </div>
         </div>
-    </div> 
-    <div class="table-responsive" id="allleads">
-        <table class="table table-custom table-lg mb-0" id="customers">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Photo</th>
-                    <th>Fullname</th>
-                    <th>Brand</th>
-                    <th>Assigned to</th>
-                    <th class="text-end">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($leads as $thislead)
-                <tr>
-                    <td>
-                        <a href="javascript:;">{{$loop->iteration}}</a>
-                    </td>
-                    @php
-                    $explodedname = explode(' ',$thislead->name);
-                    $initial = $explodedname[0][0];
-                    @endphp
-                    <td>
-                        <div class="avatar avatar-info">
-                            <span class="avatar-text rounded-circle">{{$initial}}</span>
-                        </div>
-                    </td>
-                    <td>{{$thislead->name}}</td>
-                    <td><a href="{{route('brands.theBrandDesc',$thislead->brand_id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thislead->getBrand->name}}">
-                            <img src="{{asset('images/'.$thislead->getBrand->image)}}" class="rounded" alt="image">
-                        </a></td>
+    </div>
+</div>
+<div class="table-responsive" id="allleads">
+    <table class="table table-custom table-lg mb-0" id="customers">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Photo</th>
+                <th>Fullname</th>
+                <th>Brand</th>
+                <th>Assigned to</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($leads as $thislead)
+            <tr>
+                <td>
+                    <a href="javascript:;">{{$loop->iteration}}</a>
+                </td>
+                @php
+                $explodedname = explode(' ',$thislead->name);
+                $initial = $explodedname[0][0];
+                @endphp
+                <td>
+                    <div class="avatar avatar-info">
+                        <span class="avatar-text rounded-circle">{{$initial}}</span>
+                    </div>
+                </td>
+                <td>{{$thislead->name}}</td>
+                <td><a href="{{route('brands.theBrandDesc',$thislead->brand_id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thislead->getBrand->name}}">
+                        <img src="{{asset('images/'.$thislead->getBrand->image)}}" class="rounded" alt="image">
+                    </a></td>
 
-                    <td>
-                        <div class="avatar-group me-2">
-                            @foreach($thislead->users()->get() as $thisuser)
-                            <a href="{{route('users.editUser',$thisuser->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisuser->name}}">
-                                <img src="{{asset('images/'.$thisuser->image)}}" class="rounded-circle" alt="image">
+                <td>
+                    <div class="avatar-group me-2">
+                        @foreach($thislead->users()->get() as $thisuser)
+                        <a href="{{route('users.editUser',$thisuser->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisuser->name}}">
+                            <img src="{{asset('images/'.$thisuser->image)}}" class="rounded-circle" alt="image">
+                        </a>
+                        @endforeach
+                    </div>
+                </td>
+                <td class="text-end">
+                    <div class="d-flex">
+                        <div class="dropdown ms-auto">
+                            <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
+                                <i class="bi bi-three-dots"></i>
                             </a>
-                            @endforeach
-                        </div>
-                    </td>
-                    <td class="text-end">
-                        <div class="d-flex">
-                            <div class="dropdown ms-auto">
-                                <a href="#" data-bs-toggle="dropdown" class="btn btn-floating" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bi bi-three-dots"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ShowLeadModal" data-bs-leadid="{{$thislead->id}}" data-bs-leadphone="{{$thislead->phone}}" data-bs-leadusername="{{$thislead->name}}" data-bs-email="{{$thislead->email}}" data-bs-brand_id="{{$thislead->getBrand->name}}" data-bs-url="{{$thislead->url}}" data-bs-created_at="{{$thislead->created_at}}">Show</a>
-                                    @can('update leads')
-                                    <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditLeadModal" data-bs-leadid="{{$thislead->id}}" data-bs-leadphone="{{$thislead->phone}}" data-bs-leadusername="{{$thislead->name}}" data-bs-email="{{$thislead->email}}" data-bs-brand_id="{{$thislead->brand_id}}">Edit</a>
-                                    @endcan
-                                    @can('delete leads')
-                                    <a href="javascript:;" class="dropdown-item deleteLead" rel="{{$thislead->id}}">Delete</a>
-                                    @endcan
-                                    @can('assign leads')
-                                    <a href="{{route('lead.assignLead',$thislead->id)}}" class="dropdown-item">Assign Leads</a>
-                                    @endcan
-                                </div>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ShowLeadModal" data-bs-leadid="{{$thislead->id}}" data-bs-leadphone="{{$thislead->phone}}" data-bs-leadusername="{{$thislead->name}}" data-bs-email="{{$thislead->email}}" data-bs-brand_id="{{$thislead->getBrand->name}}" data-bs-url="{{$thislead->url}}" data-bs-created_at="{{$thislead->created_at}}">Show</a>
+                                @can('update leads')
+                                <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#EditLeadModal" data-bs-leadid="{{$thislead->id}}" data-bs-leadphone="{{$thislead->phone}}" data-bs-leadusername="{{$thislead->name}}" data-bs-email="{{$thislead->email}}" data-bs-brand_id="{{$thislead->brand_id}}">Edit</a>
+                                @endcan
+                                @can('delete leads')
+                                <a href="javascript:;" class="dropdown-item deleteLead" rel="{{$thislead->id}}">Delete</a>
+                                @endcan
+                                @can('assign leads')
+                                <a href="{{route('lead.assignLead',$thislead->id)}}" class="dropdown-item">Assign Leads</a>
+                                @endcan
                             </div>
                         </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-    <nav class="mt-4" aria-label="Page navigation example">
+                    </div>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+<nav class="mt-4" aria-label="Page navigation example">
 
-        {!! $leads->withQueryString()->links('pagination::bootstrap-5') !!}
-    </nav>
+    {!! $leads->withQueryString()->links('pagination::bootstrap-5') !!}
+</nav>
 
 </div>
 @endsection
