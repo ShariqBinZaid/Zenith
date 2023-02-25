@@ -28,52 +28,40 @@ class LeadsController extends Controller
     {
         ////////////////
 
-
+        
         $search = $request->input('search');
 
         if (Auth::user()->roles->pluck('name')[0] == 'superadmin') {
             $leads = Leads::latest()
                 ->with('getBrand')
-                ->when($search, function ($query, $search) {
-                    $query->where('name', 'like', '%' . $search . '%')
-                        ->orWhere('email', 'like', '%' . $search . '%')
-                        ->orWhere('phone', 'like', '%' . $search . '%');
-                })
-                ->paginate(10);
+                ->with('getPackage');
         } elseif (Auth::user()->roles->pluck('name')[0] == 'admin') {
-            $opportunities = Leads::whereHas('getLeads', function ($query) {
+            $leads = Leads::whereHas('getLeads', function ($query) {
                 $query->where('owner', '=', Auth::user()->id);
-            })
-                ->when($search, function ($query, $search) {
-                    $query->where('name', 'like', '%' . $search . '%')
-                        ->orWhere('email', 'like', '%' . $search . '%')
-                        ->orWhere('phone', 'like', '%' . $search . '%');
-                })
-                ->paginate(10);
+            });
         } elseif (Auth::user()->roles->pluck('name')[0] == 'business_unit_head') {
             $unitid = Units::where('unithead', Auth::user()->id)->with('brands')->first();
             $brands = array();
             foreach ($unitid->brands as $thisbrand) {
                 array_push($brands, $thisbrand->id);
             }
-            $leads = Leads::whereIn('brand_id', $brands)
-                ->when($search, function ($query, $search) {
-                    $query->where('name', 'like', '%' . $search . '%')
-                        ->orWhere('email', 'like', '%' . $search . '%')
-                        ->orWhere('phone', 'like', '%' . $search . '%');
-                })
-                ->paginate(10);
+            $leads = Leads::whereIn('brand_id', $brands);
         } else {
             $user = Auth::user();
-            $opportunities = Leads::whereHas('users', function ($query) use ($user) {
+            $leads = Leads::whereHas('users', function ($query) use ($user) {
                 $query->where('leads_user.user_id', '=', $user->id);
-            })
-                ->when($search, function ($query, $search) {
-                    $query->where('name', 'like', '%' . $search . '%')->orWhere('email', 'like', '%' . $search . '%')
-                        ->orWhere('phone', 'like', '%' . $search . '%');
-                })
-                ->paginate(10);
+            });
         }
+
+        if ($search) {
+            $leads->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('phone', 'like', '%' . $search . '%');
+            });
+        }
+
+        $leads = $leads->paginate(10);
 
 
         ///////////////////

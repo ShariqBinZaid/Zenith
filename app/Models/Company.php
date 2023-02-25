@@ -24,4 +24,12 @@ class Company extends Model
     public function units(){
         return $this->hasMany(Units::class);
     }
+    public function getBrand()
+    {
+        return $this->hasOne(Brands::class,'id','brand_id');
+    }
+    public function getPackage()
+    {
+        return $this->hasOne(Packages::class,'id','package_id');
+    }
 }
