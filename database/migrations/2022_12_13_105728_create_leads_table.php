@@ -13,22 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('leads', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->string('image')->default('user/man_avatar3.jpg');
+            $table->string('phone');
+            $table->longtext('message')->nullable();
+            $table->integer('brand_id');
             $table->integer('company_id');
             $table->integer('unit_id');
-            $table->integer('team_id')->default('0');
-            $table->integer('reporting_authority')->default('0');
-            $table->tinyInteger('is_leader')->default('0');
-            $table->tinyInteger('depart_id')->default('0');
-            $table->integer('created_by')->nullable();
-            $table->string('phone')->nullable();
+            $table->longtext('feedback')->nullable();
+            $table->longtext('url');
+            $table->string('ip_address')->nullable();
+            $table->string('location')->nullable();
+            $table->string('created_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -41,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('leads');
     }
 };
