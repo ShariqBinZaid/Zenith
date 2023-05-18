@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Discrepancy;
+<<<<<<< Updated upstream
 use App\Models\Attendance;
 use App\Models\Leaves;
 use App\Models\User;
@@ -11,6 +12,9 @@ use App\Events\LeavesNotify;
 use Illuminate\Http\Request;
 use Redirect;
 use Auth;
+=======
+use Illuminate\Http\Request;
+>>>>>>> Stashed changes
 
 class DiscrepancyController extends Controller
 {
@@ -19,6 +23,7 @@ class DiscrepancyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+<<<<<<< Updated upstream
     public function index(Request $request)
     {
         $status = $request->input('status');
@@ -37,6 +42,11 @@ class DiscrepancyController extends Controller
         $discrepency = $discrepency->paginate(15);
         
         return view('discrepency.show', compact(['discrepency','status']));
+=======
+    public function index()
+    {
+        //
+>>>>>>> Stashed changes
     }
 
     /**
@@ -57,6 +67,7 @@ class DiscrepancyController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< Updated upstream
         $validatedData = $request->validate([
             'desc' => 'required',
         ], [
@@ -93,6 +104,9 @@ class DiscrepancyController extends Controller
         }
         $successmessage = "Discrepancy saved successfully!";
         return Redirect::back()->with('success',$successmessage);
+=======
+        //
+>>>>>>> Stashed changes
     }
 
     /**
@@ -139,6 +153,7 @@ class DiscrepancyController extends Controller
     {
         //
     }
+<<<<<<< Updated upstream
     public function approveDiscrepancy(Request $request)
     {
         $discrepancy = Discrepancy::find($request->id);
@@ -178,4 +193,6 @@ class DiscrepancyController extends Controller
         }
         return 'success';
     }
+=======
+>>>>>>> Stashed changes
 }

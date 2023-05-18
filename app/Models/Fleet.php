@@ -4,13 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< Updated upstream
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+=======
+>>>>>>> Stashed changes
 
 class Fleet extends Model
 {
     use HasFactory;
+<<<<<<< Updated upstream
     use SoftDeletes;
     use LogsActivity;
     
@@ -28,4 +32,6 @@ class Fleet extends Model
     {
         return $this->hasOne(User::class,'id','user_id');
     }
+=======
+>>>>>>> Stashed changes
 }

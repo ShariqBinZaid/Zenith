@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Redirect;
+
 class PermissionsController extends Controller
 {
     /**
@@ -15,6 +16,7 @@ class PermissionsController extends Controller
      */
     public function index(Request $request)
     {
+<<<<<<< Updated upstream
         $search = $request->input('search');
         
         $allpermissions = Permission::latest();
@@ -29,6 +31,11 @@ class PermissionsController extends Controller
         $allpermissions = $allpermissions->get();
         
         return view('settings.permissions',compact(['allpermissions','totalpermissions','search']));
+=======
+        $allpermissions = Permission::all();
+        $totalpermissions = Permission::count();
+        return view('settings.permissions', compact(['allpermissions', 'totalpermissions']));
+>>>>>>> Stashed changes
     }
 
     /**
@@ -54,9 +61,9 @@ class PermissionsController extends Controller
         ], [
             'name.required' => 'Name field is required.'
         ]);
-        Permission::create(['name'=>$request->name,'guard_name'=>'api']);
+        Permission::create(['name' => $request->name, 'guard_name' => 'api']);
         $successmessage = "Permission saved successfully!";
-        return Redirect::back()->with('success',$successmessage);
+        return Redirect::back()->with('success', $successmessage);
     }
 
     /**
@@ -96,7 +103,7 @@ class PermissionsController extends Controller
             'name.required' => 'Name field is required.'
         ]);
         $updateperm = Permission::find($request->id);
-        $updateperm->update(['name'=>$request->name]);
+        $updateperm->update(['name' => $request->name]);
         $successmessage = "Permission saved successfully!";
         return 'success';
     }
@@ -109,7 +116,7 @@ class PermissionsController extends Controller
      */
     public function destroy(Request $request)
     {
-        $permission=Permission::find($request->id);
+        $permission = Permission::find($request->id);
         $permission->delete();
         return 'success';
     }
@@ -118,19 +125,19 @@ class PermissionsController extends Controller
         $roledata = Permission::find($request->id);
         $roledata->removeRole($request->role);
         $successmessage = "Role unassigned successfully!";
-        return Redirect::back()->with('success',$successmessage);
+        return Redirect::back()->with('success', $successmessage);
     }
     public function showroles($id)
     {
         $permissiondata = Permission::find($id);
         $allroles = Role::all();
-        return view('settings.assign-roles',compact(['permissiondata','allroles']));
+        return view('settings.assign-roles', compact(['permissiondata', 'allroles']));
     }
     public function assignrole(Request $request)
     {
         $roledata = Permission::find($request->id);
         $roledata->assignRole($request->role);
         $successmessage = "Role assigned successfully!";
-        return Redirect::back()->with('success',$successmessage);
+        return Redirect::back()->with('success', $successmessage);
     }
 }

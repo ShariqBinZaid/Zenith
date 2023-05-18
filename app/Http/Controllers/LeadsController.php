@@ -34,8 +34,13 @@ class LeadsController extends Controller
         if (Auth::user()->roles->pluck('name')[0] == 'superadmin') {
             $leads = Leads::latest()
                 ->with('getBrand');
+<<<<<<< Updated upstream
         } elseif (Auth::user()->roles->pluck('name')[0] == 'admin' ) {
             $leads = Leads::whereHas('getCompany', function ($query) {
+=======
+        } elseif (Auth::user()->roles->pluck('name')[0] == 'admin') {
+            $leads = Leads::whereHas('getLeads', function ($query) {
+>>>>>>> Stashed changes
                 $query->where('owner', '=', Auth::user()->id);
             });
         }elseif(Auth::user()->roles->pluck('name')[0] == 'sales_head'){
@@ -67,7 +72,11 @@ class LeadsController extends Controller
         $dispositions = Dispositions::where('company_id', Auth::user()->company_id)->get();
         $allbrands = Brands::latest()->get();
         $totalleads = Leads::count();
+<<<<<<< Updated upstream
         return view('leads.index', compact(['leads', 'totalleads', 'allbrands','search','dispositions']));
+=======
+        return view('leads.index', compact(['leads', 'totalleads', 'allbrands','search']));
+>>>>>>> Stashed changes
     }
 
     /**

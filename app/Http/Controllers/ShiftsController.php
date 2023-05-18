@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< Updated upstream
 use App\Models\Shifts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Auth;
 
 
+=======
+use Illuminate\Http\Request;
+>>>>>>> Stashed changes
 
 class ShiftsController extends Controller
 {
@@ -16,6 +20,7 @@ class ShiftsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+<<<<<<< Updated upstream
     public function index(Request $request)
     {
         $search = $request->input('search');
@@ -31,6 +36,11 @@ class ShiftsController extends Controller
         $shifts = $shifts->paginate(10);
         
         return view('shifts.index',compact(['shifts']));
+=======
+    public function index()
+    {
+        //
+>>>>>>> Stashed changes
     }
 
     /**
@@ -51,6 +61,7 @@ class ShiftsController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< Updated upstream
         $validatedData = $request->validate([
             'name' => 'required',
             'starting_hours'=>'required',
@@ -74,6 +85,9 @@ class ShiftsController extends Controller
         $successmessage = "Shifts created successfully!";
         return Redirect::back()->with('success',$successmessage);
         
+=======
+        //
+>>>>>>> Stashed changes
     }
 
     /**
@@ -107,6 +121,7 @@ class ShiftsController extends Controller
      */
     public function update(Request $request, $id)
     {
+<<<<<<< Updated upstream
         $validatedData = $request->validate([
             'name' => 'required',
             'timing' => 'required',
@@ -124,6 +139,9 @@ class ShiftsController extends Controller
         $shiftsupdate->update(['name' => $request->name,'timing'=>$request->timing,'starting_hours'=>$request->starting_hours,'ending_hours'=>$request->ending_hours,'shift_hours'=>$request->shift_hours,]);
         $successmessage = "Shifts updated successfully!";
         return Redirect::back()->with('success',$successmessage);
+=======
+        //
+>>>>>>> Stashed changes
     }
 
     /**
@@ -132,10 +150,16 @@ class ShiftsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+<<<<<<< Updated upstream
     public function destroy(Request $request)
     {
         $shifts=Shifts::find($request->id);
         $shifts->delete();
         return 'success';
+=======
+    public function destroy($id)
+    {
+        //
+>>>>>>> Stashed changes
     }
 }

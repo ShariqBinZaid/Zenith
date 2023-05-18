@@ -56,8 +56,21 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+<<<<<<< Updated upstream
                             <div class="col">
                                 <select class="form-control select2-example" name="unithead">
+=======
+                            <!-- <div class="col">
+                                <select class="form-control" name="company_id">
+                                    <option selected disabled>--Select Company--</option>
+                                    @foreach($companies as $thiscompanies)
+                                    <option value="{{$thiscompanies->id}}">{{$thiscompanies->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div> -->
+                            <div class="col">
+                                <select class="form-control" name="unithead">
+>>>>>>> Stashed changes
                                     <option selected disabled>--Select Unit Head--</option>
                                     @foreach($unitheads as $thisunithead)
                                     <option value="{{$thisunithead->id}}">{{$thisunithead->name}} - ({{$thisunithead->getCompany->name}})</option>
@@ -184,6 +197,18 @@
                             </div>
                         </div>
                         <div class="row">
+<<<<<<< Updated upstream
+=======
+                            <!-- <div class="col">
+                                <label for="message-text" class="col-form-label">Company:</label>
+                                <select class="form-control company_id" name="company_id">
+                                    <option selected disabled>--Select Company--</option>
+                                    @foreach($companies as $thiscompanies)
+                                    <option value="{{$thiscompanies->id}}">{{$thiscompanies->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div> -->
+>>>>>>> Stashed changes
                             <div class="col">
                                 <label for="message-text" class="col-form-label">Unit Head:</label>
                                 <select class="form-control unithead" name="unithead">

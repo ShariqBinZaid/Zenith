@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Departments;
 use Illuminate\Http\Request;
+<<<<<<< Updated upstream
 use Auth;
 use Illuminate\Support\Facades\Redirect;
+=======
+
+>>>>>>> Stashed changes
 class DepartmentsController extends Controller
 {
     /**
@@ -15,8 +19,12 @@ class DepartmentsController extends Controller
      */
     public function index()
     {
+<<<<<<< Updated upstream
         $departments = Departments::where('company_id',Auth::user()->company_id)->paginate(10);
         return view('settings.departments',compact(['departments']));
+=======
+        //
+>>>>>>> Stashed changes
     }
 
     /**
@@ -37,6 +45,7 @@ class DepartmentsController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< Updated upstream
         $validatedData = $request->validate([
             'name' => 'required',
             'desc'=>'required'
@@ -52,6 +61,9 @@ class DepartmentsController extends Controller
         $successmessage = "Department created successfully!";
         return Redirect::back()->with('success',$successmessage);
         
+=======
+        //
+>>>>>>> Stashed changes
     }
 
     /**
@@ -83,6 +95,7 @@ class DepartmentsController extends Controller
      * @param  \App\Models\Departments  $departments
      * @return \Illuminate\Http\Response
      */
+<<<<<<< Updated upstream
     public function update(Request $request)
     {
         $validatedData = $request->validate([
@@ -96,6 +109,11 @@ class DepartmentsController extends Controller
         $departupdate->update(['name' => $request->name,'desc'=>$request->desc]);
         $successmessage = "Department updated successfully!";
         return Redirect::back()->with('success',$successmessage);
+=======
+    public function update(Request $request, Departments $departments)
+    {
+        //
+>>>>>>> Stashed changes
     }
 
     /**
@@ -104,10 +122,16 @@ class DepartmentsController extends Controller
      * @param  \App\Models\Departments  $departments
      * @return \Illuminate\Http\Response
      */
+<<<<<<< Updated upstream
     public function destroy(Request $request)
     {
         $department=Departments::find($request->id);
         $department->delete();
         return 'success';
+=======
+    public function destroy(Departments $departments)
+    {
+        //
+>>>>>>> Stashed changes
     }
 }

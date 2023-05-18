@@ -18,6 +18,10 @@ return new class extends Migration
             $table->float('from');
             $table->float('to');
             $table->float('tax_percent');
+<<<<<<< Updated upstream
+=======
+            $table->float('amount');
+>>>>>>> Stashed changes
             $table->integer('company_id');
             $table->timestamps();
         });

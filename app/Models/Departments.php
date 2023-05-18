@@ -4,13 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< Updated upstream
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+=======
+>>>>>>> Stashed changes
 
 class Departments extends Model
 {
     use HasFactory;
+<<<<<<< Updated upstream
     use SoftDeletes;
     use LogsActivity;
     
@@ -29,4 +33,6 @@ class Departments extends Model
         return hasOne(Company::class);
     }
     
+=======
+>>>>>>> Stashed changes
 }

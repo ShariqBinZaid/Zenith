@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('month');
             $table->integer('year');
             $table->float('deduction')->default(0);
+<<<<<<< Updated upstream
             $table->float('tax')->default(0);
             $table->float('amount');
             $table->integer('deduction_days');
@@ -30,6 +31,12 @@ return new class extends Migration
             $table->integer('unit_id')->default(0);
             $table->integer('status')->default(0);
             $table->softDeletes();
+=======
+            $table->float('amount');
+            $table->integer('company_id');
+            $table->integer('unit_id')->default(0);
+            $table->integer('status')->default(0);
+>>>>>>> Stashed changes
             $table->timestamps();
         });
     }

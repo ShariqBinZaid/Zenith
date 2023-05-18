@@ -24,7 +24,10 @@ return new class extends Migration
             $table->integer('company_id');
             $table->integer('unit_id');
             $table->integer('team_id')->default('0');
+<<<<<<< Updated upstream
             $table->integer('reporting_authority')->default('0');
+=======
+>>>>>>> Stashed changes
             $table->tinyInteger('is_leader')->default('0');
             $table->tinyInteger('depart_id')->default('0');
             $table->integer('created_by')->nullable();

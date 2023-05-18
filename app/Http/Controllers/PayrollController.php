@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Payroll;
 use Illuminate\Http\Request;
+<<<<<<< Updated upstream
 use App\Models\Attendance;
 use App\Models\Holidays;
 use App\Models\LeaveTypes;
@@ -14,6 +15,9 @@ use App\Models\User;
 use App\Models\Tax;
 use App\Models\Company;
 use Auth;
+=======
+
+>>>>>>> Stashed changes
 class PayrollController extends Controller
 {
     /**
@@ -23,6 +27,7 @@ class PayrollController extends Controller
      */
     public function index()
     {
+<<<<<<< Updated upstream
         if(request()->has('month')){
             $month = request()->month;
         }else{
@@ -402,6 +407,11 @@ class PayrollController extends Controller
     }
 
     
+=======
+        //
+    }
+
+>>>>>>> Stashed changes
     /**
      * Show the form for creating a new resource.
      *

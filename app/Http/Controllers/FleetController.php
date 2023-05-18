@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fleet;
+<<<<<<< Updated upstream
 use App\Models\User;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 use DB;
+=======
+use Illuminate\Http\Request;
+>>>>>>> Stashed changes
 
 class FleetController extends Controller
 {
@@ -17,6 +21,7 @@ class FleetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+<<<<<<< Updated upstream
     public function index(Request $request)
     {
         $search = $request->input('search');
@@ -93,6 +98,13 @@ class FleetController extends Controller
         return Redirect::back()->with('success', $successmessage);
     }
     
+=======
+    public function index()
+    {
+        //
+    }
+
+>>>>>>> Stashed changes
     /**
      * Show the form for creating a new resource.
      *
@@ -111,6 +123,7 @@ class FleetController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< Updated upstream
         $validatedData = $request->validate([
             'car_name' => 'required',
             'cc'=>'required',
@@ -150,6 +163,9 @@ class FleetController extends Controller
         
         $successmessage = "Fleet created successfully!";
         return Redirect::back()->with('success', $successmessage);
+=======
+        //
+>>>>>>> Stashed changes
     }
 
     /**
@@ -169,12 +185,18 @@ class FleetController extends Controller
      * @param  \App\Models\Fleet  $fleet
      * @return \Illuminate\Http\Response
      */
+<<<<<<< Updated upstream
     public function edit($id)
     {
         $fleet = Fleet::find($id);
         $totalfleet = Fleet::count();
         $alluser = User::all();
         return view('fleet.update', compact(['fleet', 'totalfleet', 'alluser', 'id']));
+=======
+    public function edit(Fleet $fleet)
+    {
+        //
+>>>>>>> Stashed changes
     }
 
     /**
@@ -186,6 +208,7 @@ class FleetController extends Controller
      */
     public function update(Request $request, Fleet $fleet)
     {
+<<<<<<< Updated upstream
         $validatedData = $request->validate([
             'car_name' => 'required',
             'cc' => 'required',
@@ -226,6 +249,9 @@ class FleetController extends Controller
 
         $successmessage = "Fleet updated successfully!";
         return Redirect::back()->with('success', $successmessage);
+=======
+        //
+>>>>>>> Stashed changes
     }
 
     /**
@@ -234,10 +260,16 @@ class FleetController extends Controller
      * @param  \App\Models\Fleet  $fleet
      * @return \Illuminate\Http\Response
      */
+<<<<<<< Updated upstream
     public function destroy(Request $request)
     {
         $fleet = Fleet::find($request->id);
         $fleet->delete();
         return 'success';
+=======
+    public function destroy(Fleet $fleet)
+    {
+        //
+>>>>>>> Stashed changes
     }
 }

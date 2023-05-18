@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\WorkFromHome;
 use Illuminate\Http\Request;
+<<<<<<< Updated upstream
 use Redirect;
 use Auth;
+=======
+>>>>>>> Stashed changes
 
 class WorkFromHomeController extends Controller
 {
@@ -14,6 +17,7 @@ class WorkFromHomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+<<<<<<< Updated upstream
     public function index(Request $request)
     {
         $status = $request->input('status');
@@ -32,6 +36,11 @@ class WorkFromHomeController extends Controller
         $workformhome = $workformhome->paginate(15);
         
         return view('workfromhome.show', compact(['workformhome','status']));
+=======
+    public function index()
+    {
+        //
+>>>>>>> Stashed changes
     }
 
     /**
@@ -52,6 +61,7 @@ class WorkFromHomeController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< Updated upstream
         $validatedData = $request->validate([
             'desc' => 'required',
         ], [
@@ -69,6 +79,9 @@ class WorkFromHomeController extends Controller
         
         $successmessage = "Work From Home saved successfully!";
         return Redirect::back()->with('success',$successmessage);
+=======
+        //
+>>>>>>> Stashed changes
     }
 
     /**
@@ -115,6 +128,7 @@ class WorkFromHomeController extends Controller
     {
         //
     }
+<<<<<<< Updated upstream
     
     public function approveWorkFromHome(Request $request)
     {
@@ -127,4 +141,6 @@ class WorkFromHomeController extends Controller
         $workfromhome = WorkFromHome::find($request->id);
         $workfromhome->update(['status' => 'rejected']);
     }
+=======
+>>>>>>> Stashed changes
 }
