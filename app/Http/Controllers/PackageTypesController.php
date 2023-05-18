@@ -22,7 +22,6 @@ class PackageTypesController extends Controller
         
         $packagetypes = PackageTypes::orderBy('created_at');
         $totalpackagetypes = PackageTypes::count();
-<<<<<<< Updated upstream
         
         if ($search) {
             $packagetypes->where(function ($query) use ($search) {
@@ -33,9 +32,6 @@ class PackageTypesController extends Controller
         $packagetypes = $packagetypes->paginate(15);
         
         return view('packagetypes.index',compact(['packagetypes','totalpackagetypes','search']));
-=======
-        return view('packagetypes.index', compact(['packagetypes', 'totalpackagetypes']));
->>>>>>> Stashed changes
     }
 
     /**
@@ -66,7 +62,7 @@ class PackageTypesController extends Controller
         $packagetypesobj->company_id = auth()->user()->company_id;
         $packagetypesobj->save();
         $successmessage = "Package Types created successfully!";
-        return Redirect::back()->with('success', $successmessage);
+        return Redirect::back()->with('success',$successmessage);
     }
 
     /**
@@ -90,7 +86,7 @@ class PackageTypesController extends Controller
     {
         $packagetypes = PackageTypes::find($id);
         $totalpackagetypes = PackageTypes::count();
-        return view('packagetypes.update', compact(['totalpackagetypes', 'packagetypes', 'id']));
+        return view('packagetypes.update',compact(['totalpackagetypes','packagetypes','id']));
     }
 
     /**
@@ -110,7 +106,7 @@ class PackageTypesController extends Controller
         $packagetypesupdate = PackageTypes::find($request->id);
         $packagetypesupdate->update(['name' => $request->name]);
         $successmessage = "Package Types updated successfully!";
-        return Redirect::back()->with('success', $successmessage);
+        return Redirect::back()->with('success',$successmessage);
     }
 
     /**
@@ -121,7 +117,7 @@ class PackageTypesController extends Controller
      */
     public function destroy(Request $request)
     {
-        $packagetypes = PackageTypes::find($request->id);
+        $packagetypes=PackageTypes::find($request->id);
         $packagetypes->delete();
         return 'success';
     }

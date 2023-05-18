@@ -16,10 +16,7 @@ return new class extends Migration
         Schema::create('fleets', function (Blueprint $table) {
             $table->id();
             $table->string('car_name');
-<<<<<<< Updated upstream
             $table->string('cc');
-=======
->>>>>>> Stashed changes
             $table->string('model');
             $table->string('km');
             $table->string('chassis_number')->nullable();
@@ -27,16 +24,11 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->integer('company_id');
             $table->string('car_number');
-<<<<<<< Updated upstream
             $table->string('vendor');
             $table->string('vendor_number');
             $table->string('video')->nullable();
             $table->float('rent');
             $table->string('assign_date')->nullable();
-=======
-            $table->string('video')->nullable();
-            $table->float('rent');
->>>>>>> Stashed changes
             $table->softDeletes();
             $table->timestamps();
         });

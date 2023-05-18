@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tax;
 use Illuminate\Http\Request;
-<<<<<<< Updated upstream
 use Auth;use Redirect;
-=======
-
->>>>>>> Stashed changes
 class TaxController extends Controller
 {
     /**
@@ -18,13 +14,9 @@ class TaxController extends Controller
      */
     public function index()
     {
-<<<<<<< Updated upstream
         $tax = Tax::where('company_id',Auth::user()->company_id)->get();
         $tax = Tax::where('company_id',Auth::user()->company_id)->get();
         return view('settings.tax',compact(['tax']));
-=======
-        //
->>>>>>> Stashed changes
     }
 
     /**
@@ -45,7 +37,6 @@ class TaxController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< Updated upstream
         $validatedData = $request->validate([
             'from' => 'required',
             'to' => 'required',
@@ -62,9 +53,6 @@ class TaxController extends Controller
         Tax::create($inputs);
         $successmessage = "Tax Range saved successfully!";
         return Redirect::back()->with('success',$successmessage);
-=======
-        //
->>>>>>> Stashed changes
     }
 
     /**
@@ -98,7 +86,6 @@ class TaxController extends Controller
      */
     public function update(Request $request, Tax $tax)
     {
-<<<<<<< Updated upstream
         $validatedData = $request->validate([
             'to' => 'required',
             'from' => 'required',
@@ -114,9 +101,6 @@ class TaxController extends Controller
         $taxupdate->update(['to' => $request->to, 'from' => $request->from, 'amount' => $request->amount, 'tax_percent' => $request->tax_percent]);
         $successmessage = "Tax updated successfully!";
         return 'success';
-=======
-        //
->>>>>>> Stashed changes
     }
 
     /**
@@ -125,16 +109,10 @@ class TaxController extends Controller
      * @param  \App\Models\Tax  $tax
      * @return \Illuminate\Http\Response
      */
-<<<<<<< Updated upstream
     public function destroy(Request $request)
     {
         $tax=Tax::find($request->id);
         $tax->delete();
         return 'success';
-=======
-    public function destroy(Tax $tax)
-    {
-        //
->>>>>>> Stashed changes
     }
 }

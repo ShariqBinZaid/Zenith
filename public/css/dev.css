@@ -135,10 +135,6 @@ body::-webkit-scrollbar-thumb {
 .table.table-custom thead tr th {
     border: none;
     font-weight: 700;
-<<<<<<< Updated upstream:public/css/dev.css
-=======
-    font-size: 14px;
->>>>>>> Stashed changes:public/css/custom.css
 }
 
 .table.table-custom .dropdown.ms-auto a i:hover {
@@ -150,7 +146,6 @@ body::-webkit-scrollbar-thumb {
     filter: drop-shadow(2px 4px 6px #000);
 }
 
-<<<<<<< Updated upstream:public/css/dev.css
 .select2-results__options {
     text-transform: capitalize !important;
 }
@@ -159,8 +154,6 @@ body::-webkit-scrollbar-thumb {
     width: auto !important;
 }
 
-=======
->>>>>>> Stashed changes:public/css/custom.css
 body.no-scroll {
     overflow: unset !important;
 }
@@ -203,7 +196,6 @@ body.sidebar-active::before {
     -webkit-transition: all .2s;
 }
 
-<<<<<<< Updated upstream:public/css/dev.css
 .leaves .select2-container .select2-selection--single {
     width: 180px;
 }
@@ -225,8 +217,6 @@ body.sidebar-active::before {
 
 
 
-=======
->>>>>>> Stashed changes:public/css/custom.css
 
 
 /* RESET STYLES & HELPER CLASSES
@@ -486,14 +476,10 @@ body {
     transform: translateX(0) !important;
 }
 
-<<<<<<< Updated upstream:public/css/dev.css
 @media (max-width: 1200px)
 .menu-body ul li>a.active .nav-link-icon {
      background-color: #f3a81d !important;
 }
-=======
-
->>>>>>> Stashed changes:public/css/custom.css
 
 
 

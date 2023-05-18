@@ -19,11 +19,7 @@ return new class extends Migration
             $table->integer('company_id');
             $table->string('date');
             $table->longText('desc');
-<<<<<<< Updated upstream
             $table->string('status')->default('pending');
-=======
-            $table->integer('status')->default(0);
->>>>>>> Stashed changes
             $table->timestamps();
         });
     }

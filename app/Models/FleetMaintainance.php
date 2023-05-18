@@ -16,7 +16,6 @@ class FleetMaintainance extends Model
     {
         return LogOptions::defaults();
     }
-<<<<<<< Updated upstream
     protected $fillable = ['user_id','fleet_id','reason','company_id'];
     public function user()
     {
@@ -29,15 +28,5 @@ class FleetMaintainance extends Model
     public function company()
     {
         return $this->belongsTo(Company::class,'company_id','id');
-=======
-    protected $fillable = ['user_id','fleet_id','reason'];
-    public function users()
-    {
-        return $this->belongsTo(User::class,'id','user_id');
-    }
-    public function fleet()
-    {
-        return $this->belongsTo(Fleet::class,'id','fleet_id');
->>>>>>> Stashed changes
     }
 }

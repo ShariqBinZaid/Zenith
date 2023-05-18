@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Discrepancy extends Model
 {
     use HasFactory;
-<<<<<<< Updated upstream
     
     
     protected $fillable = [
@@ -29,6 +28,3 @@ class Discrepancy extends Model
     }
 }
 
-=======
-}
->>>>>>> Stashed changes

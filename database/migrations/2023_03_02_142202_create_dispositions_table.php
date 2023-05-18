@@ -17,10 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('company_id');
-<<<<<<< Updated upstream
             $table->softDeletes();
-=======
->>>>>>> Stashed changes
             $table->timestamps();
         });
     }

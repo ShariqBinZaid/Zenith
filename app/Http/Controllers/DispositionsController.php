@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Dispositions;
 use Illuminate\Http\Request;
-<<<<<<< Updated upstream
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 
-=======
->>>>>>> Stashed changes
 
 class DispositionsController extends Controller
 {
@@ -18,7 +15,6 @@ class DispositionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-<<<<<<< Updated upstream
     public function index(Request $request)
     {
         $search = $request->input('search');
@@ -36,11 +32,6 @@ class DispositionsController extends Controller
         $dispositionstypes = $dispositionstypes->paginate(15);
         
         return view('settings.dispositions',compact(['dispositionstypes','totaldispositionstypes','dispositions','search']));
-=======
-    public function index()
-    {
-        //
->>>>>>> Stashed changes
     }
 
     /**
@@ -61,7 +52,6 @@ class DispositionsController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< Updated upstream
         $validatedData = $request->validate([
             'name' => 'required'
         ], [
@@ -73,9 +63,6 @@ class DispositionsController extends Controller
         $dispositionsobj->save();
         $successmessage = "Dispositions Types created successfully!";
         return Redirect::back()->with('success',$successmessage);
-=======
-        //
->>>>>>> Stashed changes
     }
 
     /**
@@ -95,17 +82,11 @@ class DispositionsController extends Controller
      * @param  \App\Models\Dispositions  $dispositions
      * @return \Illuminate\Http\Response
      */
-<<<<<<< Updated upstream
     public function edit($id)
     {
         $dispositionstypes = Dispositions::find($id);
         $totaldispositionstypes = Dispositions::count();
         return view('settings.dispositions',compact(['dispositionstypes','totaldispositionstypes','id']));
-=======
-    public function edit(Dispositions $dispositions)
-    {
-        //
->>>>>>> Stashed changes
     }
 
     /**
@@ -117,7 +98,6 @@ class DispositionsController extends Controller
      */
     public function update(Request $request, Dispositions $dispositions)
     {
-<<<<<<< Updated upstream
         $validatedData = $request->validate([
             'name' => 'required'
         ], [
@@ -127,9 +107,6 @@ class DispositionsController extends Controller
         $dispositionstypesupdate->update(['name' => $request->name]);
         $successmessage = "Dispositions Types updated successfully!";
         return Redirect::back()->with('success',$successmessage);
-=======
-        //
->>>>>>> Stashed changes
     }
 
     /**
@@ -138,16 +115,10 @@ class DispositionsController extends Controller
      * @param  \App\Models\Dispositions  $dispositions
      * @return \Illuminate\Http\Response
      */
-<<<<<<< Updated upstream
     public function destroy(Request $request)
     {
         $dispositionstypes=Dispositions::find($request->id);
         $dispositionstypes->delete();
         return 'success';
-=======
-    public function destroy(Dispositions $dispositions)
-    {
-        //
->>>>>>> Stashed changes
     }
 }

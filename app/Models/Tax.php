@@ -4,16 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-<<<<<<< Updated upstream
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
-=======
->>>>>>> Stashed changes
 
 class Tax extends Model
 {
     use HasFactory;
-<<<<<<< Updated upstream
     use LogsActivity;
     public function getActivitylogOptions(): LogOptions
     {
@@ -27,6 +23,4 @@ class Tax extends Model
     {
         return $this->hasOne(Company::class,'id','company_id');
     }
-=======
->>>>>>> Stashed changes
 }

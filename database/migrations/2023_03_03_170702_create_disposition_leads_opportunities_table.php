@@ -17,11 +17,8 @@ return new class extends Migration
             $table->foreignId('disposition_id')->constrained('dispositions');
             $table->foreignId('user_id')->constrained('users');
             $table->morphs('object');
-<<<<<<< Updated upstream
             $table->longText('feedback')->nullable();
             $table->softDeletes();
-=======
->>>>>>> Stashed changes
             $table->timestamps();
         });
     }

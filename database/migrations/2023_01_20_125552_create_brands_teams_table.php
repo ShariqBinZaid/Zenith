@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('taxes', function (Blueprint $table) {
-            $table->id();
-            $table->float('from');
-            $table->float('to');
-            $table->float('tax_percent');
-            $table->integer('company_id');
-            $table->timestamps();
+        Schema::create('brands_teams', function (Blueprint $table) {
+            $table->foreignId('brands_id')->constrained('brands');
+            $table->foreignId('teams_id')->constrained('teams');
         });
     }
 
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('taxes');
+        Schema::dropIfExists('brands_teams');
     }
 };

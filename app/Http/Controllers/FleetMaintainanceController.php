@@ -3,16 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\FleetMaintainance;
-<<<<<<< Updated upstream
 use App\Models\Fleet;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
 use Redirect;
-=======
-use Illuminate\Http\Request;
-
->>>>>>> Stashed changes
 class FleetMaintainanceController extends Controller
 {
     /**
@@ -22,12 +17,8 @@ class FleetMaintainanceController extends Controller
      */
     public function index()
     {
-<<<<<<< Updated upstream
         $fleetmaintainances = FleetMaintainance::latest()->paginate(15);
         return view('fleet.maintainances', compact(['fleetmaintainances']));
-=======
-        //
->>>>>>> Stashed changes
     }
 
     /**
@@ -48,7 +39,6 @@ class FleetMaintainanceController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< Updated upstream
         $inputs = $request->all();
         $fleetmaintainance = new FleetMaintainance();
         $fleetmaintainance->user_id = Auth::user()->id;
@@ -58,9 +48,6 @@ class FleetMaintainanceController extends Controller
         $fleetmaintainance->save();
         $successmessage = "Fleet Maintainance Requested Successfully!";
         return Redirect::back()->with('success', $successmessage);
-=======
-        //
->>>>>>> Stashed changes
     }
 
     /**
