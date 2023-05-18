@@ -32,4 +32,8 @@ class Units extends Model
     {
         return $this->hasMany(Brands::class,'unit_id','id');
     }
+    public function getCompanyAnnouncements()
+    {
+        return $this->morphMany(Company::class,'announcement');
+    }
 }

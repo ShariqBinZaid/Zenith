@@ -423,18 +423,13 @@
             <img width="100" src="{{asset('images/logo.png')}}" alt="logo">
         </a>
         <!-- ./ Logo -->
-        <form class="search-form">
-            <div class="input-group form-floating">
-                <button class="btn btn-outline-light" type="button" id="button-addon1">
-                    <i class="bi bi-search"></i>
-                </button>
-                <input type="text" class="form-control" id="floatingInputInvalid" placeholder=" " aria-label="Example text with button addon" aria-describedby="button-addon1">
-                <label style="left: 30px; for="floatingInputInvalid">Search</label>
-                <a href="#" class="btn btn-outline-light close-header-search-bar">
-                    <i class="bi bi-x"></i>
-                </a>
+        <div class="hwrap">
+            <div class="hmove"> 
+                @foreach(getCompanyAnnouncements(Auth::user()->company_id) as $thisannouncement)
+                <div class="hitem">{{$thisannouncement->text}}</div>
+                @endforeach
             </div>
-        </form>
+        </div>
         <!--  -->
         <div class="header-bar ms-auto">
             <ul class="navbar-nav justify-content-end">

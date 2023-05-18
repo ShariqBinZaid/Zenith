@@ -1,4 +1,6 @@
-<?php function time_elapsed_string($datetime, $full = false) {
+<?php
+use App\Models\Announcements;
+function time_elapsed_string($datetime, $full = false) {
         $now = new DateTime;
         $ago = new DateTime($datetime);
         $diff = $now->diff($ago);
@@ -48,6 +50,21 @@ if (! function_exists('getuserRole')) {
             return optional($user->roles->pluck('name')[0]);
         }
         return optional(auth()->user()->roles->pluck('name')[0]);
+    }
+}
+function getCompanyAnnouncements($companyId)
+{
+    try {
+        $announcements = Announcements::where(['announcement_type'=>'App\Models\Company','announcement_id'=>$companyId])->get();
+        return $announcements;
+    } catch (\Exception $e) {
+        // Handle any exceptions or errors that occurred
+        // For example, you can log the error or return a default value
+        
+        // Log the error
+        Log::error('Error retrieving company announcements: ' . $e->getMessage());
+        // Return a default value or null
+        return null;
     }
 }
     ?>
