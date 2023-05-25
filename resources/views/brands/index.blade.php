@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+<style>
+  .avatar {
+    width: 100% !important;
+}
+</style>
 @section('content')
 <div class="content ">
 
