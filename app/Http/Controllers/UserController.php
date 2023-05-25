@@ -39,9 +39,9 @@ class UserController extends Controller
                 }
             )->where('company_id', Auth::user()->company_id);
             $allRoles = Role::whereNotIn('name', ['superadmin', 'admin'])->get();
-        } elseif (Auth::user()->roles->pluck('name')[0] == 'human_resource_manager' || Auth::user()->roles->pluck('name')[0] == 'business_unit_head') {
+        } elseif (Auth::user()->roles->pluck('name')[0] == 'human_resource_manager' || Auth::user()->roles->pluck('name')[0] == 'sales_head') {
             $users = User::where('company_id', Auth::user()->company_id);
-            $allRoles = Role::whereNotIn('name', ['superadmin', 'admin', 'human_resource_manager', 'business_unit_head', 'sales_head'])->get();
+            $allRoles = Role::whereNotIn('name', ['superadmin', 'admin', 'human_resource_manager', 'sales_head'])->get();
         } else {
             $allRoles = Role::whereNotIn('name', ['superadmin', 'admin', 'human_resource_manager', 'business_unit_head', 'sales_head', Auth::user()->roles->pluck('name')[0]])->get();
             $users = User::where('company_id', Auth::user()->company_id);
