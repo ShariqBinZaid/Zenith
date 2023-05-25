@@ -42,7 +42,7 @@ class DashboardController extends Controller
                 $timedin = 0;
                 $timedout = 0;
             } else {
-                if((time() - $attendance->timein) < 54000)
+                if((time() - $attendance->timein) < 40000)
                 {
                     if ($attendance->timein != NULL && $attendance->timeout == NULL) {
                         $timedin = 1;
