@@ -48,10 +48,13 @@ class BrandsController extends Controller
             });
         }
         $brands = $brands->paginate(10);
-        if (Auth::user()->roles->pluck('name')[0] == 'admin' || Auth::user()->roles->pluck('name')[0] == 'sales_head'  || Auth::user()->roles->pluck('name')[0] == 'production_manager' || Auth::user()->roles->pluck('name')[0] == 'brand_manager' || Auth::user()->roles->pluck('name')[0] == 'human_resource_manager') {
+        if (Auth::user()->roles->pluck('name')[0] == 'admin' ) {
             $units = Units::whereHas('getCompany', function ($query) {
                 $query->where('owner', '=', auth()->user()->id);
             })->get();
+        }
+        else if (Auth::user()->roles->pluck('name')[0] == 'sales_head'  || Auth::user()->roles->pluck('name')[0] == 'production_manager' || Auth::user()->roles->pluck('name')[0] == 'brand_manager' || Auth::user()->roles->pluck('name')[0] == 'human_resource_manager') {
+            $units = Units::where('company_id',Auth::user()->company_id)->get();
         }
         else{
             $units = Units::where('unithead',Auth::user()->id)->get();
