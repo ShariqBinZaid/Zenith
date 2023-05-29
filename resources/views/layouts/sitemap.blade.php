@@ -24,10 +24,11 @@
             <li class="nav-item">
                 <a class="nav-link attendancotifytab" data-bs-toggle="tab" href="#attendance">Attendance</a>
             </li>
-            @endrole
-            <!-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link leavesnotifytab" data-bs-toggle="tab" href="#leaves">Leaves/Discrepancies</a>
-            </li> -->
+            </li>
+            @endrole
+            <!--  -->
         </ul>
     </div>
     <div class="sidebar-content">
