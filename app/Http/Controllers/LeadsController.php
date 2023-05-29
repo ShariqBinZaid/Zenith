@@ -41,7 +41,7 @@ class LeadsController extends Controller
         }elseif(Auth::user()->roles->pluck('name')[0] == 'sales_head'){
             $leads = Leads::where('company_id',Auth::user()->company_id);
         }
-        elseif (Auth::user()->roles->pluck('name')[0] == 'business_unit_head') {
+        elseif (Auth::user()->roles->pluck('name')[0] == 'business_unit_head' || Auth::user()->roles->pluck('name')[0] == 'front_sales_manager') {
             $unitid = Units::where('unithead', Auth::user()->id)->with('brands')->first();
             $brands = array();
             foreach ($unitid->brands as $thisbrand) {
