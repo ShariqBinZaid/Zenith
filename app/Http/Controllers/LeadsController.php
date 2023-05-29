@@ -55,10 +55,6 @@ class LeadsController extends Controller
             foreach ($unitid->brands as $thisbrand) {
                 array_push($brands, $thisbrand->id);
             }
-            if($brands == null)
-            {}else{
-            $leads = Leads::whereIn('brand_id', $brands);
-            }
         }
         else {
             $user = Auth::user();
