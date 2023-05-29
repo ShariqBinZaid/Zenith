@@ -41,14 +41,26 @@ class LeadsController extends Controller
         }elseif(Auth::user()->roles->pluck('name')[0] == 'sales_head'){
             $leads = Leads::where('company_id',Auth::user()->company_id);
         }
-        elseif (Auth::user()->roles->pluck('name')[0] == 'business_unit_head' || Auth::user()->roles->pluck('name')[0] == 'front_sales_manager') {
+        elseif (Auth::user()->roles->pluck('name')[0] == 'business_unit_head') {
             $unitid = Units::where('unithead', Auth::user()->id)->with('brands')->first();
             $brands = array();
             foreach ($unitid->brands as $thisbrand) {
                 array_push($brands, $thisbrand->id);
             }
             $leads = Leads::whereIn('brand_id', $brands);
-        } else {
+        }
+        elseif (Auth::user()->roles->pluck('name')[0] == 'front_sales_manager') {
+            $unitid = Units::where('unithead', Auth::user()->id)->with('brands')->first();
+            $brands = array();
+            foreach ($unitid->brands as $thisbrand) {
+                array_push($brands, $thisbrand->id);
+            }
+            if($brands == null)
+            {}else{
+            $leads = Leads::whereIn('brand_id', $brands);
+            }
+        }
+        else {
             $user = Auth::user();
             $leads = Leads::whereHas('users', function ($query) use ($user) {
                 $query->where('leads_user.user_id', '=', $user->id);
