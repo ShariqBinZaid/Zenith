@@ -72,7 +72,7 @@ class LeadsController extends Controller
             });
         }
 
-        $leads = $leads->paginate(10);
+        $leads = $leads->latest()->paginate(10);
         $dispositions = Dispositions::where('company_id', Auth::user()->company_id)->get();
         $allbrands = Brands::latest()->get();
         $totalleads = Leads::count();
@@ -307,7 +307,7 @@ class LeadsController extends Controller
         {
             $unitheaddata = User::find($thisnotifyuser);
             $notificationfor = $thisnotifyuser;
-            $url = 'salesforce/leads';
+            $url = env('APP_URL').'salesforce/leads/'.$lead->id;
             $unitheaddata->notify(new NewLeadNotification($lead));
             $lead->notifyalert()->create(['for' => $notificationfor, 'message' => $branddetail->name.' got a new Lead!', 'data' => serialize(['url'=>$url,'brand_id' => $input['brand_id'], 'assignedAt' => time()])]);
             $notify = Notify::where('for', $thisnotifyuser)->where('notifiable_type', Leads::class)->latest()->first();
