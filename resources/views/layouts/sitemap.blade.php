@@ -15,7 +15,7 @@
                 <a class="nav-link opportunityassignnotifytab" data-bs-toggle="tab" href="#opportunity">Opportunity</a>
             </li>
             @endrole
-            @role(['admin','business_unit_head','project_manager','support_manager','support_agent','quality_assurance_depart','production_manager','design_manager','development_manager','content_manager','video_manager','client','sales_head'])
+            <!-- @role(['admin','business_unit_head','project_manager','support_manager','support_agent','quality_assurance_depart','production_manager','design_manager','development_manager','content_manager','video_manager','client','sales_head'])
             <li class="nav-item">
                 <a class="nav-link projectassignnotifytab" data-bs-toggle="tab" href="#projects">Project</a>
             </li>
@@ -27,7 +27,7 @@
             @endrole
             <li class="nav-item">
                 <a class="nav-link leavesnotifytab" data-bs-toggle="tab" href="#leaves">Leaves/Discrepancies</a>
-            </li>
+            </li> -->
         </ul>
     </div>
     <div class="sidebar-content">
