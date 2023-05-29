@@ -309,7 +309,7 @@ class LeadsController extends Controller
             $notificationfor = $thisnotifyuser;
             $url = env('APP_URL').'salesforce/leads/'.$lead->id;
             $unitheaddata->notify(new NewLeadNotification($lead));
-            $lead->notifyalert()->create(['for' => $notificationfor, 'message' => $branddetail->name.' got a new Lead!', 'data' => serialize(['url'=>$url,'brand_id' => $input['brand_id'], 'assignedAt' => time()])]);
+            $lead->notifyalert()->create(['for' => $notificationfor,'url'=>$url, 'message' => $branddetail->name.' got a new Lead!', 'data' => serialize(['url'=>$url,'brand_id' => $input['brand_id'], 'assignedAt' => time()])]);
             $notify = Notify::where('for', $thisnotifyuser)->where('notifiable_type', Leads::class)->latest()->first();
             event(new LeadAssign($notify, $notificationfor));
         }
