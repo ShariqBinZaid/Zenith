@@ -50,11 +50,12 @@ class LeadsController extends Controller
             $leads = Leads::whereIn('brand_id', $brands);
         }
         elseif (Auth::user()->roles->pluck('name')[0] == 'front_sales_manager') {
-            $unitid = Units::where('unithead', Auth::user()->id)->with('brands')->first();
+            $unitid = Units::where('id', Auth::user()->unit_id)->with('brands')->first();
             $brands = array();
             foreach ($unitid->brands as $thisbrand) {
                 array_push($brands, $thisbrand->id);
             }
+            $leads = Leads::whereIn('brand_id', $brands);
         }
         else {
             $user = Auth::user();
