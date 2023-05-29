@@ -19,13 +19,13 @@
             <li class="nav-item">
                 <a class="nav-link projectassignnotifytab" data-bs-toggle="tab" href="#projects">Project</a>
             </li>
-            @endrole
+            @endrole -->
             @role(['admin','business_unit_head','project_manager','support_manager','front_sales_manager','human_resource_manager','sales_head','human_resource_executive','production_manager'])
             <li class="nav-item">
                 <a class="nav-link attendancotifytab" data-bs-toggle="tab" href="#attendance">Attendance</a>
             </li>
             @endrole
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link leavesnotifytab" data-bs-toggle="tab" href="#leaves">Leaves/Discrepancies</a>
             </li> -->
         </ul>
