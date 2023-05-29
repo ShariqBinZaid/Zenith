@@ -187,7 +187,7 @@
                 </td>
                 <td>{{$thislead->name}}</td>
                 <td><a href="{{route('brands.theBrandDesc',$thislead->brand_id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thislead->getBrand->name}}">
-                        <img src="{{asset('images/'.$thislead->getBrand->image)}}" class="rounded w-auto" alt="image">
+                        <img src="{{asset('images/'.$thislead->getBrand->image)}}" class="rounded " alt="image">
                     </a></td>
 
                 <td>
