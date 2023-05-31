@@ -1,6 +1,6 @@
 @extends('layouts.app')
 <style>
-  .avatar {
+  .avatarbrand {
     width: 100% !important;
 }
 </style>
@@ -195,11 +195,11 @@
                         <a href="javascript:;">{{$loop->iteration}}</a>
                     </td>
                     <td>{{$thispackage->id}}</td>
-                    
+
                     <td>{{$thispackage->name}}</td>
                     <td>{{$thispackage->getPackageType->name}}</td>
                     <!--<td><span class="badge bg-success">{{$thispackage->getBrand->name}}</span></td>-->
-                    <td><a href="{{route('brands.allBrands',$thispackage->getBrand->id)}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thispackage->getBrand->name}}">
+                    <td><a href="{{route('brands.allBrands',$thispackage->getBrand->id)}}" class="avatar avatarbrand" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thispackage->getBrand->name}}">
                             <img src="{{asset('images/'.$thispackage->getBrand->image)}}" class="w-auto" alt="image">
                         </a></td>
                     <td>{{$thispackage->getCurrency->symbol}}{{$thispackage->price}}</td>
