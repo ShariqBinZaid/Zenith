@@ -195,6 +195,7 @@
                         <a href="javascript:;">{{$loop->iteration}}</a>
                     </td>
                     <td>{{$thispackage->id}}</td>
+                    
                     <td>{{$thispackage->name}}</td>
                     <td>{{$thispackage->getPackageType->name}}</td>
                     <!--<td><span class="badge bg-success">{{$thispackage->getBrand->name}}</span></td>-->
