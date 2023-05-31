@@ -217,6 +217,8 @@ Route::group(['prefix' => 'attendance', 'as' => 'attendance.', 'middleware' => [
     Route::get('/usercsv/{id}/{month}/{year}', [App\Http\Controllers\AttendanceController::class, 'attendanceCSV'])->name('attendanceCSV');
     Route::get('/company', [App\Http\Controllers\AttendanceController::class, 'datewise'])->name('companyAttendance');
     Route::get('/companycsv', [App\Http\Controllers\AttendanceController::class, 'dateWiseCSV'])->name('companyAttendanceCSV');
+    Route::get('/team', [App\Http\Controllers\AttendanceController::class, 'teamdatewise'])->name('teamAttendance');
+    Route::get('/teamcsv', [App\Http\Controllers\AttendanceController::class, 'teamdateWiseCSV'])->name('teamAttendanceCSV');
 
 });
 

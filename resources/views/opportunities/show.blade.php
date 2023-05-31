@@ -78,7 +78,7 @@
                                 <li class="list-group-item"><b>Name</b> : {{$opportunity->name}}</li>
                                 <li class="list-group-item"><b>Email</b> : {{$opportunity->email}}</li>
                                 <li class="list-group-item"><b>Phone</b> : {{$opportunity->phone}}</li>
-                                <li class="list-group-item"><b>Phone</b> : {{$opportunity->created_at}}</li>
+                                <li class="list-group-item"><b>Phone</b> : {{$opportunity->created_at }}</li>
                                 <li class="list-group-item"><b>Package Name</b> : {{$opportunity->getPackage->name}}</li>
                             </ul>
                         </div>

@@ -341,6 +341,141 @@ class AttendanceController extends Controller
         $users = User::where('company_id', Auth::user()->company_id)->whereNotIn('id', ['1', '2'])->get();
         return view('attendance.index', compact(['userdata', 'attendance', 'firstday', 'lastday', 'month', 'year', 'annualleaves', 'casualleaves', 'sickleaves', 'earned', 'deduction', 'expecteddeduction', 'leavetypes', 'users','takenannualleaves','takencasualleaves','takensickleaves']));
     }
+    public function teamdatewise()
+    {
+        if (request()->has('date')) {
+            $date = strtotime(request()->date);
+        } else {
+            $date = strtotime(date('d-M-Y'));
+        }
+        $users = User::where('reporting_authority', '=', Auth::user()->id)->get();
+        $totalusers = User::where('reporting_authority', '=', Auth::user()->id)->count();
+        $presentusers = Attendance::where('date', $date)->count();
+        $absentusers = $totalusers - $presentusers;
+        $finalarray = array();
+        foreach ($users as $user) {
+            $attendance = Attendance::where('userid', $user->id)->where('date', $date)->first();
+            if (@$attendance->timein == NULL) {
+                $status = 'Absent';
+                $timein = '--';
+                $timeout = '--';
+                $workinghours = '--';
+                $class = 'table-danger';
+            } elseif (@$attendance->timeout == NULL) {
+                $status = 'Present';
+                $timein = date('h:i:s A', $attendance->timein);
+                $timeout = '--';
+                $workinghours = '--';
+                $class = 'table-success';
+            } else {
+                $status = 'Gone';
+                $timein = date('h:i:s A', $attendance->timein);
+                $timeout = date('h:i:s A', $attendance->timeout);
+                $workinghours = gmdate('H:i:s', $attendance->totalhours);
+                $class = 'table-light';
+            }
+            $singleuser = [
+                'userid' => $user->id,
+                'phone' => $user->phone,
+                'timein' => $timein,
+                'timeout' => $timeout,
+                'workinghours' => $workinghours,
+                'status' => $status,
+                'username' => $user->name,
+                'image' => $user->image,
+                'department' => $user->getDepart->name,
+                'designation' => $user->getMeta('designation'),
+                'class' => $class
+            ];
+            if (request()->has('status')) {
+                $statussearch = request()->status;
+                if ($statussearch == 'All') {
+                    array_push($finalarray, $singleuser);
+                } else {
+                    if ($statussearch == $status) {
+                        array_push($finalarray, $singleuser);
+                    }
+                }
+            } else {
+                $statussearch = 'All';
+                array_push($finalarray, $singleuser);
+            }
+        }
+        return view('attendance.team-attendance', compact(['finalarray', 'date', 'absentusers', 'presentusers', 'statussearch']));
+    }
+    public function teamdateWiseCSV()
+    {
+        if (request()->has('date')) {
+            $date = strtotime(request()->date);
+        } else {
+            $date = strtotime(date('d-M-Y'));
+        }
+        $users = User::where('reporting_authority', '=', Auth::user()->id)->get();
+        $totalusers = User::where('reporting_authority', '=', Auth::user()->id)->count();
+        $presentusers = Attendance::where('date', $date)->count();
+        $absentusers = $totalusers - $presentusers;
+        $finalarray = array();
+        foreach ($users as $user) {
+            $attendance = Attendance::where('userid', $user->id)->where('date', $date)->first();
+            if (@$attendance->timein == NULL) {
+                $status = 'Absent';
+                $timein = '--';
+                $timeout = '--';
+                $workinghours = '--';
+                $class = 'table-danger';
+            } elseif (@$attendance->timeout == NULL) {
+                $status = 'Present';
+                $timein = date('h:i:s A', $attendance->timein);
+                $timeout = '--';
+                $workinghours = '--';
+                $class = 'table-success';
+            } else {
+                $status = 'Gone';
+                $timein = date('h:i:s A', $attendance->timein);
+                $timeout = date('h:i:s A', $attendance->timeout);
+                $workinghours = gmdate('H:i:s', $attendance->totalhours);
+                $class = 'table-light';
+            }
+            $singleuser = [
+                'userid' => $user->id,
+                'phone' => $user->phone,
+                'timein' => $timein,
+                'timeout' => $timeout,
+                'workinghours' => $workinghours,
+                'status' => $status,
+                'username' => $user->name,
+                'image' => $user->image,
+                'department' => $user->getDepart->name,
+                'designation' => $user->getMeta('designation'),
+                'class' => $class
+            ];
+            if (request()->has('status')) {
+                $statussearch = request()->status;
+                if ($statussearch == 'All') {
+                    array_push($finalarray, $singleuser);
+                } else {
+                    if ($statussearch == $status) {
+                        array_push($finalarray, $singleuser);
+                    }
+                }
+            } else {
+                $statussearch = 'All';
+                array_push($finalarray, $singleuser);
+            }
+        }
+        $headers = array("Content-type" => "text/csv", "Content-Disposition" => "attachment; filename=(" . $statussearch . ")-attendance-" . request()->date . ".csv", "Pragma" => "no-cache", "Cache-Control" => "must-revalidate, post-check=0, pre-check=0", "Expires" => "0");
+        $columns = array('Employee ID', 'Username', 'Time In', 'Time Out', 'Working Hours', 'Status', 'Department', 'Designation');
+        $callback = function () use ($finalarray, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+            foreach ($finalarray as $row) {
+                $data = array($row['emp_id'], $row['username'], $row['timein'], $row['timeout'], $row['workinghours'], $row['status'], $row['department'], $row['designation']);
+                fputcsv($file, $data);
+            }
+            fclose($file);
+        };
+        return response()->stream($callback, 200, $headers);
+    }
     public function datewise()
     {
         if (request()->has('date')) {
