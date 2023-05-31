@@ -178,7 +178,7 @@
           <td>
             <a href="javascript:;">{{$loop->iteration}}</a>
           </td>
-          <td>{{$brands->id}}</td>
+          <td>{{$thisbrand->id}}</td>
           <td><a class="image-popup" href="{{asset('images/'.$thisbrand->image)}}"><img
                 src="{{asset('images/'.$thisbrand->image)}}" class="imageintable" /></a></td>
           <td><a href="{{route('brands.theBrandDesc',$thisbrand->id)}}">{{$thisbrand->name}}</a></td>
