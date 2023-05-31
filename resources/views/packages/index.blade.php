@@ -179,6 +179,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>DB id</th>
                     <th>Name</th>
                     <th>Package Type</th>
                     <th>Brand</th>
@@ -193,6 +194,7 @@
                     <td>
                         <a href="javascript:;">{{$loop->iteration}}</a>
                     </td>
+                    <td>{{$packages->id}}</td>
                     <td>{{$thispackage->name}}</td>
                     <td>{{$thispackage->getPackageType->name}}</td>
                     <!--<td><span class="badge bg-success">{{$thispackage->getBrand->name}}</span></td>-->
