@@ -411,18 +411,25 @@ class AttendanceController extends Controller
             $date = strtotime(date('d-M-Y'));
         }
         $users = User::where('reporting_authority', '=', Auth::user()->id)->get();
-        $totalusers = User::where('reporting_authority', '=', Auth::user()->id)->count();
-        $presentusers = Attendance::where('date', $date)->count();
-        $absentusers = $totalusers - $presentusers;
         $finalarray = array();
         foreach ($users as $user) {
             $attendance = Attendance::where('userid', $user->id)->where('date', $date)->first();
             if (@$attendance->timein == NULL) {
-                $status = 'Absent';
-                $timein = '--';
-                $timeout = '--';
-                $workinghours = '--';
-                $class = 'table-danger';
+                $leavestatus = Leaves::where(['date' => $date, 'userid' => $user->id])->pluck('final_status')->first();
+                if ($leavestatus == 'approved') {
+                    $status = 'Absent (Leave Availed)';
+                    $timein = '--';
+                    $timeout = '--';
+                    $workinghours = '--';
+                    $class = 'table-danger';
+                } else {
+                    $status = 'Absent';
+                    $timein = '--';
+                    $timeout = '--';
+                    $workinghours = '--';
+                    $class = 'table-danger';
+                }
+                
             } elseif (@$attendance->timeout == NULL) {
                 $status = 'Present';
                 $timein = date('h:i:s A', $attendance->timein);
@@ -706,9 +713,6 @@ class AttendanceController extends Controller
             $date = "01-" . $month . "-" . $year;
             $firstday = strtotime(date('Y-m-01', strtotime($date)));
             $lastday = strtotime(date('Y-m-t', strtotime($date)));
-            $annualleaves = LeaveTypes::where('name', 'Annual Leaves')->pluck('days')->first();
-            $casualleaves = LeaveTypes::where('name', 'Casual Leaves')->pluck('days')->first();
-            $sickleaves = LeaveTypes::where('name', 'Sick Leaves')->pluck('days')->first();
             for ($i = $firstday; $i <= $lastday; $i += 86400) {
                 $perdayattendance = Attendance::where([['userid', '=', $thisuser->id], ['date', '=', $i]])->first();
                 $day = date('l', $i);
@@ -720,10 +724,19 @@ class AttendanceController extends Controller
                     } else {
                         if (date('D', $i) == 'Sat' || date('D', $i) == 'Sun') {
                             $data = ['username' => $userdata->name, 'department' => $userdata->getDepart->name, 'status' => 'weekend', 'timein' => '-', 'timeout' => '-', 'totalhours' => '-', 'date' => date('d-M-Y', $i), 'day' => $day, 'name' => 'Weekend'];
-                        } elseif (Holidays::where('holiday_date', $i)->count() > 0) {
-                            $data = ['username' => $userdata->name, 'department' => $userdata->getDepart->name, 'status' => 'holiday', 'timein' => '-', 'timeout' => '-', 'totalhours' => '-', 'date' => date('d-M-Y', $i), 'day' => $day, 'name' => 'Holiday (' . Holidays::where('holiday_date', $i)->pluck('name')->first() . ')'];
                         } else {
-                            $data = ['username' => $userdata->name, 'department' => $userdata->getDepart->name, 'status' => 'absent', 'timein' => '-', 'timeout' => '-', 'totalhours' => '-', 'date' => date('d-M-Y', $i), 'day' => $day, 'name' => 'Absent'];
+                            if (Holidays::where('holiday_date', $i)->count() > 0) {
+                                $data = ['username' => $userdata->name, 'department' => $userdata->getDepart->name, 'status' => 'holiday', 'timein' => '-', 'timeout' => '-', 'totalhours' => '-', 'date' => date('d-M-Y', $i), 'day' => $day, 'name' => 'Holiday (' . Holidays::where('holiday_date', $i)->pluck('name')->first() . ')'];
+                            }
+                            elseif(Leaves::where(['date' => $i, 'userid' => $thisuser->id,'final_status'=>'approved'])->count() > 0)
+                            {
+                                $leavedata = Leaves::where(['date' => $i, 'userid' => $thisuser->id,'final_status'=>'approved'])->first();
+                                $data = ['username' => $userdata->name, 'department' => $userdata->getDepart->name, 'status' => 'absent', 'timein' => '-', 'timeout' => '-', 'totalhours' => '-', 'date' => date('d-M-Y', $i), 'day' => $day, 'name' => 'Leave Availed from '.$leavedata->leavetype->name];
+                            }
+                            else{
+                                $data = ['username' => $userdata->name, 'department' => $userdata->getDepart->name, 'status' => 'absent', 'timein' => '-', 'timeout' => '-', 'totalhours' => '-', 'date' => date('d-M-Y', $i), 'day' => $day, 'name' => 'Absent'];
+                            }
+                            
                         }
                     }
                 } elseif ($perdayattendance->date == strtotime(date('d-M-Y')) && $perdayattendance->timeout == NULL) {
