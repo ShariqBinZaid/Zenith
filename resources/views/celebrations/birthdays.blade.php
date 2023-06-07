@@ -41,7 +41,7 @@ p.nobirthday {
                         <span>{{date('d-M',strtotime($thisbirthday['dob']))}}</span>
                     </div>
                     <div class="avatar avatar-xl mb-3">
-                        <img src="{{asset('images/'.$thisbirthday['image'])}}"  class="rounded-circle" alt="...">
+                        <img src="{{asset('images/'.$thisbirthday['image'])}}" class="rounded-circle" alt="...">
                     </div>
                     <div class="mb-4">
                         <h5 class="mb-1">{{$thisbirthday['name']}}</h5>
@@ -51,15 +51,6 @@ p.nobirthday {
                         <a href="{{route('users.editUser',$thisbirthday['id'])}}" class="btn btn-outline-primary btn-icon">
                             <i class="bi bi-person-plus"></i> View Profile
                         </a>
-                        <!-- <div class="dropup">
-                            <a href="#" data-bs-toggle="dropdown" class="btn btn-outline-primary" aria-haspopup="true" aria-expanded="false">
-                                <i class="bi bi-three-dots"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a href="#" class="dropdown-item">Profile</a>
-                                <a href="#" class="dropdown-item">Message</a>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
