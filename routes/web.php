@@ -311,3 +311,7 @@ Route::group(['prefix' => 'admin/fleet', 'as' => 'fleet.', 'middleware' => ['aut
     Route::post('request-maintainance', [App\Http\Controllers\FleetMaintainanceController::class, 'store'])->name('requestMaintainance');
     Route::get('maintainance-requests', [App\Http\Controllers\FleetMaintainanceController::class, 'index'])->name('MaintainanceRequests');
 });
+Route::group(['prefix' => 'celebrations', 'as' => 'celebrations.', 'middleware' => ['auth']], function () {
+    Route::get('birthdays', [App\Http\Controllers\CelebrationsController::class, 'birthdays'])->name('birthdays');
+    Route::get('workanniversary', [App\Http\Controllers\CelebrationsController::class, 'workanniversary'])->name('workanniversary');
+});

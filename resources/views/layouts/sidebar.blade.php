@@ -148,6 +148,67 @@
             </ul>
         </li>
         @endcan
+        @can('show celebrations')
+        <li class="open">
+            <a href="#" target="_blank">
+                <span class="nav-link-icon">
+                    <i class="bi bi-megaphone"></i>
+                </span>
+                <span>Celebrations</span></a>
+            <ul style="display: none;">
+                <!--@can('add unit announcement')-->
+                <!--<li>-->
+                <!--    <a href="{{route('announcements.unitAnnouncements')}}" class="{{ isRouteNameActive('announcements.unitAnnouncements') }}">-->
+                <!--        <span class="nav-link-icon">-->
+                <!--            <i class="bi bi-megaphone"></i>-->
+                <!--        </span>-->
+                <!--        <span>Unit</span>-->
+                <!--    </a>-->
+                <!--</li>-->
+                <!--@endcan-->
+                <!--@can('add team announcement')-->
+                <!--<li>-->
+                <!--    <a href="{{route('announcements.teamAnnouncements')}}" class="{{ isRouteNameActive('announcements.teamAnnouncements') }}">-->
+                <!--        <span class="nav-link-icon">-->
+                <!--            <i class="bi bi-megaphone"></i>-->
+                <!--        </span>-->
+                <!--        <span>Team</span>-->
+                <!--    </a>-->
+                <!--</li>-->
+                <!--@endcan-->
+                @can('show birthdays')
+                <li>
+                    <a href="{{route('celebrations.birthdays')}}" class="{{ isRouteNameActive('celebrations.birthdays') }}">
+                        <span class="nav-link-icon">
+                            <i class="bi bi-megaphone"></i>
+                        </span>
+                        <span>Birthday Celebrations</span>
+                    </a>
+                </li>
+                @endcan
+                @can('show workanniversary')
+                <!-- <li>
+                    <a href="{{route('celebrations.workanniversary')}}" class="{{ isRouteNameActive('celebrations.workanniversary') }}">
+                        <span class="nav-link-icon">
+                            <i class="bi bi-megaphone"></i>
+                        </span>
+                        <span>Work Anniversaries</span>
+                    </a>
+                </li> -->
+                @endcan
+                <!--@can('add depart announcement')-->
+                <!--<li>-->
+                <!--    <a href="{{route('announcements.departAnnouncements')}}" class="{{ isRouteNameActive('announcements.departAnnouncements') }}">-->
+                <!--        <span class="nav-link-icon">-->
+                <!--            <i class="bi bi-megaphone"></i>-->
+                <!--        </span>-->
+                <!--        <span>Department</span>-->
+                <!--    </a>-->
+                <!--</li>-->
+                <!--@endcan-->
+            </ul>
+        </li>
+        @endcan
     </li>
 
     @can('view leads')
