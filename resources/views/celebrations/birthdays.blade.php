@@ -41,7 +41,7 @@ p.nobirthday {
                         <span>{{date('d-M',strtotime($thisbirthday['dob']))}}</span>
                     </div>
                     <div class="avatar avatar-xl mb-3">
-                        <img src="{{asset('images/'.$thisbirthday['image'])}}" class="rounded-circle" alt="...">
+                        <img src="{{asset('images/'.$thisbirthday['image'])}}"  class="rounded-circle" alt="...">
                     </div>
                     <div class="mb-4">
                         <h5 class="mb-1">{{$thisbirthday['name']}}</h5>
