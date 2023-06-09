@@ -411,7 +411,8 @@
         </div>
     </div>
     <div class="col-lg-4 col-md-6">
-        <div class="card widget h-100">
+        
+        <div class="card widget ">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="card-title">
                     Online Users
@@ -438,6 +439,54 @@
                 </div>
             </div>
         </div>
+        
+        <div class="card widget ">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title">
+                            Birthdays
+                            <a href="#" class="bi bi-question-circle ms-1 small" data-bs-toggle="tooltip"
+                            title="All users, including offline users."></a>
+                        </h5>
+                        <a href="{{route('celebrations.birthdays')}}">View All</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group list-group-flush p-4" style="overflow-y: scroll;height: 300px;">
+                            @foreach($todaysbirthdays as $thisbirthday)n
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div class="d-flex flex-grow-1 align-items-center">
+                                    <div class="list-group list-group-flush">
+                                        
+                                            <a href="{{route('users.editUser',$thisbirthday['id'])}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thisbirthday['name']}}">
+                                                <img src="{{asset('images/'.$thisbirthday['image'])}}" class="rounded-circle" alt="avatar">
+                                            </a>
+                                    </div>
+                                </div>
+                                <div class="flex-fill">
+                                    <h6 class="mb-1">{{$thisbirthday['name']}}</h6>
+                                    <small class="text-muted">{{date('d-M',strtotime($thismonthbirthday['dob']))}}</small>
+                                </div>
+                            </div>
+                            @endforeach
+                            @foreach($thismonthbirthdays as $thismonthbirthday)
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div class="d-flex  align-items-center">
+                                    <div class="list-group list-group-flush">
+                                        
+                                            <a href="{{route('users.editUser',$thismonthbirthday['id'])}}" class="avatar" data-bs-toggle="tooltip" title="" data-bs-original-title="{{$thismonthbirthday['name']}}">
+                                                <img src="{{asset('images/'.$thismonthbirthday['image'])}}" class="rounded-circle" alt="avatar">
+                                            </a>
+                                    </div>
+                                </div>
+                                <div class="flex-fill p-3">
+                                    <h6 class="mb-1">{{$thismonthbirthday['name']}}</h6>
+                                    <small class="text-muted">{{date('d-M',strtotime($thismonthbirthday['dob']))}}</small>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+        
     </div>
     <!-- <div class="col-lg-5 col-md-12">
                 <div class="card widget">

@@ -63,8 +63,37 @@ class DashboardController extends Controller
                 $users = User::where('company_id',Auth::user()->company_id)->with('latestattendance')->get();
             }
             $discrepancies = Attendance::whereBetween('date', [strtotime(date('01-m-Y')), strtotime(date('Y-m-t'))])->where('userid',Auth::user()->id)->where('timeout',NULL)->where('date','!=',strtotime(date('d-m-Y')))->count();
-            
-            return view('dashboard.admin', compact(['brands', 'totalbrand', 'leads', 'totalead', 'opportunities', 'totalopportunity', 'packages', 'totalpackage', 'timedin', 'timedout', 'attendance', 'totalleaves', 'myleaves', 'users','presentusers','absentusers','discrepancies']));
+            $month = date('m');
+            $monthname = date('F');
+            $date = date('d');
+            $userswithdob = User::whereHasMeta('dob')->get();
+            $thismonthbirthdays = array();
+            $todaysbirthdays = array();
+            foreach($userswithdob as $thisuserdob)
+            {
+                $dob = strtotime($thisuserdob->getMeta('dob'));
+                if($month == date('m',$dob))
+                {
+                    $userdata = User::find($thisuserdob->id);
+                    $userdataarray = [
+                        'name'=>$userdata->name,
+                        'email'=>$userdata->email,
+                        'id'=>$userdata->id,
+                        'dob'=>$userdata->getMeta('dob'),
+                        'department'=>$userdata->getDepart->name,
+                        'designation'=>$userdata->getMeta('designation'),
+                        'image'=>$userdata->image,
+                        'employee_status'=>$userdata->getMeta('employment_status')
+                    ];
+                    if($date == date('d',$dob))
+                    {
+                        array_push($todaysbirthdays,$userdataarray);
+                    }else{
+                        array_push($thismonthbirthdays,$userdataarray);
+                    }
+                }
+            }
+            return view('dashboard.admin', compact(['brands', 'totalbrand', 'leads', 'totalead', 'opportunities', 'totalopportunity', 'packages', 'totalpackage', 'timedin', 'timedout', 'attendance', 'totalleaves', 'myleaves', 'users','presentusers','absentusers','discrepancies','todaysbirthdays','thismonthbirthdays']));
         }
         elseif(Auth::user()->roles->pluck('name')[0] == 'human_resource_manager' || Auth::user()->roles->pluck('name')[0] == 'human_resource_executive')
         {
@@ -98,7 +127,37 @@ class DashboardController extends Controller
             $totalFinance = Finance::where('companyid',Auth::user()->company_id)->count();
             $users = User::where('company_id',Auth::user()->company_id)->with('latestattendance')->get();
             $discrepancies = Attendance::whereBetween('date', [strtotime(date('01-m-Y')), strtotime(date('Y-m-t'))])->where('userid',Auth::user()->id)->where('timeout',NULL)->where('date','!=',strtotime(date('d-m-Y')))->count();
-            return view('dashboard.human_resource', compact(['totalLeaves','totalFinance','totalusers','timedin', 'timedout', 'attendance', 'totalleaves', 'myleaves','date','users','presentusers','absentusers','discrepancies']));
+            $month = date('m');
+            $monthname = date('F');
+            $date = date('d');
+            $userswithdob = User::whereHasMeta('dob')->get();
+            $thismonthbirthdays = array();
+            $todaysbirthdays = array();
+            foreach($userswithdob as $thisuserdob)
+            {
+                $dob = strtotime($thisuserdob->getMeta('dob'));
+                if($month == date('m',$dob))
+                {
+                    $userdata = User::find($thisuserdob->id);
+                    $userdataarray = [
+                        'name'=>$userdata->name,
+                        'email'=>$userdata->email,
+                        'id'=>$userdata->id,
+                        'dob'=>$userdata->getMeta('dob'),
+                        'department'=>$userdata->getDepart->name,
+                        'designation'=>$userdata->getMeta('designation'),
+                        'image'=>$userdata->image,
+                        'employee_status'=>$userdata->getMeta('employment_status')
+                    ];
+                    if($date == date('d',$dob))
+                    {
+                        array_push($todaysbirthdays,$userdataarray);
+                    }else{
+                        array_push($thismonthbirthdays,$userdataarray);
+                    }
+                }
+            }
+            return view('dashboard.human_resource', compact(['totalLeaves','totalFinance','totalusers','timedin', 'timedout', 'attendance', 'totalleaves', 'myleaves','date','users','presentusers','absentusers','discrepancies','thismonthbirthdays','todaysbirthdays']));
         }
         else{
             if(Auth::user()->depart_id == 2 || Auth::user()->depart_id == 12 || Auth::user()->depart_id == 17 || Auth::user()->depart_id == 10)
@@ -169,7 +228,37 @@ class DashboardController extends Controller
         
             $users = User::where('company_id',Auth::user()->company_id)->with('latestattendance')->get();
             $discrepancies = Attendance::whereBetween('date', [strtotime(date('01-m-Y')), strtotime(date('Y-m-t'))])->where('userid',Auth::user()->id)->where('timeout',NULL)->where('date','!=',strtotime(date('d-m-Y')))->count();
-            return view('dashboard.production', compact(['totalleads','totalopportunities','timedin', 'timedout', 'attendance', 'totalleaves', 'myleaves','date','users','leads','opportunities','discrepancies']));
+            $month = date('m');
+            $monthname = date('F');
+            $date = date('d');
+            $userswithdob = User::whereHasMeta('dob')->get();
+            $thismonthbirthdays = array();
+            $todaysbirthdays = array();
+            foreach($userswithdob as $thisuserdob)
+            {
+                $dob = strtotime($thisuserdob->getMeta('dob'));
+                if($month == date('m',$dob))
+                {
+                    $userdata = User::find($thisuserdob->id);
+                    $userdataarray = [
+                        'name'=>$userdata->name,
+                        'email'=>$userdata->email,
+                        'id'=>$userdata->id,
+                        'dob'=>$userdata->getMeta('dob'),
+                        'department'=>$userdata->getDepart->name,
+                        'designation'=>$userdata->getMeta('designation'),
+                        'image'=>$userdata->image,
+                        'employee_status'=>$userdata->getMeta('employment_status')
+                    ];
+                    if($date == date('d',$dob))
+                    {
+                        array_push($todaysbirthdays,$userdataarray);
+                    }else{
+                        array_push($thismonthbirthdays,$userdataarray);
+                    }
+                }
+            }
+            return view('dashboard.production', compact(['totalleads','totalopportunities','timedin', 'timedout', 'attendance', 'totalleaves', 'myleaves','date','users','leads','opportunities','discrepancies','todaysbirthdays','thismonthbirthdays']));
             }else{
             $totalleaves = LeaveTypes::sum('days');
             $myleaves = Leaves::where('year', date('Y'))->where('userid',Auth::user()->id)->count();
@@ -237,7 +326,37 @@ class DashboardController extends Controller
         
             $users = User::where('company_id',Auth::user()->company_id)->with('latestattendance')->get();
             $discrepancies = Attendance::whereBetween('date', [strtotime(date('01-m-Y')), strtotime(date('Y-m-t'))])->where('userid',Auth::user()->id)->where('timeout',NULL)->where('date','!=',strtotime(date('d-m-Y')))->count();
-            return view('dashboard.sales', compact(['totalleads','totalopportunities','timedin', 'timedout', 'attendance', 'totalleaves', 'myleaves','date','users','leads','opportunities','discrepancies']));
+            $month = date('m');
+            $monthname = date('F');
+            $date = date('d');
+            $userswithdob = User::whereHasMeta('dob')->get();
+            $thismonthbirthdays = array();
+            $todaysbirthdays = array();
+            foreach($userswithdob as $thisuserdob)
+            {
+                $dob = strtotime($thisuserdob->getMeta('dob'));
+                if($month == date('m',$dob))
+                {
+                    $userdata = User::find($thisuserdob->id);
+                    $userdataarray = [
+                        'name'=>$userdata->name,
+                        'email'=>$userdata->email,
+                        'id'=>$userdata->id,
+                        'dob'=>$userdata->getMeta('dob'),
+                        'department'=>$userdata->getDepart->name,
+                        'designation'=>$userdata->getMeta('designation'),
+                        'image'=>$userdata->image,
+                        'employee_status'=>$userdata->getMeta('employment_status')
+                    ];
+                    if($date == date('d',$dob))
+                    {
+                        array_push($todaysbirthdays,$userdataarray);
+                    }else{
+                        array_push($thismonthbirthdays,$userdataarray);
+                    }
+                }
+            }
+            return view('dashboard.sales', compact(['totalleads','totalopportunities','timedin', 'timedout', 'attendance', 'totalleaves', 'myleaves','date','users','leads','opportunities','discrepancies','thismonthbirthdays','todaysbirthdays']));
         }
         }
     }
