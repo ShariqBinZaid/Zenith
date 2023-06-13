@@ -261,7 +261,7 @@
                     </div>
                     <div class="card-body">
                         <div class="list-group list-group-flush p-4" style="overflow-y: scroll;height: 300px;">
-                            @foreach($todaysbirthdays as $thisbirthday)n
+                            @foreach($todaysbirthdays as $thisbirthday)
                             <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <div class="d-flex flex-grow-1 align-items-center">
                                     <div class="list-group list-group-flush">
@@ -273,7 +273,7 @@
                                 </div>
                                 <div class="flex-fill">
                                     <h6 class="mb-1">{{$thisbirthday['name']}}</h6>
-                                    <small class="text-muted">{{date('d-M',strtotime($thismonthbirthday['dob']))}}</small>
+                                    <small class="text-muted">{{date('d-M',strtotime($thisbirthday['dob']))}}</small>
                                 </div>
                             </div>
                             @endforeach
