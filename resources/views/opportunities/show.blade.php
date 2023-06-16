@@ -113,7 +113,6 @@
                         <h6 class="card-title mb-0">Opportunity Brief by client</h6>
                     </div>
                     @if ($opportunity->hasMeta('brief'))
-                    {{dd($opportunity->getMeta('brief'))}}
                     <div class="text-center">
                         <div class="card mt-3" style="width: 18rem;">
                             <ul class="list-group list-group-flush">
