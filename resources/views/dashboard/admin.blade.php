@@ -659,7 +659,7 @@
                                         <img src="{{asset('images/'.$thisopportunities->getBrand->image)}}" class="rounded" alt="image">
                                     </a>
                                 </td>
-                                <td>{{$thisopportunities->getpackage->name}}</td>
+                                <td>{{@$thisopportunities->getpackage->name}}</td>
                             </tr>
                             @endforeach
                         </tbody>
