@@ -222,7 +222,7 @@
                                     <a href="{{route('projects.opportunity_to_project',$thisopportunity->id)}}"
                                         class="dropdown-item">Convert into Project</a>
                                     @endcan
-                                    <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal"
+                                    <!-- <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#ShowOpportunityModal"
                                         data-bs-opportunityid="{{$thisopportunity->id}}"
                                         data-bs-opportunityphone="{{$thisopportunity->phone}}"
@@ -231,7 +231,8 @@
                                         data-bs-brand_id="{{$thisopportunity->getbrand->name}}"
                                         data-bs-package_id="{{$thisopportunity->getpackage->name}}"
                                         data-bs-url="{{$thisopportunity->url}}"
-                                        data-bs-created_at="{{$thisopportunity->created_at}}">Show</a>
+                                        data-bs-created_at="{{$thisopportunity->created_at}}">Show</a> -->
+                                    <a href="{{route('opportunity.showLead',$thisopportunity->id)}}" class="dropdown-item">Show</a>
                                     @can('edit opportunities')
                                     <a href="javascript:;" class="dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#EditOpportunityModal"

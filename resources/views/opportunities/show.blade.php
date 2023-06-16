@@ -86,7 +86,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="offset-2 col-md-4">
             <div class="card card-selected">
                 <div class="py-4">
                     <div class="d-flex align-items-center justify-content-center mb-4">
@@ -101,6 +101,34 @@
                             {!!$opportunity->getPackage->description!!}
                         </ul>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row g-4 mt-4">
+    <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="mb-4 text-center">
+                        <h6 class="card-title mb-0">Opportunity Brief by client</h6>
+                    </div>
+                    @if ($opportunity->hasMeta('brief'))
+                    <div class="text-center">
+                        <div class="card mt-3" style="width: 18rem;">
+                            <ul class="list-group list-group-flush">
+                                @foreach(unserialize($opportunity->getMeta('brief')) as $key=>$value)
+                                <li class="list-group-item"><b>{{$key}}</b> : {{$value}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    @else
+                    <div class="text-center">
+                        <div class="avatar avatar-xl">
+                            <b>No Brief Found</b>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
