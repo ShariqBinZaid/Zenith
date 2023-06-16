@@ -18,3 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('add-lead',[App\Http\Controllers\LeadsController::class, 'addLeadApi'])->name('addLeadApi');
 Route::post('add-opportunity',[App\Http\Controllers\OpportunityController::class, 'addOpportunityApi'])->name('addOpportunityApi');
+Route::post('add-opportunity-brief',[App\Http\Controllers\OpportunityController::class, 'addBriefToOpportunity'])->name('addBriefToOpportunity');

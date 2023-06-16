@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
-
+use Plank\Metable\Metable;
 class Opportunity extends Model
 {
     use HasFactory;
     use SoftDeletes;
     use LogsActivity;
     use Notifiable;
+    use Metable;
     
     public function getActivitylogOptions(): LogOptions
     {

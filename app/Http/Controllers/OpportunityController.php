@@ -292,6 +292,7 @@ class OpportunityController extends Controller
         return response()->json([
             "success" => true,
             "message" => "Opportunity created successfully.",
+            "id"=>$opportunity->id,
             "data" => $opportunity
         ]);
     }
@@ -353,5 +354,17 @@ class OpportunityController extends Controller
         event(new OpportunityAssign($notify, $userid));
         $successmessage = $user->name." pinged successfully!";
         return Redirect::back()->with('success', $successmessage);
+    }
+    public function addBriefToOpportunity(Request $request)
+    {
+        $input = $request->all();
+        $brief = serialize($input['brief']);
+        $opportunity = Opportunity::find($input['id']);
+        $opportunity->setMeta('brief',$brief);
+        return response()->json([
+            "success" => true,
+            "message" => "Brief saved successfully",
+            "id"=>$input['id']
+        ]);
     }
 }
