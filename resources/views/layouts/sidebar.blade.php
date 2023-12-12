@@ -187,14 +187,14 @@
                 </li>
                 @endcan
                 @can('show workanniversary')
-                <!-- <li>
-                    <a href="{{route('celebrations.workanniversary')}}" class="{{ isRouteNameActive('celebrations.workanniversary') }}">
+                <li>
+                    <a href="{{route('celebrations.anniversary')}}" class="{{ isRouteNameActive('celebrations.anniversary`') }}">
                         <span class="nav-link-icon">
                             <i class="bi bi-megaphone"></i>
                         </span>
                         <span>Work Anniversaries</span>
                     </a>
-                </li> -->
+                </li>
                 @endcan
                 <!--@can('add depart announcement')-->
                 <!--<li>-->

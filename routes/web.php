@@ -313,5 +313,5 @@ Route::group(['prefix' => 'admin/fleet', 'as' => 'fleet.', 'middleware' => ['aut
 });
 Route::group(['prefix' => 'celebrations', 'as' => 'celebrations.', 'middleware' => ['auth']], function () {
     Route::get('birthdays', [App\Http\Controllers\CelebrationsController::class, 'birthdays'])->name('birthdays');
-    Route::get('workanniversary', [App\Http\Controllers\CelebrationsController::class, 'workanniversary'])->name('workanniversary');
+    Route::get('workanniversary', [App\Http\Controllers\CelebrationsController::class, 'anniversary'])->name('anniversary');
 });

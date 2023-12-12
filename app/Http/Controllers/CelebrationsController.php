@@ -43,4 +43,39 @@ class CelebrationsController extends Controller
         }
         return view('celebrations.birthdays',compact('todaysbirthdays','thismonthbirthdays','monthname'));
     }
+    public function anniversary()
+    {
+        $month = date('m');
+        $monthname = date('F');
+        $date = date('d');
+        $userswithjoining = User::whereHasMeta('joining')->get();
+        $thismonthanniversary = array();
+        $todaysanniversary = array();
+        foreach($userswithjoining as $thisuserdob)
+        {
+            $joining = strtotime($thisuserdob->getMeta('joining'));
+            if($month == date('m',$joining))
+            {
+                $userdata = User::find($thisuserdob->id);
+                $userdataarray = [
+                    'name'=>$userdata->name,
+                    'email'=>$userdata->email,
+                    'id'=>$userdata->id,
+                    'joining'=>$userdata->getMeta('joining'),
+                    'department'=>$userdata->getDepart->name,
+                    'designation'=>$userdata->getMeta('designation'),
+                    'image'=>$userdata->image,
+                    'employee_status'=>$userdata->getMeta('employment_status')
+                ];
+                if($date == date('d',$joining))
+                {
+                    array_push($todaysanniversary,$userdataarray);
+                    array_push($thismonthanniversary,$userdataarray);
+                }else{
+                    array_push($thismonthanniversary,$userdataarray);
+                }
+            }
+        }
+        return view('celebrations.anniversary',compact('todaysanniversary','thismonthanniversary','monthname'));
+    }
 }
